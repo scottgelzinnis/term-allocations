@@ -27,14 +27,14 @@ resource_allocations <- resource_allocations %>%
 
 
 ```{r}
-df$`Term Name` <- factor(df$`Term Name`)
-df <- df %>% rename("PGY" = `PGY1 vs PGY2 (3 = Both)`) 
-df$PGY <- factor(df$PGY,
-                 levels = c(1,2,3),
-                 labels = c("PGY1", "PGY2", "PGY1/2"))
-df$`Rural vs Urban` <- factor(df$`Rural vs Urban`)
-df$`Relief vs Core` <- factor(df$`Relief vs Core`)
-df$`Term Classification` <- factor(df$`Term Classification`)
-df$`Resource Allocation` <- as.numeric(df$`Resource Allocation`)
+# df$`Term Name` <- factor(df$`Term Name`)
+# df <- df %>% rename("PGY" = `PGY1 vs PGY2 (3 = Both)`) 
+# df$PGY <- factor(df$PGY,
+#                  levels = c(1,2,3),
+#                  labels = c("PGY1", "PGY2", "PGY1/2"))
+# df$`Rural vs Urban` <- factor(df$`Rural vs Urban`)
+# df$`Relief vs Core` <- factor(df$`Relief vs Core`)
+# df$`Term Classification` <- factor(df$`Term Classification`)
+# df$`Resource Allocation` <- as.numeric(df$`Resource Allocation`)
 ```
 
