@@ -1,0 +1,126 @@
+﻿Term Name,PGY1 vs PGY2 (3 = Both),Rural vs Urban,Relief vs Core,Term Classification,Resource Allocation
+ARRH General Medicine - PGY1,1,Rural,Core,Med,2
+ARRH General Medicine - PGY2,2,Rural,Core,Med,4
+ARRH Integrated Mental Health (Inpatient and community work) (PGY2),2,Rural,Core,Med,1
+ARRH Orthopaedics - Broad Spectrum (PGY2),2,Rural,Core,Surg,1
+ARRH Paediatrics (PGY2),2,Rural,Core,Med,1
+ARRH General Surgery (PGY1/2),3,Rural,Core,Surg,1
+BDH Acute General Medicine & Cardiology Team 4 (PGY1/2),3,Urban,Core,Med,1
+BDH Acute General Medicine Team 1 (PGY1),1,Urban,Core,Med,2
+BDH Sub-Acute General Medicine and rehabilitation (Team 5) (PGY1),1,Urban,Core,Med,1
+BDH After Hours Internal Relief JMO (01) (PGY1/2),3,Urban,Relief,Med,3
+BDH Addiction Medicine - Drug and Alcohol Clinical Services (PGY1),1,Urban,Core,Med,1
+BDH Anaesthetics / Emergency (PGY2),2,Urban,Core,Critical Care,1
+BDH Emergency Medicine PGY1 term (01) (PGY1),1,Urban,Core,ED,2
+BDH Emergency Medicine PGY2 term (PGY2),2,Urban,Core,ED,1
+BDH Acute General Medicine and Rehabilitation Team 3 (PGY1),1,Urban,Core,Med,1
+BDH Surgery (01) (PGY1/2),3,Urban,Core,Surg,2
+JHH Community Acute Post Acute Care Service (PGY2),2,Urban,Core,Med,1
+JHH HNE Clinical Governance (PGY2),2,Urban,Core,Med,1
+CMN Cardiology (PGY1),1,Urban,Core,Med,1
+CMN Acute Medicine Gastroenterology with (Drug & Alcohol) (02) (PGY1),1,Urban,Core,Med,1
+CMN General Medicine 5 (Acute Medicine) ,3,Urban,Core,Med,1
+CMN Relief 1 (PGY1),1,Urban,Relief,Med,6
+CMN Emergency Department (01) (PGY1),1,Urban,Core,ED,3
+CMN Emergency Department (04) (PGY2),2,Urban,Core,ED,4
+CMN General Medicine 1 (PGY1),1,Urban,Core,Med,4
+CMN Clinical Haematology (01) (PGY1) ,1,Urban,Core,Med,2
+CMN Medical Oncology (01) (PGY1) PGY2 T1,3,Urban,Core,Med,2
+CMN Palliative Care (PGY1),1,Urban,Core,Med,1
+CMN Radiation Oncology (PGY1),1,Urban,Core,Med,1
+CMN Surgery 1 (PGY1),1,Urban,Core,Surg,3
+HNE Relief Intern 01 (PGY1),1,Urban,Relief,Med,10
+HNE Relief RMO 01 (PGY2),2,Urban,Relief,Med,20
+HNEMH Consultant-Liaison Psychiatary (JHH) (PGY2),2,Urban,Core,Psych,1
+HNEMH Lake Macquarie Ward (01) (PGY1/2),3,Urban,Core,Psych,1
+HNEMH Lake Macquarie Ward (02) (PGY2),2,Urban,Core,Psych,1
+HNEMH MHSUS Units (Mental Health & Substance Use Service) (01) (PGY1),1,Urban,Core,Psych,1
+HNEMH MHSUS Units (Mental Health & Substance Use Service) (02) (PGY2),2,Urban,Core,Psych,1
+HNEMH Mental Health Intensive Care Unit (MHICU) (PGY1/2),3,Urban,Core,Psych,1
+HNEMH Mental Health Older People (Older People's Mental Health Service) (01) (PGY1/2),3,Urban,Core,Psych,2
+HNEMH Newcastle Inpatient Unit 01 (PGY2),2,Urban,Core,Psych,1
+HNEMH Newcastle Inpatient Unit 02 (PGY1/2),3,Urban,Core,Psych,1
+HNEMH Intermediate Stay Mental Health Unit (ISMHU) (PGY2),2,Urban,Core,Psych,1
+JHH Acute General Surgical Unit (01) (PGY1/2),3,Urban,Core,Surg,8
+JHH Cardiology (01) (PGY1/2),3,Urban,Core,Med,3
+JHH Cardiothoracic Surgery (PGY1/2),3,Urban,Core,Surg,1
+JHH Dermatology (PGY1),1,Urban,Core,Med,1
+JHH Emergency (01) (PGY1),1,Urban,Core,ED,10
+JHH Emergency (11) (PGY2),2,Urban,Core,ED,5
+JHH Gastroenterology Team A and B (01) (PGY1),1,Urban,Core,Med,2
+"JHH General General Medicine Teams 1, 2, 3, 4 (01) (PGY1)",1,Urban,Core,Med,7
+JHH General Surgery / Colorectal (PGY1),1,Urban,Core,Surg,1
+JHH General Surgery/Trauma (PGY1),1,Urban,Core,Surg,1
+JHH General Surgery/ Hepatopancreatobiliary and Upper GI Surgery (PGY1),1,Urban,Core,Surg,1
+JHH General Surgery and Upper GI (PGY1),1,Urban,Core,Surg,1
+JHH ICU 01 (PGY2),2,Urban,Core,Critical Care,2
+JHH Infectious Disease (PGY1),1,Urban,Core,Med,1
+JHH MACU Medicine (PGY1/2),3,Urban,Core,Med,1
+JHH Obstetrics & Gynaecology (01) (PGY1),2,Urban,Core,Surg,4
+JHH Medicine Relief (01) (PGY1),1,Urban,Relief,Med,3
+JHH Medicine Relief (04) (PGY1/2),3,Urban,Relief,Med,3
+JHH Nephrology & Dialysis (01) (PGY1),1,Urban,Core,Med,2
+JHH Neurology Team A and B (01) (PGY1),1,Urban,Core,Med,2
+JHH Neurosurgery (01) (PGY1),1,Urban,Core,Surg,2
+JHH Neurosurgery (02) (PGY1),2,Urban,Core,Surg,2
+"JHH Oral Maxillofacial (OMF) and Ears, Nose and Throat (ENT) (02) (PGY1)",1,Urban,Core,Surg,1
+JHH Opthalamology (PGY1),1,Urban,Core,Surg,1
+JHH Orthopaedic (01) (PGY1),1,Urban,Core,Surg,8
+JHH Orthopaedic (09) (PGY1/2),3,Urban,Core,Surg,1
+JHH Orthopaedics Paediatrics (PGY2),2,Urban,Core,Surg,1
+JHH Paediatric Surgery (PGY2),2,Urban,Core,Surg,1
+JHH General Paediatrics (01) (PGY2),2,Urban,Core,Med,3
+JHH Rehabilitation (Orthopaedic Rehab/Geriatrics/General Rehab) (02) (PGY1),1,Urban,Core,Med,1
+JHH Rehabilitation (Orthopaedic Rehab/Geriatrics/General Rehab) (03) (PGY2),2,Urban,Core,Med,1
+JHH Respiratory Medicine Team A and Team B (01) (PGY1),1,Urban,Core,Med,2
+JHH Rheumatology (PGY1),1,Urban,Core,Med,1
+JHH Surgery Relief (01) (PGY1),1,Urban,Relief,Surg,2
+JHH Vascular (03) (PGY1),1,Urban,Core,Surg,3
+JHH Vascular (04) (PGY2),2,Urban,Core,Surg,1
+KK Rehabilitation (PGY 1),1,Rural,Core,Med,2
+MBH Anaesthetics & Emergency (PGY2),2,Rural,Core,Critical Care,2
+MBH Emergency Medical PGY1 (01) (PGY1),1,Rural,Core,ED,3
+MBH Emergency Medical PGY1 (01) (PGY2),2,Rural,Core,ED,7
+MBH General Medical (01) (PGY1),1,Rural,Core,Med,5
+MBH General Medicine Oncology/Dialysis (PGY2),2,Rural,Core,Med,1
+MBH General Surgical/ Urology (02) (PGY1),1,Rural,Core,Surg,2
+MBH Manning Psychiatry (01) (PGY1),1,Rural,Core,Psych,1
+MBH Manning Psychiatry (02) (PGY2),2,Rural,Core,Psych,1
+MBH Obstetrics & Gynaecology (PGY2),2,Rural,Core,Surg,1
+MBH Orthopaedics (PGY2),2,Rural,Core,Surg,1
+MBH Paediatrics (PGY2),2,Rural,Core,Med,1
+MBH Relief Term 01 (PGY1),1,Rural,Relief,Med,3
+MBH Relief Term 04 (PGY2),2,Rural,Relief,Med,3
+TMH Emergency 04 (PGY1),1,Rural,Core,ED,5
+TMH Emergency 05 (PGY1/2),3,Rural,Core,ED,1
+TMH Emergency 06 (PGY 2),2,Rural,Core,ED,3
+TMH General Medicine Relief (PGY1),1,Rural,Relief,Med,1
+TMH General Medicine Relief (PGY2),2,Rural,Relief,Med,1
+TMH General Surgery 2 (PGY1/2),3,Rural,Core,Surg,1
+TMH General Surgery 1 (PGY2),2,Rural,Core,Surg,1
+"TMH General Medicine 1,2,3,4 (05) (PGY1/2)",2,Rural,Core,Med,5
+TMH Maitland Mental Health Unit - Psychiatry term 02 (PGY1),1,Rural,Core,Psych,2
+TMH Obstetrics & Gynaecology (PGY2),2,Rural,Core,Surg,1
+TMH Orthopaedics (PGY 1),1,Rural,Core,Surg,1
+TMH Orthopaedics (PGY 2),2,Rural,Core,Surg,1
+TMH Paediatrics (PGY2),2,Rural,Core,Med,1
+TRRH Emergency 01 (PGY1),1,Rural,Core,ED,4
+TRRH Emergency 11 (PGY2),2,Rural,Core,ED,7
+TRRH ICU 01 (PGY2),2,Rural,Core,Critical Care,1
+TRRH General Medicine 07 (PGY1),1,Rural,Core,Med,6
+TRRH Medicine 02 (PGY2),2,Rural,Core,Med,1
+TRRH Mental Health Banksia Unit 01 (PGY1),1,Rural,Core,Psych,1
+TRRH Mental Health Banksia Unit 02 (PGY2),2,Rural,Core,Psych,1
+TRRH Obstetrics & Gynaecology (02) (PGY2),2,Rural,Core,Surg,1
+TRRH Obstetrics & Gynaecology (01) (PGY1),1,Rural,Core,Surg,1
+TRRH Orthopaedic Surgery 03 (PGY2),2,Rural,Core,Surg,1
+TRRH Orthopaedic Surgery 01 (PGY1),1,Rural,Core,Surg,2
+TRRH Paediatrics 02 (PGY2),2,Rural,Core,Med,2
+TRRH Rehabilitation and Geriatrics (PGY1),1,Rural,Core,Med,1
+TRRH Relief 02 (PGY1),1,Rural,Relief,Med,2
+TRRH Relief 03 (PGY2),2,Rural,Relief,Med,3
+TRRH Surgical 04 (PGY1),1,Rural,Core,Surg,4
+TRRH Surgery 05 (PGY2),2,Rural,Core,Surg,1
+HNELHD Forensic Pathology,2,Urban,Core,Med,1
+HNELHD Rural GP 01 - Gloucester,3,Rural,Core,Med,1
+HNELHD Rural GP 02 - Scone,3,Rural,Core,Med,1
