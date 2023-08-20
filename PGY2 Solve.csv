@@ -1,0 +1,46 @@
+﻿Master jobs list,PGY2 Only,Resource Allocation,Current Term Category,Accreditation Status,Term Classification,Term Classification 2,Specialty,Subspecialty,Is this a service Term,Clinical Team Structure
+ARRH General Medicine 02 (RMO),Yes,5,Core Medicine Term,Provisional,A-Undifferentiated illness patient care,C-Acute critical illness patient care,General Medicine,,No,Ward Based
+ARRH Integrated Mental Health - inpatient & community (RMO),Yes,1,other,Accredited,B-Chronic illness patient care,C-Acute critical illness patient care,General Medicine,,No,Ward Based
+ARRH Paediatrics (RMO),Yes,1,Other,Provisional,C-Acute critical illness patient care,A-Undifferentiated illness patient care,General Paediatric and child health,,No,Ward Based
+BDH Anaesthetics / Emergency (RMO),Yes,1,Other,Provisional,A-Undifferentiated illness patient care,D-Peri-operative / procedural patient care,Anaesthesia,Anaesthesia,No,Team Based
+BDH Emergency (03) (RMO),Yes,1,Core Emergency,Provisional,C-Acute critical illness patient care,A-Undifferentiated illness patient care,Emergency medicine,,No,Team Based
+CMN Medicine - Radiation oncology (01) (RMO),Yes,1,Core Medicine Term,Accredited,B-Chronic illness patient care,D-Peri-operative / procedural patient care,General Medicine,Radiation oncology,No,Team Based
+CMN Surgery 3 (RMO),Yes,1,Core Surgery Term,Provisional,D-Peri-operative / procedural patient care,C-Acute critical illness patient care,General Surgery,,No,Team Based
+HNE Relief 11 (RMO),Yes,17,Other,Provisional,A-Undifferentiated illness patient care,C-Acute critical illness patient care,Relief,Relief,Yes,Team Based
+HNELHD Clinical Governance (RMO),Yes,1,Other,Provisional,E-Non-direct clinical experience (PGY2 Only),,Medical Administration,Medical Administration,Yes,Other
+HNEMH Mental Health Intensive Care Unit - Mater hospital (RMO),Yes,1,Other,Provisional,C-Acute critical illness patient care,,Psychiatry,MICU,No,Team Based
+JHH Anaesthetics / Emergency (RMO),Yes,1,Other,Provisional,A-Undifferentiated illness patient care,D-Peri-operative / procedural patient care,Anaesthesia,Anaesthesia,No,Team Based
+JHH Community Acute Post Acute Care Service (RMO),Yes,1,Other,Provisional,B-Chronic illness patient care,A-Undifferentiated illness patient care,Public Health Medicine,,Yes,Other
+JHH Emergency (11) (RMO),Yes,5,Core Emergency,Provisional,A-Undifferentiated illness patient care,C-Acute critical illness patient care,Emergency medicine,,No,Team Based
+JHH General Paediatrics (01) (RMO),Yes,3,Core Medicine Term,Provisional,A-Undifferentiated illness patient care,C-Acute critical illness patient care,General Paediatric and child health,,No,Team Based
+JHH ICU 01 (RMO),Yes,1,Other,Provisional,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Intensive care medicine,,No,Team Based
+JHH Medicine - Rehabilitation (03) (RMO),Yes,1,Core Medicine Term,Provisional,B-Chronic illness patient care,,General Medicine,Rehabilitation Medicine,No,Team Based
+JHH Obstetrics & Gynaecology (02) (RMO),Yes,4,Other,Provisional,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Obstetrics and gynaecology,Obstetrics and gynaecology,No,Team Based
+JHH Paediatric Orthopaedics (RMO),Yes,1,Core Surgery Term,Provisional,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Orthopaedics,Paediatric and child health,No,Team Based
+JHH Paediatric Surgery (RMO),Yes,1,Core Surgery Term,Provisional,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,General Surgery,Paediatric and child health,No,Team Based
+JHH Plastic Surgery (RMO),Yes,1,Core Surgery Term,Provisional,D-Peri-operative / procedural patient care,,Plastic Surgery,,No,Team Based
+JHH Surgery - Neurosurgery (03) (RMO),Yes,2,Core Surgery Term,Provisional,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Neurosurgery,,No,Team Based
+JHH Surgery - Orthopaedics (09) (RMO),Yes,1,Core Surgery Term,Provisional,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Orthopaedics,,No,Team Based
+JHH Surgery - Vascular (04) (RMO),Yes,1,Core Surgery Term,Provisional,B-Chronic illness patient care,D-Peri-operative / procedural patient care,Vascular,,No,Team Based
+MBH Anaesthetics & Emergency (RMO),Yes,1,Other,Accredited,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Anaesthesia,,No,Team Based
+MBH Emergency (05) (RMO),Yes,8,Core Emergency,Provisional ,A-Undifferentiated illness patient care,C-Acute critical illness patient care,Emergency medicine,,No,Team Based
+MBH General Medicine Oncology/Dialysis (RMO),Yes,1,Core Medicine Term,Accredited,C-Acute critical illness patient care,B-Chronic illness patient care,General Medicine,Oncology/Dialysis,No,Team Based
+"MBH ICU/Patient Flow JMO (RMO) (Terms 2, 3 & 5 Only) (HETI NOT APPROVED)",Yes,1,Other,Accredited,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Intensive care medicine,Intensive care medicine,No,Team Based
+MBH Obstetrics & Gynaecology (RMO),Yes,1,Other,Accredited,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Obstetrics and gynaecology,Obstetrics and gynaecology,No,Team Based
+MBH Paediatrics (RMO),Yes,1,Other,Accredited,C-Acute critical illness patient care,A-Undifferentiated illness patient care,General Paediatric and child health,General Paediatric and child health,No,Team Based
+MBH Surgery - Orthopaedics  01 (RMO),Yes,2,Core Surgery Term,Provisional ,D-Peri-operative / procedural patient care,C-Acute critical illness patient care,Orthopaedics,,No,Team Based
+MH Emergency 06 (RMO),Yes,4,Core Emergency,Provisional,C-Acute critical illness patient care,A-Undifferentiated illness patient care,Emergency medicine,,No,Team Based
+MH General Medicine (01) (RMO),Yes,4,Core Medicine Term,Provisional,C-Acute critical illness patient care,B-Chronic illness patient care,General Medicine,,No,Team Based
+MH General Medicine Relief (01) (RMO),Yes,4,Other,Provisional,C-Acute critical illness patient care,B-Chronic illness patient care,Relief,Relief,Yes,Other
+MH General Surgery 1 (RMO),Yes,1,Core Surgery Term,Provisional,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,General Surgery,,No,Team Based
+MH KK Rehabilitation (RMO),Yes,1,Other,Provisional,B-Chronic illness patient care,,General Medicine,Rehabilitation Medicine,no,Team Based
+MH Obstetrics & Gynaecology (RMO),Yes,1,Other,Provisional,C-Acute critical illness patient care,,Obstetrics and gynaecology,Obstetrics and gynaecology,No,Team Based
+MH Paediatrics (RMO),Yes,1,Other,Provisional,C-Acute critical illness patient care,A-Undifferentiated illness patient care,General Paediatric and child health,General Paediatric and child health,No,Team Based
+MH Surgery - Orthopaedics (02) (RMO),Yes,1,Core Surgery Term,Provisional,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Orthopaedics,,No,Team Based
+MH Surgery Relief (RMO),Yes,1,Other,Provisional,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Relief,Relief,Yes,Other
+TRRH Emergency 06 (RMO),Yes,6,Core Medicine Term,Provisional,A-Undifferentiated illness patient care,C-Acute critical illness patient care,Emergency medicine,,No,Ward Based
+TRRH Mental Health Banksia Unit 02 (RMO),Yes,1,Other,Provisional,C-Acute critical illness patient care,B-Chronic illness patient care,Psychiatry,,No,Team Based
+TRRH Obstetrics & Gynaecology (02) (RMO),Yes,1,Other,Provisional,D-Peri-operative / procedural patient care,C-Acute critical illness patient care,Obstetrics and gynaecology,Obstetrics and gynaecology,No,Team Based
+TRRH Paediatrics 01 (RMO),Yes,2,Other,Provisional,C-Acute critical illness patient care,A-Undifferentiated illness patient care,General Paediatric and child health,General Paediatric and child health,No,Ward Based
+TRRH Relief 03 (RMO),Yes,3,Other,Provisional,B-Chronic illness patient care,D-Peri-operative / procedural patient care,Relief,Relief,Yes,Team Based
+TRRH Surgery - Orthopaedics 03 (RMO),Yes,1,Core Surgery Term,Provisional,D-Peri-operative / procedural patient care,C-Acute critical illness patient care,Orthopaedics,,No,Team Based
