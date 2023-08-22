@@ -53,8 +53,6 @@ column_names <- column_names$X1
 colnames(preference_matrix) <- column_names
 
 
-## Linear Optimisation ##
-
 ## Linear Optimization ##
 
 # Define the number of doctors and terms
@@ -69,88 +67,74 @@ max_doctors_per_term <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
 max_doctors_per_term <- as.vector(max_doctors_per_term$X3)
 
 
-# Create an empty LP model
-lp_model <- make.lp(0, num_doctors * num_terms)
+## Linear Optimization with Minimized Dissatisfaction ##
+
+# Calculate dissatisfaction values based on preferences (higher value indicates higher dissatisfaction)
+dissatisfaction_values <- num_columns - preference_matrix + 1
+
+# Convert dissatisfaction values to a vector for the objective function
+objective_coeffs_dissatisfaction <- as.vector(dissatisfaction_values)
+
+# Create an empty LP model for minimizing dissatisfaction
+lp_model_dissatisfaction <- make.lp(0, num_doctors * num_terms)
 
 # Set binary decision variables (0 or 1)
-set.type(lp_model, columns = 1:(num_doctors * num_terms), type = "binary")
+set.type(lp_model_dissatisfaction, columns = 1:(num_doctors * num_terms), type = "binary")
 
-# Set the objective function coefficients directly as preferences
-set.objfn(lp_model, objective_coeffs)
+# Set the objective function coefficients for minimizing dissatisfaction
+set.objfn(lp_model_dissatisfaction, objective_coeffs_dissatisfaction)
 
 # Add constraints to ensure one assignment per doctor
 for (i in 1:num_doctors) {
   constr_one_assignment <- rep(0, num_doctors * num_terms)
   constr_one_assignment[((i - 1) * num_terms + 1):(i * num_terms)] <- 1
-  add.constraint(lp_model, constr_one_assignment, type = "=", rhs = 1)
+  add.constraint(lp_model_dissatisfaction, constr_one_assignment, type = "=", rhs = 1)
 }
 
 # Add constraints to limit the maximum number of doctors allocated to each term
 for (j in 1:num_terms) {
   constr_max_doctors_per_term <- rep(0, num_doctors * num_terms)
   constr_max_doctors_per_term[j + seq(0, (num_doctors - 1) * num_terms, by = num_terms)] <- 1
-  add.constraint(lp_model, constr_max_doctors_per_term, type = "<=", rhs = max_doctors_per_term[j])
+  add.constraint(lp_model_dissatisfaction, constr_max_doctors_per_term, type = "<=", rhs = max_doctors_per_term[j])
 }
 
-# Print the LP model to check its settings (optional)
-print(lp_model)
 
-# Solve the linear programming problem
-lp_result <- solve(lp_model)
+# Print the LP model to check its settings (optional)
+print(lp_model_dissatisfaction)
+
+# Solve the linear programming problem to minimize dissatisfaction
+lp_result_dissatisfaction <- solve(lp_model_dissatisfaction)
 
 # Check if the LP problem was solved successfully
-if (lp_result == 0) {
-  # Get the optimal solution from the lp_model object
-  optimal_solution <- get.variables(lp_model)
+if (lp_result_dissatisfaction == 0) {
+  # Get the optimal solution from the lp_model_dissatisfaction object
+  optimal_solution_dissatisfaction <- get.variables(lp_model_dissatisfaction)
+ 
+  # Store doctor-term assignments in a data frame
+  optimal_assignments <- data.frame(
+    Doctor = character(),
+    Term = character(),
+    stringsAsFactors = FALSE
+  )
   
+   
   # Analyze the optimal solution
   for (i in 1:num_doctors) {
     for (j in 1:num_terms) {
-      if (optimal_solution[(i - 1) * num_terms + j] == 1) {
-        cat("Doctor", i, "is assigned to Term", j, "\n")
+      if (optimal_solution_dissatisfaction[(i - 1) * num_terms + j] == 1) {
+        doctor_name <- row_names[i]  # Get the doctor's name using the index
+        term_name <- column_names[j]  # Get the term's name using the index
+        optimal_assignments <- rbind(optimal_assignments, data.frame(Doctor = doctor_name, Term = term_name))
       }
     }
   }
-} else {
-  cat("LP problem could not be solved. Result:", lp_result, "\n")
-}
+  
+  # Create a gt table to display the optimal solution
+  optimal_assignments_table <- gt(optimal_assignments)
+  print(optimal_assignments_table)
+} else 
+  cat("LP problem could not be solved. Result:", lp_result_dissatisfaction, "\n")
 
 
 
 
-
-
-
-"## REPORTING RESULTS ##
-# Extract the allocation results
-allocated_vector <- get.variables(lp_model)
-
-# Reshape the allocated vector into a matrix
-allocated_matrix <- matrix(allocated_vector, nrow = num_doctors, ncol = num_terms)
-
-# Print the allocated_matrix (1 indicates allocation, 0 indicates no allocation)
-rownames(allocated_matrix) <- row_names
-colnames(allocated_matrix) <- column_names
-
-# Create a list to store doctor-term assignments
-assignments <- list()
-
-# Iterate through the allocated_matrix
-for (i in 1:num_doctors) {
-  for (j in 1:num_terms) {
-    if (allocated_matrix[i, j] == 1) {
-      doctor_name <- row_names[i]
-      term_name <- column_names[j]
-      assignments <- c(assignments, list(c(doctor_name, term_name)))
-    }
-  }
-}
-
-# Convert the list of assignments to a data frame
-assignments <- data.frame(doctor = unlist(lapply(assignments, "[[", 1)),
-                             term = unlist(lapply(assignments, "[[", 2)))
-
-assignments_table <- gt(assignments)
-print(assignments_table)"
-                                                                  
-                                                                  
