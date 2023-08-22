@@ -148,6 +148,7 @@ if (lp_result_dissatisfaction == 0) {
 }
 ```
 
+
 # NEXT STEP TO RUN A LOOP TO ASSIGN 5 TERMS ACROSS THE YEAR BASED ON PREFERENCES
 ```{r}
 # Number of times to run the assignment
@@ -249,5 +250,10 @@ for (assignment_num in 1:num_assignments) {
 
 # Print the table using gt
 assignment_results_table <- gt(assignment_results_df)
+```
+
+#Output
+
+```{r}
 print(assignment_results_table)
-                   
+```
