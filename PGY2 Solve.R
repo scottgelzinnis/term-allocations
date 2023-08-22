@@ -138,3 +138,117 @@ if (lp_result_dissatisfaction == 0) {
 
 
 
+
+
+
+
+## NEXT STEP TO RUN A LOOP TO ASSIGN 5 TERMS ACROSS THE YEAR BASED ON PREFERENCES ##
+
+# Number of times to run the assignment
+num_assignments <- 5
+
+# Initialize a list to store the results of each assignment
+assignment_results <- list()
+
+# Loop through the assignments
+for (assignment_num in 1:num_assignments) {
+  # Create an empty LP model for minimizing dissatisfaction
+  lp_model_dissatisfaction <- make.lp(0, num_doctors * num_terms)
+  
+  # Set binary decision variables (0 or 1)
+  set.type(lp_model_dissatisfaction, columns = 1:(num_doctors * num_terms), type = "binary")
+  
+  # Set the objective function coefficients for minimizing dissatisfaction
+  set.objfn(lp_model_dissatisfaction, objective_coeffs_dissatisfaction)
+  
+  # Add constraints to ensure one assignment per doctor
+  for (i in 1:num_doctors) {
+    constr_one_assignment <- rep(0, num_doctors * num_terms)
+    constr_one_assignment[((i - 1) * num_terms + 1):(i * num_terms)] <- 1
+    add.constraint(lp_model_dissatisfaction, constr_one_assignment, type = "=", rhs = 1)
+  }
+  
+  # Add constraints to limit the maximum number of doctors allocated to each term
+  for (j in 1:num_terms) {
+    constr_max_doctors_per_term <- rep(0, num_doctors * num_terms)
+    constr_max_doctors_per_term[j + seq(0, (num_doctors - 1) * num_terms, by = num_terms)] <- 1
+    add.constraint(lp_model_dissatisfaction, constr_max_doctors_per_term, type = "<=", rhs = max_doctors_per_term[j])
+  }
+  
+  # Solve the linear programming problem to minimize dissatisfaction
+  lp_result_dissatisfaction <- solve(lp_model_dissatisfaction)
+  
+  # Check if the LP problem was solved successfully
+  if (lp_result_dissatisfaction == 0) {
+    optimal_solution_dissatisfaction <- get.variables(lp_model_dissatisfaction)
+    assignment_results[[assignment_num]] <- optimal_solution_dissatisfaction
+  } else {
+    cat("LP problem could not be solved for assignment", assignment_num, "Result:", lp_result_dissatisfaction, "\n")
+  }
+}
+
+# Print the results of each assignment
+for (assignment_num in 1:num_assignments) {
+  cat("Assignment", assignment_num, "results:\n")
+  optimal_solution_dissatisfaction <- assignment_results[[assignment_num]]
+  for (i in 1:num_doctors) {
+    for (j in 1:num_terms) {
+      if (optimal_solution_dissatisfaction[(i - 1) * num_terms + j] == 1) {
+        doctor_name <- row_names[i]
+        term_name <- column_names[j]
+        cat("Doctor", doctor_name, "is assigned to Term", term_name, "\n")
+      }
+    }
+  }
+  cat("\n")
+}
+
+# Create a data frame to store the assignment results for each doctor
+assignment_results_df <- data.frame(
+  Doctor = row_names, 
+  stringsAsFactors = FALSE
+)
+
+# Initialize a matrix to track assigned terms for each doctor
+assigned_terms_matrix <- matrix(FALSE, nrow = num_doctors, ncol = num_terms)
+
+# Iterate through the assignments
+for (assignment_num in 1:num_assignments) {
+  assignment_column <- paste0("Assignment ", assignment_num)
+  assignment_results_df[[assignment_column]] <- NA
+  
+  for (i in 1:num_doctors) {
+    # Filter unassigned terms for this doctor
+    unassigned_terms <- column_names[!assigned_terms_matrix[i, ]]
+    
+    if (length(unassigned_terms) > 0) {
+      # Calculate a combined score that considers preferences and dissatisfaction
+      combined_score <- preference_matrix[i, ] - dissatisfaction_values
+      
+      # Sort terms based on the combined score
+      sorted_terms <- unassigned_terms[order(combined_score[match(unassigned_terms, column_names)])]
+      
+      # Assign the doctor to the term with the highest combined score
+      assigned_term <- sorted_terms[1]
+      assigned_term_index <- match(assigned_term, column_names)
+      
+      # Mark the term as assigned for this doctor
+      assigned_terms_matrix[i, assigned_term_index] <- TRUE
+      
+      # Update the data frame with the assigned term
+      assignment_results_df[[assignment_column]][i] <- assigned_term
+    }
+  }
+}
+
+# Print the table using gt
+assignment_results_table <- gt(assignment_results_df)
+print(assignment_results_table)
+  
+  
+  
+  
+  
+  
+
+
