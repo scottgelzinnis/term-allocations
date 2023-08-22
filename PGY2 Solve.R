@@ -53,7 +53,7 @@ column_names <- column_names$X1
 colnames(preference_matrix) <- column_names
 
 
-## Linear Optimization ##
+## Linear Optimization - Defining the problem ##
 
 # Define the number of doctors and terms
 num_doctors <- nrow(preference_matrix)
@@ -66,6 +66,25 @@ objective_coeffs <- as.vector(preference_matrix)
 max_doctors_per_term <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
 max_doctors_per_term <- as.vector(max_doctors_per_term$X3)
 
+#Create a vector that describes "Specialty" status of a term
+specialty_status_per_term <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
+specialty_status_per_term <- as.vector(specialty_status_per_term$X8)
+specialty_status_per_term <- as.factor(specialty_status_per_term)
+
+#Create a vector that describes "Sub-Specialty" status of a term
+sub_specialty_status_per_term <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
+sub_specialty_status_per_term <- as.vector(sub_specialty_status_per_term$X9)
+sub_specialty_status_per_term <- as.factor(sub_specialty_status_per_term)
+
+#Create a vector that describes "Term Classification A" of a term
+term_classification_A <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
+term_classification_A <- as.vector(term_classification_A$X6)
+term_classification_A <- as.factor(term_classification_A)
+
+#Create a vector that describes "Term Classification B" of a term
+term_classification_B <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
+term_classification_B <- as.vector(term_classification_B$X7)
+term_classification_B <- as.factor(term_classification_B)
 
 ## Linear Optimization with Minimized Dissatisfaction ##
 
