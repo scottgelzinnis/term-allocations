@@ -128,7 +128,7 @@ lp_result_dissatisfaction <- solve(lp_model_dissatisfaction)
 if (lp_result_dissatisfaction == 0) {
   # Get the optimal solution from the lp_model_dissatisfaction object
   optimal_solution_dissatisfaction <- get.variables(lp_model_dissatisfaction)
- 
+  
   # Store doctor-term assignments in a data frame
   optimal_assignments <- data.frame(
     Doctor = character(),
@@ -136,7 +136,7 @@ if (lp_result_dissatisfaction == 0) {
     stringsAsFactors = FALSE
   )
   
-   
+  
   # Analyze the optimal solution
   for (i in 1:num_doctors) {
     for (j in 1:num_terms) {
@@ -263,11 +263,44 @@ for (assignment_num in 1:num_assignments) {
 # Print the table using gt
 assignment_results_table <- gt(assignment_results_df)
 print(assignment_results_table)
-  
-  
-  
-  
-  
-  
 
 
+                 ## Further reporting to add transparency to allocations ##
+
+# Initialize an empty data frame to store the report
+doctor_preference_report <- data.frame(
+  Doctor = character(),
+  Term = character(),
+  Preference_Score = numeric(),
+  stringsAsFactors = FALSE
+)
+
+# Iterate through each doctor
+for (i in 1:num_doctors) {
+  doctor_name <- row_names[i]
+  
+  # Iterate through each of the 5 terms allocated to the doctor
+  for (assignment_num in 1:num_assignments) {
+    assigned_term <- assignment_results_df[[paste0("Assignment ", assignment_num)]][i]
+    
+    # Access the doctor's preference row from the preference matrix
+    doctor_preference <- preference_matrix[i, ]
+    
+    # Calculate preference score for the assigned term
+    preference_score <- doctor_preference[match(assigned_term, column_names)]
+    
+    # Build a data frame with the results for this doctor and term
+    doctor_report <- data.frame(
+      Doctor = rep(doctor_name, 1),
+      Term = assigned_term,
+      Preference_Score = preference_score
+    )
+    
+    # Append the doctor's report to the overall report data frame
+    doctor_preference_report <- rbind(doctor_preference_report, doctor_report)
+  }
+}
+
+# Print the report using gt
+doctor_preference_report_table <- gt(doctor_preference_report)
+print(doctor_preference_report_table)
