@@ -236,26 +236,47 @@ for (assignment_num in 1:num_assignments) {
   assignment_column <- paste0("Assignment ", assignment_num)
   assignment_results_df[[assignment_column]] <- NA
   
+  # Initialize a count for each "Sub-Specialty" category
+  sub_specialty_counts <- table(sub_specialty_status_per_term, useNA = "ifany")
+  
   for (i in 1:num_doctors) {
     # Filter unassigned terms for this doctor
     unassigned_terms <- column_names[!assigned_terms_matrix[i, ]]
     
     if (length(unassigned_terms) > 0) {
-      # Calculate a combined score that considers preferences and dissatisfaction
-      combined_score <- preference_matrix[i, ] - dissatisfaction_values
+      # Calculate a combined score that considers top preferences (lower values)
+      combined_score <- ifelse(preference_matrix[i, ] %in% c(1, 2), -2, -1)  # Note the negative values
       
       # Sort terms based on the combined score
       sorted_terms <- unassigned_terms[order(combined_score[match(unassigned_terms, column_names)])]
       
-      # Assign the doctor to the term with the highest combined score
-      assigned_term <- sorted_terms[1]
-      assigned_term_index <- match(assigned_term, column_names)
+      # Iterate through sorted terms and find an eligible term based on "Sub-Specialty" constraint
+      eligible_term <- NULL
+      for (term in sorted_terms) {
+        # Check if assigning this term violates the "Sub-Specialty" constraint
+        term_sub_specialty <- sub_specialty_status_per_term[match(term, column_names)]
+        if (is.na(term_sub_specialty) || sub_specialty_counts[term_sub_specialty] < 2) {
+          eligible_term <- term
+          break  # Stop when an eligible term is found
+        }
+      }
       
-      # Mark the term as assigned for this doctor
-      assigned_terms_matrix[i, assigned_term_index] <- TRUE
-      
-      # Update the data frame with the assigned term
-      assignment_results_df[[assignment_column]][i] <- assigned_term
+      # Assign the eligible term to the doctor if one is found
+      if (!is.null(eligible_term)) {
+        assigned_term_index <- match(eligible_term, column_names)
+        
+        # Update the count of terms in the "Sub-Specialty" category
+        term_sub_specialty <- sub_specialty_status_per_term[assigned_term_index]
+        if (!is.na(term_sub_specialty)) {
+          sub_specialty_counts[term_sub_specialty] <- sub_specialty_counts[term_sub_specialty] + 1
+        }
+        
+        # Mark the term as assigned for this doctor
+        assigned_terms_matrix[i, assigned_term_index] <- TRUE
+        
+        # Update the data frame with the assigned term
+        assignment_results_df[[assignment_column]][i] <- eligible_term
+      }
     }
   }
 }
