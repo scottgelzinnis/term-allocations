@@ -59,8 +59,9 @@ colnames(preference_matrix) <- column_names
 num_doctors <- nrow(preference_matrix)
 num_terms <- ncol(preference_matrix)
 
-# Define the objective function coefficients (preferences)
-objective_coeffs <- as.vector(preference_matrix)
+# Define the objective function coefficients for maximizing high preferences (1 or 2)
+objective_coeffs_high_preferences <- ifelse(preference_matrix == 1, 2, ifelse(preference_matrix == 2, 1, 0))
+objective_coeffs_high_preferences <- as.vector(objective_coeffs_high_preferences)
 
 #Create a vector of the maximum number of doctors allowed for each term
 max_doctors_per_term <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
@@ -95,15 +96,15 @@ for (i in 1:num_rows) {
 }
 objective_coeffs_top_preference <- as.vector(top_preference_coefficients)
 
-# Create an empty LP model for maximizing top preferences
-lp_model_top_preference <- make.lp(0, num_doctors * num_terms)
+# Create an empty LP model for maximizing high preferences
+lp_model_high_preferences <- make.lp(0, num_doctors * num_terms)
+lp.control(lp_model_high_preferences, sense='max') # Set to maximize
 
 # Set binary decision variables (0 or 1)
 set.type(lp_model_top_preference, columns = 1:(num_doctors * num_terms), type = "binary")
 
-# Modify the LP model to maximize top preferences
-objective_coeffs_top_preference <- as.vector(preference_matrix)
-set.objfn(lp_model_top_preference, objective_coeffs_top_preference)  # No negative sign
+# Set the objective function coefficients for maximizing high preferences
+set.objfn(lp_model_high_preferences, objective_coeffs_high_preferences)
 
 # Add constraints to ensure one assignment per doctor (same as before)
 for (i in 1:num_doctors) {

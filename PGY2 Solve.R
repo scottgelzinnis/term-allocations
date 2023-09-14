@@ -81,10 +81,25 @@ term_classification_A <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
 term_classification_A <- as.vector(term_classification_A$X6)
 term_classification_A <- as.factor(term_classification_A)
 
+# Map longer names to A, B, C, D, E
+term_classification_mapping <- list(
+  "A-Undifferentiated illness patient care"      = "A",
+  "B-Chronic illness patient care"               = "B",
+  "C-Acute critical illness patient care"        = "C",
+  "D-Peri-operative / procedural patient care"   = "D",
+  "E-Non-direct clinical experience (PGY2 Only)" = "E"
+)
+
+# Modify the term_classification_A vector
+term_classification_A <- as.vector(unlist(term_classification_A))
+term_classification_A <- term_classification_mapping[term_classification_A]
+
 #Create a vector that describes "Term Classification B" of a term
 term_classification_B <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
 term_classification_B <- as.vector(term_classification_B$X7)
 term_classification_B <- as.factor(term_classification_B)
+term_classification_B <- term_classification_mapping[term_classification_B]
+
 
 ## Linear Optimization with Minimized Dissatisfaction ##
 
@@ -103,18 +118,44 @@ set.type(lp_model_dissatisfaction, columns = 1:(num_doctors * num_terms), type =
 # Set the objective function coefficients for minimizing dissatisfaction
 set.objfn(lp_model_dissatisfaction, objective_coeffs_dissatisfaction)
 
-# Add constraints to ensure one assignment per doctor
+# 1. Add constraints to ensure one assignment per doctor
 for (i in 1:num_doctors) {
   constr_one_assignment <- rep(0, num_doctors * num_terms)
   constr_one_assignment[((i - 1) * num_terms + 1):(i * num_terms)] <- 1
   add.constraint(lp_model_dissatisfaction, constr_one_assignment, type = "=", rhs = 1)
 }
 
-# Add constraints to limit the maximum number of doctors allocated to each term
+# 2. Add constraints to limit the maximum number of doctors allocated to each term
 for (j in 1:num_terms) {
   constr_max_doctors_per_term <- rep(0, num_doctors * num_terms)
   constr_max_doctors_per_term[j + seq(0, (num_doctors - 1) * num_terms, by = num_terms)] <- 1
   add.constraint(lp_model_dissatisfaction, constr_max_doctors_per_term, type = "<=", rhs = max_doctors_per_term[j])
+}
+
+# 3. Constraints for Specialty Status:
+unique_specialty_statuses <- unique(specialty_status_per_term[!is.na(specialty_status_per_term)])
+
+for (specialty in unique_specialty_statuses) {
+  for (i in 1:num_doctors) {
+    constr_specialty <- rep(0, num_doctors * num_terms)
+    for (j in which(specialty_status_per_term == specialty)) {
+      constr_specialty[(i - 1) * num_terms + j] <- 1
+    }
+    add.constraint(lp_model_dissatisfaction, constr_specialty, type = "<=", rhs = 2)
+  }
+}
+
+# 4. Constraints for Sub-Specialty Status:
+unique_sub_specialties <- unique(sub_specialty_status_per_term[!is.na(sub_specialty_status_per_term)])
+
+for (sub_specialty in unique_sub_specialties) {
+  for (i in 1:num_doctors) {
+    constr_sub_specialty <- rep(0, num_doctors * num_terms)
+    for (j in which(sub_specialty_status_per_term == sub_specialty)) {
+      constr_sub_specialty[(i - 1) * num_terms + j] <- 1
+    }
+    add.constraint(lp_model_dissatisfaction, constr_sub_specialty, type = "<=", rhs = 1)
+  }
 }
 
 
@@ -169,6 +210,10 @@ num_assignments <- 5
 # Initialize a list to store the results of each assignment
 assignment_results <- list()
 
+# This matrix will have rows corresponding to doctors and columns corresponding to terms.
+# An entry of 1 in the matrix indicates that the doctor (row) has been assigned the term (column).
+assigned_terms_matrix <- matrix(0, nrow = num_doctors, ncol = num_terms)
+
 # Loop through the assignments
 for (assignment_num in 1:num_assignments) {
   # Create an empty LP model for minimizing dissatisfaction
@@ -194,6 +239,43 @@ for (assignment_num in 1:num_assignments) {
     add.constraint(lp_model_dissatisfaction, constr_max_doctors_per_term, type = "<=", rhs = max_doctors_per_term[j])
   }
   
+  # Add constraints to prevent doctors from being assigned to the same term again
+  for (i in 1:num_doctors) {
+    for (j in 1:num_terms) {
+      if (assigned_terms_matrix[i, j] == 1) {
+        constraint_already_assigned <- rep(0, num_doctors * num_terms)
+        constraint_already_assigned[(i - 1) * num_terms + j] <- 1
+        add.constraint(lp_model_dissatisfaction, constraint_already_assigned, type = "=", rhs = 0)
+      }
+    }
+  }
+  
+  # 3. Constraints for Specialty Status:
+  unique_specialty_statuses <- unique(specialty_status_per_term[!is.na(specialty_status_per_term)])
+  
+  for (specialty in unique_specialty_statuses) {
+    for (i in 1:num_doctors) {
+      constr_specialty <- rep(0, num_doctors * num_terms)
+      for (j in which(specialty_status_per_term == specialty)) {
+        constr_specialty[(i - 1) * num_terms + j] <- 1
+      }
+      add.constraint(lp_model_dissatisfaction, constr_specialty, type = "<=", rhs = 2)
+    }
+  }
+  
+  # 4. Constraints for Sub-Specialty Status:
+  unique_sub_specialties <- unique(sub_specialty_status_per_term[!is.na(sub_specialty_status_per_term)])
+  
+  for (sub_specialty in unique_sub_specialties) {
+    for (i in 1:num_doctors) {
+      constr_sub_specialty <- rep(0, num_doctors * num_terms)
+      for (j in which(sub_specialty_status_per_term == sub_specialty)) {
+        constr_sub_specialty[(i - 1) * num_terms + j] <- 1
+      }
+      add.constraint(lp_model_dissatisfaction, constr_sub_specialty, type = "<=", rhs = 1)
+    }
+  }
+  
   # Solve the linear programming problem to minimize dissatisfaction
   lp_result_dissatisfaction <- solve(lp_model_dissatisfaction)
   
@@ -201,6 +283,15 @@ for (assignment_num in 1:num_assignments) {
   if (lp_result_dissatisfaction == 0) {
     optimal_solution_dissatisfaction <- get.variables(lp_model_dissatisfaction)
     assignment_results[[assignment_num]] <- optimal_solution_dissatisfaction
+    
+    # Update the assigned_terms_matrix based on this solution
+    for (i in 1:num_doctors) {
+      for (j in 1:num_terms) {
+        if (optimal_solution_dissatisfaction[(i - 1) * num_terms + j] == 1) {
+          assigned_terms_matrix[i, j] <- 1
+        }
+      }
+    }
   } else {
     cat("LP problem could not be solved for assignment", assignment_num, "Result:", lp_result_dissatisfaction, "\n")
   }
@@ -221,72 +312,35 @@ for (assignment_num in 1:num_assignments) {
   }
   cat("\n")
 }
+# Initialize a data frame to store the results
+assignment_table <- data.frame(Doctor = row_names, 
+                               Assignment1 = character(num_doctors), 
+                               Assignment2 = character(num_doctors),
+                               Assignment3 = character(num_doctors),
+                               Assignment4 = character(num_doctors),
+                               Assignment5 = character(num_doctors),
+                               stringsAsFactors = FALSE)
 
-# Create a data frame to store the assignment results for each doctor
-assignment_results_df <- data.frame(
-  Doctor = row_names, 
-  stringsAsFactors = FALSE
-)
-
-# Initialize a matrix to track assigned terms for each doctor
-assigned_terms_matrix <- matrix(FALSE, nrow = num_doctors, ncol = num_terms)
-
-# Iterate through the assignments
+# Populate the data frame with the assignment results
 for (assignment_num in 1:num_assignments) {
-  assignment_column <- paste0("Assignment ", assignment_num)
-  assignment_results_df[[assignment_column]] <- NA
-  
-  # Initialize a count for each "Sub-Specialty" category
-  sub_specialty_counts <- table(sub_specialty_status_per_term, useNA = "ifany")
-  
+  optimal_solution_dissatisfaction <- assignment_results[[assignment_num]]
   for (i in 1:num_doctors) {
-    # Filter unassigned terms for this doctor
-    unassigned_terms <- column_names[!assigned_terms_matrix[i, ]]
-    
-    if (length(unassigned_terms) > 0) {
-      # Calculate a combined score that considers top preferences (lower values)
-      combined_score <- ifelse(preference_matrix[i, ] %in% c(1, 2), -2, -1)  # Note the negative values
-      
-      # Sort terms based on the combined score
-      sorted_terms <- unassigned_terms[order(combined_score[match(unassigned_terms, column_names)])]
-      
-      # Iterate through sorted terms and find an eligible term based on "Sub-Specialty" constraint
-      eligible_term <- NULL
-      for (term in sorted_terms) {
-        # Check if assigning this term violates the "Sub-Specialty" constraint
-        term_sub_specialty <- sub_specialty_status_per_term[match(term, column_names)]
-        if (is.na(term_sub_specialty) || sub_specialty_counts[term_sub_specialty] < 2) {
-          eligible_term <- term
-          break  # Stop when an eligible term is found
-        }
-      }
-      
-      # Assign the eligible term to the doctor if one is found
-      if (!is.null(eligible_term)) {
-        assigned_term_index <- match(eligible_term, column_names)
-        
-        # Update the count of terms in the "Sub-Specialty" category
-        term_sub_specialty <- sub_specialty_status_per_term[assigned_term_index]
-        if (!is.na(term_sub_specialty)) {
-          sub_specialty_counts[term_sub_specialty] <- sub_specialty_counts[term_sub_specialty] + 1
-        }
-        
-        # Mark the term as assigned for this doctor
-        assigned_terms_matrix[i, assigned_term_index] <- TRUE
-        
-        # Update the data frame with the assigned term
-        assignment_results_df[[assignment_column]][i] <- eligible_term
+    for (j in 1:num_terms) {
+      if (optimal_solution_dissatisfaction[(i - 1) * num_terms + j] == 1) {
+        term_name <- column_names[j]
+        assignment_column <- paste0("Assignment", assignment_num)
+        assignment_table[i, assignment_column] <- term_name
       }
     }
   }
 }
 
 # Print the table using gt
-assignment_results_table <- gt(assignment_results_df)
-print(assignment_results_table)
+gt_table <- gt(assignment_table)
+print(gt_table)
 
 
-                 ## Further reporting to add transparency to allocations ##
+                        ## Further reporting to add transparency to allocations ##
 
 # Initialize an empty data frame to store the report
 doctor_preference_report <- data.frame(
@@ -300,28 +354,34 @@ doctor_preference_report <- data.frame(
 for (i in 1:num_doctors) {
   doctor_name <- row_names[i]
   
-  # Iterate through each of the 5 terms allocated to the doctor
+  # Iterate through each of the assignments to extract the allocated terms for each doctor
   for (assignment_num in 1:num_assignments) {
-    assigned_term <- assignment_results_df[[paste0("Assignment ", assignment_num)]][i]
-    
-    # Access the doctor's preference row from the preference matrix
-    doctor_preference <- preference_matrix[i, ]
-    
-    # Calculate preference score for the assigned term
-    preference_score <- doctor_preference[match(assigned_term, column_names)]
-    
-    # Build a data frame with the results for this doctor and term
-    doctor_report <- data.frame(
-      Doctor = rep(doctor_name, 1),
-      Term = assigned_term,
-      Preference_Score = preference_score
-    )
-    
-    # Append the doctor's report to the overall report data frame
-    doctor_preference_report <- rbind(doctor_preference_report, doctor_report)
+    optimal_solution_dissatisfaction <- assignment_results[[assignment_num]]
+    for (j in 1:num_terms) {
+      if (optimal_solution_dissatisfaction[(i - 1) * num_terms + j] == 1) {
+        assigned_term <- column_names[j]
+        
+        # Access the doctor's preference row from the preference matrix
+        doctor_preference <- preference_matrix[i, ]
+        
+        # Calculate preference score for the assigned term
+        preference_score <- doctor_preference[match(assigned_term, column_names)]
+        
+        # Build a data frame with the results for this doctor and term
+        doctor_report <- data.frame(
+          Doctor = rep(doctor_name, 1),
+          Term = assigned_term,
+          Preference_Score = preference_score
+        )
+        
+        # Append the doctor's report to the overall report data frame
+        doctor_preference_report <- rbind(doctor_preference_report, doctor_report)
+      }
+    }
   }
 }
 
 # Print the report using gt
 doctor_preference_report_table <- gt(doctor_preference_report)
 print(doctor_preference_report_table)
+
