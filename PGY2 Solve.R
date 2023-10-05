@@ -149,10 +149,31 @@ for (i in 1:num_doctors) {
 }
 
 # 2. Add constraints to limit the maximum number of doctors allocated to each term
-for (j in 1:num_terms) {
-  constr_max_doctors_per_term <- rep(0, num_doctors * num_terms)
-  constr_max_doctors_per_term[j + seq(0, (num_doctors - 1) * num_terms, by = num_terms)] <- 1
-  add.constraint(lp_model_dissatisfaction, constr_max_doctors_per_term, type = "<=", rhs = max_doctors_per_term[j])
+
+# Helper function to retrieve the correct 'max doctors' vector for a given term
+get_max_doctors_for_term <- function(term) {
+  switch(term,
+         "1" = max_doctors_per_term1,
+         "2" = max_doctors_per_term2,
+         "3" = max_doctors_per_term3,
+         "4" = max_doctors_per_term4,
+         "5" = max_doctors_per_term5)
+}
+
+# Add constraints based on the unique requirements of each term
+for (term in 1:5) {
+  for (j in 1:num_terms) {
+    constr_max_doctors_per_term <- rep(0, num_doctors * num_terms)
+    
+    # Indices for this term's assignment for all doctors
+    indices <- j + seq(0, (num_doctors - 1) * num_terms, by = num_terms)
+    constr_max_doctors_per_term[indices] <- 1
+    
+    # Get the respective 'max doctors' vector for this term
+    max_doctors_for_this_term <- get_max_doctors_for_term(term)
+    
+    add.constraint(lp_model_dissatisfaction, constr_max_doctors_per_term, type = "<=", rhs = max_doctors_for_this_term[j])
+  }
 }
 
 # 3. Constraints for Specialty Status:
@@ -179,6 +200,20 @@ for (sub_specialty in unique_sub_specialties) {
     }
     add.constraint(lp_model_dissatisfaction, constr_sub_specialty, type = "<=", rhs = 1)
   }
+}
+
+# 5. Add constraint to ensure the clinical structure of at least 3 terms are "Team Based" terms.
+
+# Identifying which terms are "Team Based"
+team_based_indices <- which(clinical_structure_term == "Team Based")
+
+for (i in 1:num_doctors) {
+  constr_team_based <- rep(0, num_doctors * num_terms)
+  for (j in team_based_indices) {
+    constr_team_based[(i - 1) * num_terms + j] <- 1
+  }
+  # Ensure that each doctor is assigned to at least 3 terms of "Team Based"
+  add.constraint(lp_model_dissatisfaction, constr_team_based, type = ">=", rhs = 3)
 }
 
 
@@ -256,11 +291,33 @@ for (assignment_num in 1:num_assignments) {
   }
   
   # Add constraints to limit the maximum number of doctors allocated to each term
-  for (j in 1:num_terms) {
-    constr_max_doctors_per_term <- rep(0, num_doctors * num_terms)
-    constr_max_doctors_per_term[j + seq(0, (num_doctors - 1) * num_terms, by = num_terms)] <- 1
-    add.constraint(lp_model_dissatisfaction, constr_max_doctors_per_term, type = "<=", rhs = max_doctors_per_term[j])
+  
+  # Helper function to retrieve the correct 'max doctors' vector for a given term
+  get_max_doctors_for_term <- function(term) {
+    switch(term,
+           "1" = max_doctors_per_term1,
+           "2" = max_doctors_per_term2,
+           "3" = max_doctors_per_term3,
+           "4" = max_doctors_per_term4,
+           "5" = max_doctors_per_term5)
   }
+  
+  # Add constraints based on the unique requirements of each term
+  for (assignment_num in 1:num_assignments) { # Ensure we add this constraint for each assignment
+    for (j in 1:num_terms) {
+      constr_max_doctors_per_term <- rep(0, num_doctors * num_terms)
+      
+      # Indices for this term's assignment for all doctors
+      indices <- j + seq(0, (num_doctors - 1) * num_terms, by = num_terms)
+      constr_max_doctors_per_term[indices] <- 1
+      
+      # Get the respective 'max doctors' vector for this term
+      max_doctors_for_this_term <- get_max_doctors_for_term(assignment_num)
+      
+      add.constraint(lp_model_dissatisfaction, constr_max_doctors_per_term, type = "<=", rhs = max_doctors_for_this_term[j])
+    }
+  }
+  
   
   # Add constraints to prevent doctors from being assigned to the same term again
   for (i in 1:num_doctors) {
@@ -297,6 +354,24 @@ for (assignment_num in 1:num_assignments) {
       }
       add.constraint(lp_model_dissatisfaction, constr_sub_specialty, type = "<=", rhs = 1)
     }
+  }
+  
+  # 5. Add constraint to ensure the clinical structure of at least 3 terms are "Team Based" terms.
+  
+  # Identifying which terms are "Team Based"
+  team_based_indices <- which(clinical_structure_term == "Team Based")
+  
+  for (i in 1:num_doctors) {
+    constr_team_based <- rep(0, num_doctors * num_terms)
+    for (j in team_based_indices) {
+      constr_team_based[(i - 1) * num_terms + j] <- 1
+    }
+    
+    # Here's the change: Check the number of previously assigned "Team Based" terms for the doctor.
+    previously_assigned_team_based <- sum(assigned_terms_matrix[i, team_based_indices])
+    
+    # Set the RHS to (3 - previously_assigned_team_based), ensuring they get at least 3 "Team Based" terms overall.
+    add.constraint(lp_model_dissatisfaction, constr_team_based, type = ">=", rhs = 3 - previously_assigned_team_based)
   }
   
   # Solve the linear programming problem to minimize dissatisfaction
