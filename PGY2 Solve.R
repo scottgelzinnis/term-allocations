@@ -1,5 +1,5 @@
 #Set WD
-setwd("C:/Users/Scotty/Desktop/Allocations Linear Optimisation")
+setwd("D:/My Documents/GitHub/term-allocations")
 
 # Install and load the necessary package
 install.packages("randomNames")
@@ -55,6 +55,8 @@ colnames(preference_matrix) <- column_names
 
 ## Linear Optimization - Defining the problem ##
 
+df <- read_csv("PGY2 Solve.csv")
+
 # Define the number of doctors and terms
 num_doctors <- nrow(preference_matrix)
 num_terms <- ncol(preference_matrix)
@@ -62,9 +64,30 @@ num_terms <- ncol(preference_matrix)
 # Define the objective function coefficients (preferences)
 objective_coeffs <- as.vector(preference_matrix)
 
-#Create a vector of the maximum number of doctors allowed for each term
-max_doctors_per_term <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
-max_doctors_per_term <- as.vector(max_doctors_per_term$X3)
+#Create a vector of the maximum number of doctors allowed for Term 1
+max_doctors_per_term1 <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
+max_doctors_per_term1 <- as.vector(max_doctors_per_term1$X3)
+
+#Create a vector of the maximum number of doctors allowed for Term 2
+max_doctors_per_term2 <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
+max_doctors_per_term2 <- as.vector(max_doctors_per_term2$X4)
+
+#Create a vector of the maximum number of doctors allowed for Term 3
+max_doctors_per_term3 <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
+max_doctors_per_term3 <- as.vector(max_doctors_per_term3$X5)
+
+#Create a vector of the maximum number of doctors allowed for Term 4
+max_doctors_per_term4 <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
+max_doctors_per_term4 <- as.vector(max_doctors_per_term4$X6)
+
+#Create a vector of the maximum number of doctors allowed for Term 5
+max_doctors_per_term5 <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
+max_doctors_per_term5 <- as.vector(max_doctors_per_term5$X7)
+
+#Create a vector that describes the Clinical Team structure of a term
+clinical_structure_term <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
+clinical_structure_term <- as.vector(clinical_structure_term$X13)
+clinical_structure_term <- as.factor(clinical_structure_term)
 
 #Create a vector that describes "Specialty" status of a term
 specialty_status_per_term <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
