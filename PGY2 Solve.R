@@ -340,7 +340,7 @@ gt_table <- gt(assignment_table)
 print(gt_table)
 
 
-                        ## Further reporting to add transparency to allocations ##
+                         ## Further reporting to add transparency to allocations ##
 
 # Initialize an empty data frame to store the report
 doctor_preference_report <- data.frame(
