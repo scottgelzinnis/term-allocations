@@ -205,16 +205,16 @@ for (sub_specialty in unique_sub_specialties) {
 # 5. Add constraint to ensure the clinical structure of at least 3 terms are "Team Based" terms.
 
 # Identifying which terms are "Team Based"
-team_based_indices <- which(clinical_structure_term == "Team Based")
+#team_based_indices <- which(clinical_structure_term == "Team Based")
 
-for (i in 1:num_doctors) {
-  constr_team_based <- rep(0, num_doctors * num_terms)
-  for (j in team_based_indices) {
-    constr_team_based[(i - 1) * num_terms + j] <- 1
-  }
-  # Ensure that each doctor is assigned to at least 3 terms of "Team Based"
-  add.constraint(lp_model_dissatisfaction, constr_team_based, type = ">=", rhs = 3)
-}
+#for (i in 1:num_doctors) {
+#  constr_team_based <- rep(0, num_doctors * num_terms)
+#  for (j in team_based_indices) {
+#    constr_team_based[(i - 1) * num_terms + j] <- 1
+#  }
+#  # Ensure that each doctor is assigned to at least 3 terms of "Team Based"
+#  add.constraint(lp_model_dissatisfaction, constr_team_based, type = ">=", rhs = 3)
+#}
 
 
 # Print the LP model to check its settings (optional)
@@ -358,7 +358,7 @@ for (assignment_num in 1:num_assignments) {
   
   # 5. Add constraint to ensure the clinical structure of at least 3 terms are "Team Based" terms.
   
-  # Identifying which terms are "Team Based"
+# Identifying which terms are "Team Based"
   team_based_indices <- which(clinical_structure_term == "Team Based")
   
   for (i in 1:num_doctors) {
@@ -367,10 +367,10 @@ for (assignment_num in 1:num_assignments) {
       constr_team_based[(i - 1) * num_terms + j] <- 1
     }
     
-    # Here's the change: Check the number of previously assigned "Team Based" terms for the doctor.
+#     Here's the change: Check the number of previously assigned "Team Based" terms for the doctor.
     previously_assigned_team_based <- sum(assigned_terms_matrix[i, team_based_indices])
     
-    # Set the RHS to (3 - previously_assigned_team_based), ensuring they get at least 3 "Team Based" terms overall.
+#     Set the RHS to (3 - previously_assigned_team_based), ensuring they get at least 3 "Team Based" terms overall.
     add.constraint(lp_model_dissatisfaction, constr_team_based, type = ">=", rhs = 3 - previously_assigned_team_based)
   }
   
