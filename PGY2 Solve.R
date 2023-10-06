@@ -87,7 +87,8 @@ max_doctors_per_term5 <- as.vector(max_doctors_per_term5$X7)
 #Create a vector that describes the Clinical Team structure of a term
 clinical_structure_term <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
 clinical_structure_term <- as.vector(clinical_structure_term$X13)
-clinical_structure_term <- as.factor(clinical_structure_term)
+names(clinical_structure_term) <- df[[1]]
+
 
 #Create a vector that describes "Specialty" status of a term
 specialty_status_per_term <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
@@ -99,29 +100,14 @@ sub_specialty_status_per_term <- read_csv("PGY2 Solve.csv", col_names = FALSE, s
 sub_specialty_status_per_term <- as.vector(sub_specialty_status_per_term$X9)
 sub_specialty_status_per_term <- as.factor(sub_specialty_status_per_term)
 
-#Create a vector that describes "Term Classification A" of a term
-term_classification_A <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
-term_classification_A <- as.vector(term_classification_A$X6)
-term_classification_A <- as.factor(term_classification_A)
+#Create a vector that describes "Term Classification 1" of a term
+term_classification1 <- df$`Term Classification`
+term_classification1 <- as_factor(term_classification1)
 
-# Map longer names to A, B, C, D, E
-term_classification_mapping <- list(
-  "A-Undifferentiated illness patient care"      = "A",
-  "B-Chronic illness patient care"               = "B",
-  "C-Acute critical illness patient care"        = "C",
-  "D-Peri-operative / procedural patient care"   = "D",
-  "E-Non-direct clinical experience (PGY2 Only)" = "E"
-)
 
-# Modify the term_classification_A vector
-term_classification_A <- as.vector(unlist(term_classification_A))
-term_classification_A <- term_classification_mapping[term_classification_A]
-
-#Create a vector that describes "Term Classification B" of a term
-term_classification_B <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
-term_classification_B <- as.vector(term_classification_B$X7)
-term_classification_B <- as.factor(term_classification_B)
-term_classification_B <- term_classification_mapping[term_classification_B]
+#Create a vector that describes "Term Classification 2" of a term
+term_classification2 <- df$`Term Classification 2`
+term_classification2 <- as_factor(term_classification2)
 
 
 ## Linear Optimization with Minimized Dissatisfaction ##
@@ -373,3 +359,87 @@ print(doctor_preference_report_table)
 
 # 2. HETI Compliance Report
 
+
+# Calculate average preference for each doctor across all 5 assignments
+avg_preference <- aggregate(Preference_Score ~ Doctor, data = doctor_preference_report, mean)
+
+# Check if a doctor has been assigned to more than 1 term in any sub-specialty
+sub_specialty_compliance <- sapply(1:num_doctors, function(i) {
+  doctor_name <- row_names[i]
+  assigned_terms_df <- subset(doctor_preference_report, Doctor == doctor_name)
+  terms_assigned <- assigned_terms_df$Term
+  sub_specialty_terms <- sub_specialty_status_per_term[terms_assigned]
+  max_count <- max(table(sub_specialty_terms), na.rm = TRUE)
+  return(max_count <= 1)
+})
+
+# Check if a doctor has been assigned to more than 2 terms in any specialty
+specialty_compliance <- sapply(1:num_doctors, function(i) {
+  doctor_name <- row_names[i]
+  terms_assigned <- doctor_preference_report$Term[doctor_preference_report$Doctor == doctor_name]
+  specialty_terms <- specialty_status_per_term[terms_assigned]
+  max_count <- max(table(specialty_terms), na.rm = TRUE)
+  return(max_count <= 2)
+})
+
+# Check if a doctor has been assigned to at least 3 "Team Based" terms
+team_based_compliance <- sapply(1:num_doctors, function(i) {
+  doctor_name <- row_names[i]
+  terms_assigned <- doctor_preference_report$Term[doctor_preference_report$Doctor == doctor_name]
+  
+  # Debugging print statements
+  print(paste("Doctor:", doctor_name))
+  print(paste("Assigned terms:", toString(terms_assigned)))
+  structure_indices <- match(terms_assigned, names(clinical_structure_term))
+  print(paste("Matching indices:", toString(structure_indices)))
+  print(paste("Clinical structures:", toString(clinical_structure_term[structure_indices])))
+  
+  team_based_count <- sum(clinical_structure_term[structure_indices] == "Team Based")
+  
+  return(team_based_count >= 3)
+})
+
+# Check for compliance with the desired term classifications
+check_term_classifications <- function(terms_assigned) {
+  classification1 <- term_classification1[match(terms_assigned, column_names)]
+  classification2 <- term_classification2[match(terms_assigned, column_names)]
+  required_terms <- c("A-Undifferentiated illness patient care", 
+                      "B-Chronic illness patient care", 
+                      "C-Acute critical illness patient care")
+  
+  # Check for each term individually, without merging the classifications
+  has_required_terms <- sapply(required_terms, function(term) {
+    term %in% classification1 || term %in% classification2
+  })
+  
+  return(all(has_required_terms))
+}
+
+term_classifications_compliance <- sapply(1:num_doctors, function(i) {
+  doctor_name <- row_names[i]
+  terms_assigned <- doctor_preference_report$Term[doctor_preference_report$Doctor == doctor_name]
+  return(check_term_classifications(terms_assigned))
+})
+
+compliance_data <- data.frame(
+  Doctor = row_names,
+  Avg_Preference = avg_preference$Preference_Score,
+  SubSpecialty_Compliance = sub_specialty_compliance,
+  Specialty_Compliance = specialty_compliance,
+  Team_Based_Compliance = team_based_compliance,
+  Term_Classifications_Compliance = term_classifications_compliance
+)
+
+# 2. Format with gt
+
+HETI_compliance_table <- compliance_data %>%
+  gt() %>%
+  cols_label(
+    Avg_Preference = "Avg. Preference (1-5)",
+    SubSpecialty_Compliance = "Max 1 Term in Sub-Specialty",
+    Specialty_Compliance = "Max 2 Terms in Specialty",
+    Team_Based_Compliance = "At Least 3 'Team Based' Terms",
+    Term_Classifications_Compliance = "Essential Classifications"
+  )
+
+print(HETI_compliance_table)
