@@ -1,15 +1,15 @@
-﻿Master jobs list,PGY2 Only,PGY2 Resource Allocation T1,PGY2 Resource Allocation T2,PGY2 Resource Allocation T3,PGY2 Resource Allocation T4,PGY2 Resource Allocation T5,Term Classification,Term Classification 2,Specialty,Subspecialty,Is this a service Term,Clinical Team Structure
-ARRH General Medicine 02 (RMO),Yes,5,5,5,5,15,A-Undifferentiated illness patient care,C-Acute critical illness patient care,General Medicine,,No,Ward Based
-ARRH Integrated Mental Health - inpatient & community (RMO),Yes,1,1,1,11,1,B-Chronic illness patient care,C-Acute critical illness patient care,General Medicine,,No,Ward Based
+Master jobs list,PGY2 Only,PGY2 Resource Allocation T1,PGY2 Resource Allocation T2,PGY2 Resource Allocation T3,PGY2 Resource Allocation T4,PGY2 Resource Allocation T5,Term Classification,Term Classification 2,Specialty,Subspecialty,Is this a service Term,Clinical Team Structure
+ARRH General Medicine 02 (RMO),Yes,5,5,5,5,5,A-Undifferentiated illness patient care,C-Acute critical illness patient care,General Medicine,,No,Ward Based
+ARRH Integrated Mental Health - inpatient & community (RMO),Yes,1,1,1,1,1,B-Chronic illness patient care,C-Acute critical illness patient care,General Medicine,,No,Ward Based
 ARRH Paediatrics (RMO),Yes,1,1,1,1,1,C-Acute critical illness patient care,A-Undifferentiated illness patient care,General Paediatric and child health,,No,Ward Based
 BDH Anaesthetics / Emergency (RMO),Yes,1,1,1,1,1,A-Undifferentiated illness patient care,D-Peri-operative / procedural patient care,Anaesthesia,Anaesthesia,No,Team Based
 BDH Emergency (03) (RMO),Yes,1,1,1,1,1,C-Acute critical illness patient care,A-Undifferentiated illness patient care,Emergency medicine,,No,Team Based
 CMN Medicine - Radiation oncology (01) (RMO),Yes,1,1,1,1,1,B-Chronic illness patient care,D-Peri-operative / procedural patient care,General Medicine,Radiation oncology,No,Team Based
 CMN Surgery 3 (RMO),Yes,1,1,1,1,1,D-Peri-operative / procedural patient care,C-Acute critical illness patient care,General Surgery,,No,Team Based
-HNE Relief 11 (RMO),Yes,17,7,7,7,7,A-Undifferentiated illness patient care,C-Acute critical illness patient care,Relief,Relief,Yes,Team Based
+HNE Relief 11 (RMO),Yes,17,17,17,17,17,A-Undifferentiated illness patient care,C-Acute critical illness patient care,Relief,Relief,Yes,Team Based
 HNELHD Clinical Governance (RMO),Yes,1,1,1,1,1,E-Non-direct clinical experience (PGY2 Only),,Medical Administration,Medical Administration,Yes,Other
 HNEMH Mental Health Intensive Care Unit - Mater hospital (RMO),Yes,1,1,1,1,1,C-Acute critical illness patient care,,Psychiatry,MICU,No,Team Based
-JHH Anaesthetics / Emergency (RMO),Yes,1,11,1,1,1,A-Undifferentiated illness patient care,D-Peri-operative / procedural patient care,Anaesthesia,Anaesthesia,No,Team Based
+JHH Anaesthetics / Emergency (RMO),Yes,1,1,1,1,1,A-Undifferentiated illness patient care,D-Peri-operative / procedural patient care,Anaesthesia,Anaesthesia,No,Team Based
 JHH Community Acute Post Acute Care Service (RMO),Yes,1,1,1,1,1,B-Chronic illness patient care,A-Undifferentiated illness patient care,Public Health Medicine,,Yes,Other
 JHH Emergency (11) (RMO),Yes,5,5,5,5,5,A-Undifferentiated illness patient care,C-Acute critical illness patient care,Emergency medicine,,No,Team Based
 JHH General Paediatrics (01) (RMO),Yes,3,3,3,3,3,A-Undifferentiated illness patient care,C-Acute critical illness patient care,General Paediatric and child health,,No,Team Based
@@ -29,7 +29,7 @@ MBH General Medicine Oncology/Dialysis (RMO),Yes,1,1,1,1,1,C-Acute critical illn
 MBH Obstetrics & Gynaecology (RMO),Yes,1,1,1,1,1,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Obstetrics and gynaecology,Obstetrics and gynaecology,No,Team Based
 MBH Paediatrics (RMO),Yes,1,1,1,1,1,C-Acute critical illness patient care,A-Undifferentiated illness patient care,General Paediatric and child health,General Paediatric and child health,No,Team Based
 MBH Surgery - Orthopaedics  01 (RMO),Yes,2,2,2,2,2,D-Peri-operative / procedural patient care,C-Acute critical illness patient care,Orthopaedics,,No,Team Based
-MH Emergency 06 (RMO),Yes,4,4,14,4,4,C-Acute critical illness patient care,A-Undifferentiated illness patient care,Emergency medicine,,No,Team Based
+MH Emergency 06 (RMO),Yes,4,4,4,4,4,C-Acute critical illness patient care,A-Undifferentiated illness patient care,Emergency medicine,,No,Team Based
 MH General Medicine (01) (RMO),Yes,4,4,4,4,4,C-Acute critical illness patient care,B-Chronic illness patient care,General Medicine,,No,Team Based
 MH General Medicine Relief (01) (RMO),Yes,4,4,4,4,4,C-Acute critical illness patient care,B-Chronic illness patient care,Relief,Relief,Yes,Other
 MH General Surgery 1 (RMO),Yes,1,1,1,1,1,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,General Surgery,,No,Team Based

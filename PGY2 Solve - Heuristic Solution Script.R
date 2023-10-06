@@ -1,3 +1,5 @@
+## PGY2 Solve - Heuristic Solution Script ##
+
 #Set WD
 setwd("D:/My Documents/GitHub/term-allocations")
 
@@ -204,7 +206,7 @@ for (sub_specialty in unique_sub_specialties) {
 
 # 5. Add constraint to ensure the clinical structure of at least 3 terms are "Team Based" terms.
 
-# Identifying which terms are "Team Based"
+#Identifying which terms are "Team Based"
 team_based_indices <- which(clinical_structure_term == "Team Based")
 
 for (i in 1:num_doctors) {
@@ -257,7 +259,7 @@ if (lp_result_dissatisfaction == 0) {
 
 
 
-
+## GREEEDY HEURISTIC METHOD ##
 
 
 ## NEXT STEP TO RUN A LOOP TO ASSIGN 5 TERMS ACROSS THE YEAR BASED ON PREFERENCES ##
@@ -268,103 +270,69 @@ num_assignments <- 5
 # Initialize a list to store the results of each assignment
 assignment_results <- list()
 
-# This matrix will have rows corresponding to doctors and columns corresponding to terms.
 # An entry of 1 in the matrix indicates that the doctor (row) has been assigned the term (column).
 assigned_terms_matrix <- matrix(0, nrow = num_doctors, ncol = num_terms)
 
+# Function to check if assigning a doctor to a term satisfies all constraints
+satisfies_constraints <- function(doctor_index, term_index, current_assignments) {
+  
+  # 1. Check constraint: one assignment per doctor
+  if (sum(current_assignments[doctor_index, ]) > 0) {
+    return(FALSE)
+  }
+  
+  # 2. Check constraint: max doctors per term
+  max_doctors_for_this_term <- get_max_doctors_for_term(assignment_num)
+  if (sum(current_assignments[, term_index]) >= max_doctors_for_this_term[term_index]) {
+    return(FALSE)
+  }
+  
+  # 3. Check constraint: specialty status
+  term_specialty <- specialty_status_per_term[term_index]
+  if (!is.na(term_specialty) && sum(current_assignments[doctor_index, which(specialty_status_per_term == term_specialty)]) >= 2) {
+    return(FALSE)
+  }
+  
+  # 4. Check constraint: sub-specialty status
+  term_sub_specialty <- sub_specialty_status_per_term[term_index]
+  if (!is.na(term_sub_specialty) && current_assignments[doctor_index, which(sub_specialty_status_per_term == term_sub_specialty)] == 1) {
+    return(FALSE)
+  }
+  
+  # 5. Check constraint: team based terms
+  previously_assigned_team_based <- sum(assigned_terms_matrix[doctor_index, which(clinical_structure_term == "Team Based")])
+  if (clinical_structure_term[term_index] == "Team Based" && previously_assigned_team_based + sum(current_assignments[doctor_index, which(clinical_structure_term == "Team Based")]) >= 3) {
+    return(FALSE)
+  }
+  
+  # If none of the constraints are violated, return TRUE
+  return(TRUE)
+}
+
 # Loop through the assignments
 for (assignment_num in 1:num_assignments) {
-  # Create an empty LP model for minimizing dissatisfaction
-  lp_model_dissatisfaction <- make.lp(0, num_doctors * num_terms)
+  # Create a matrix to store this round's assignments
+  current_assignments <- matrix(0, nrow = num_doctors, ncol = num_terms)
   
-  # Set binary decision variables (0 or 1)
-  set.type(lp_model_dissatisfaction, columns = 1:(num_doctors * num_terms), type = "binary")
-  
-  # Set the objective function coefficients for minimizing dissatisfaction
-  set.objfn(lp_model_dissatisfaction, objective_coeffs_dissatisfaction)
-  
-  # Add constraints to ensure one assignment per doctor
   for (i in 1:num_doctors) {
-    constr_one_assignment <- rep(0, num_doctors * num_terms)
-    constr_one_assignment[((i - 1) * num_terms + 1):(i * num_terms)] <- 1
-    add.constraint(lp_model_dissatisfaction, constr_one_assignment, type = "=", rhs = 1)
-  }
-  
-  # Add constraints to limit the maximum number of doctors allocated to each term
-  
-  # Add constraints based on the unique requirements of each term
-  for (j in 1:num_terms) {
-    constr_max_doctors_per_term <- rep(0, num_doctors * num_terms)
+    # Sort terms based on the doctor's preferences
+    preferred_terms <- order(preference_matrix[i, ])
     
-    # Indices for this term's assignment for all doctors
-    indices <- j + seq(0, (num_doctors - 1) * num_terms, by = num_terms)
-    constr_max_doctors_per_term[indices] <- 1
-    
-    # Get the respective 'max doctors' vector for this term
-    max_doctors_for_this_term <- get_max_doctors_for_term(assignment_num)
-    
-    add.constraint(lp_model_dissatisfaction, constr_max_doctors_per_term, type = "<=", rhs = max_doctors_for_this_term[j])
-  }
-  
-  
-  # Add constraints to prevent doctors from being assigned to the same term again
-  for (i in 1:num_doctors) {
-    for (j in 1:num_terms) {
-      if (assigned_terms_matrix[i, j] == 1) {
-        constraint_already_assigned <- rep(0, num_doctors * num_terms)
-        constraint_already_assigned[(i - 1) * num_terms + j] <- 1
-        add.constraint(lp_model_dissatisfaction, constraint_already_assigned, type = "=", rhs = 0)
+    for (term in preferred_terms) {
+      # If the assignment is valid, assign and break out of the loop
+      if (satisfies_constraints(i, term, current_assignments)) {
+        current_assignments[i, term] <- 1
+        break
       }
     }
   }
   
-  # 3. Constraints for Specialty Status:
-  unique_specialty_statuses <- unique(specialty_status_per_term[!is.na(specialty_status_per_term)])
+  assignment_results[[assignment_num]] <- current_assignments
   
-  for (specialty in unique_specialty_statuses) {
-    for (i in 1:num_doctors) {
-      constr_specialty <- rep(0, num_doctors * num_terms)
-      for (j in which(specialty_status_per_term == specialty)) {
-        constr_specialty[(i - 1) * num_terms + j] <- 1
-      }
-      add.constraint(lp_model_dissatisfaction, constr_specialty, type = "<=", rhs = 2)
-    }
-  }
-  
-  # 4. Constraints for Sub-Specialty Status:
-  unique_sub_specialties <- unique(sub_specialty_status_per_term[!is.na(sub_specialty_status_per_term)])
-  
-  for (sub_specialty in unique_sub_specialties) {
-    for (i in 1:num_doctors) {
-      constr_sub_specialty <- rep(0, num_doctors * num_terms)
-      for (j in which(sub_specialty_status_per_term == sub_specialty)) {
-        constr_sub_specialty[(i - 1) * num_terms + j] <- 1
-      }
-      add.constraint(lp_model_dissatisfaction, constr_sub_specialty, type = "<=", rhs = 1)
-    }
-  }
-  
-  
-  # Solve the linear programming problem to minimize dissatisfaction
-  lp_result_dissatisfaction <- solve(lp_model_dissatisfaction)
-  
-  # Check if the LP problem was solved successfully
-  if (lp_result_dissatisfaction == 0) {
-    optimal_solution_dissatisfaction <- get.variables(lp_model_dissatisfaction)
-    assignment_results[[assignment_num]] <- optimal_solution_dissatisfaction
-    
-    # Update the assigned_terms_matrix based on this solution
-    for (i in 1:num_doctors) {
-      for (j in 1:num_terms) {
-        if (optimal_solution_dissatisfaction[(i - 1) * num_terms + j] == 1) {
-          assigned_terms_matrix[i, j] <- 1
-        }
-      }
-    }
-  } else {
-    cat("LP problem could not be solved for assignment", assignment_num, "Result:", lp_result_dissatisfaction, "\n")
-  }
+  # Update the assigned_terms_matrix to reflect the new assignments
+  assigned_terms_matrix <- assigned_terms_matrix + current_assignments
 }
+
 
 # Print the results of each assignment
 for (assignment_num in 1:num_assignments) {
@@ -409,7 +377,6 @@ gt_table <- gt(assignment_table)
 print(gt_table)
 
 
-                         
 ## Further reporting to add transparency to allocations ##
 
 # Initialize an empty data frame to store the report
