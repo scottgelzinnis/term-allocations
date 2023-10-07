@@ -1,0 +1,90 @@
+# 5. Term Classification Constraint - Must have a term in Cat A, Cat B and Cat C.
+
+# Step 1: Pre-process the classifications
+  classification_A <- matrix(0, nrow = num_doctors, ncol = num_terms)
+  classification_B <- matrix(0, nrow = num_doctors, ncol = num_terms)
+  classification_C <- matrix(0, nrow = num_doctors, ncol = num_terms)
+  
+  for (j in 1:num_terms) {
+    if ("A-Undifferentiated illness patient care" %in% c(term_classification1[j], term_classification2[j])) {
+      classification_A[, j] <- 1
+    }
+    if ("B-Chronic illness patient care" %in% c(term_classification1[j], term_classification2[j])) {
+      classification_B[, j] <- 1
+    }
+    if ("C-Acute critical illness patient care" %in% c(term_classification1[j], term_classification2[j])) {
+      classification_C[, j] <- 1
+    }
+  }
+  
+  # Step 2: Add the constraints
+  
+  # For classification A
+  for (i in 1:num_doctors) {
+    constr_class_A <- rep(0, num_doctors * num_terms)
+    indices <- seq(i, num_doctors*num_terms, by=num_doctors)
+    constr_class_A[indices] <- classification_A[i, ]
+    add.constraint(lp_model_dissatisfaction, constr_class_A, type = ">=", rhs = 1)
+  }
+  
+  # For classification B
+  for (i in 1:num_doctors) {
+    constr_class_B <- rep(0, num_doctors * num_terms)
+    indices <- seq(i, num_doctors*num_terms, by=num_doctors)
+    constr_class_B[indices] <- classification_B[i, ]
+    add.constraint(lp_model_dissatisfaction, constr_class_B, type = ">=", rhs = 1)
+  }
+  
+  # For classification C
+  for (i in 1:num_doctors) {
+    constr_class_C <- rep(0, num_doctors * num_terms)
+    indices <- seq(i, num_doctors*num_terms, by=num_doctors)
+    constr_class_C[indices] <- classification_C[i, ]
+    add.constraint(lp_model_dissatisfaction, constr_class_C, type = ">=", rhs = 1)
+  }
+
+
+# 5. Constraints for Term Classifications (Using both term_classification1 and term_classification2):
+  for (classification in c("A-Undifferentiated illness patient care", 
+                           "B-Chronic illness patient care", 
+                           "C-Acute critical illness patient care")) {
+    for (i in 1:num_doctors) {
+      constr_classification1 <- rep(0, num_doctors * num_terms)
+      constr_classification2 <- rep(0, num_doctors * num_terms)
+      
+      for (j in which(term_classification1 == classification)) {
+        constr_classification1[(i - 1) * num_terms + j] <- 1
+      }
+      for (j in which(term_classification2 == classification)) {
+        constr_classification2[(i - 1) * num_terms + j] <- 1
+      }
+      
+      # Adding two constraints for each classification (one for each term_classification column)
+      add.constraint(lp_model_dissatisfaction, constr_classification1, type = ">=", rhs = 1)
+      add.constraint(lp_model_dissatisfaction, constr_classification2, type = ">=", rhs = 1)
+    }
+  } 
+   
+  
+# 6. Add constraint to ensure the clinical structure of at least 3 terms are "Team Based" terms.
+  
+#Identifying which terms are "Team Based"
+  team_based_indices <- which(clinical_structure_term == "Team Based")
+  
+  for (i in 1:num_doctors) {
+    constr_team_based <- rep(0, num_doctors * num_terms)
+    for (j in team_based_indices) {
+      constr_team_based[(i - 1) * num_terms + j] <- 1
+    }
+  
+# Calculate how many "Team Based" terms have already been assigned to this doctor
+    previously_assigned_team_based <- sum(assigned_terms_matrix[i, team_based_indices])
+  
+#Set the RHS to ensure they get at least 3 "Team Based" terms in total
+    rhs_value <- max(0, 3 - previously_assigned_team_based)
+    add.constraint(lp_model_dissatisfaction, constr_team_based, type = ">=", rhs = rhs_value)
+  }
+  
+  
+  
+  

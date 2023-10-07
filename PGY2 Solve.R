@@ -158,7 +158,7 @@ for (assignment_num in 1:num_assignments) {
     add.constraint(lp_model_dissatisfaction, constr_one_assignment, type = "=", rhs = 1)
   }
   
-  # 1. Add constraints to limit the maximum number of doctors allocated to each term
+# 1. Add constraints to limit the maximum number of doctors allocated to each term
   
   # Helper function to retrieve the correct 'max doctors' vector for a given term
   get_max_doctors_for_term <- function(term) {
@@ -185,7 +185,7 @@ for (assignment_num in 1:num_assignments) {
   }
   
   
-  # 2. Add constraints to prevent doctors from being assigned to the same term again
+# 2. Add constraints to prevent doctors from being assigned to the same term again
   for (i in 1:num_doctors) {
     for (j in 1:num_terms) {
       if (assigned_terms_matrix[i, j] == 1) {
@@ -196,7 +196,7 @@ for (assignment_num in 1:num_assignments) {
     }
   }
   
-  # 3. Constraints for Specialty Status:
+# 3. Constraints for Specialty Status:
   unique_specialty_statuses <- unique(specialty_status_per_term[!is.na(specialty_status_per_term)])
   
   for (specialty in unique_specialty_statuses) {
@@ -209,7 +209,7 @@ for (assignment_num in 1:num_assignments) {
     }
   }
   
-  # 4. Constraints for Sub-Specialty Status:
+# 4. Constraints for Sub-Specialty Status:
   unique_sub_specialties <- unique(sub_specialty_status_per_term[!is.na(sub_specialty_status_per_term)])
   
   for (sub_specialty in unique_sub_specialties) {
@@ -221,27 +221,60 @@ for (assignment_num in 1:num_assignments) {
       add.constraint(lp_model_dissatisfaction, constr_sub_specialty, type = "<=", rhs = 1)
     }
   }
- 
-  # 5. Add constraint to ensure the clinical structure of at least 3 terms are "Team Based" terms.
+
+# # 5. Term Classification Constraint - Must have a term in Cat A, Cat B and Cat C. 
+# 
+#   # Step 1: Pre-process the classifications
+#   classification_A <- matrix(0, nrow = num_doctors, ncol = num_terms)
+#   classification_B <- matrix(0, nrow = num_doctors, ncol = num_terms)
+#   classification_C <- matrix(0, nrow = num_doctors, ncol = num_terms)
+#   
+#   for (j in 1:num_terms) {
+#     if ("A-Undifferentiated illness patient care" %in% c(term_classification1[j], term_classification2[j])) {
+#       classification_A[, j] <- 1
+#     }
+#     if ("B-Chronic illness patient care" %in% c(term_classification1[j], term_classification2[j])) {
+#       classification_B[, j] <- 1
+#     }
+#     if ("C-Acute critical illness patient care" %in% c(term_classification1[j], term_classification2[j])) {
+#       classification_C[, j] <- 1
+#     }
+#   }
+#   
+#   # Calculate the number of A, B, and C assignments each doctor already has from previous iterations
+#   previous_A_assignments <- rowSums(assigned_terms_matrix * classification_A)
+#   previous_B_assignments <- rowSums(assigned_terms_matrix * classification_B)
+#   previous_C_assignments <- rowSums(assigned_terms_matrix * classification_C)
+#   
+#   # Set high penalty values for not having A, B, C terms
+#   penalty_A <- 1000 # Adjust as needed
+#   penalty_B <- 1000
+#   penalty_C <- 1000
+#   
+#   # Adjust the objective function coefficients based on penalties
+#   for (i in 1:num_doctors) {
+#     indices_A <- which(classification_A[i, ] == 1)
+#     indices_B <- which(classification_B[i, ] == 1)
+#     indices_C <- which(classification_C[i, ] == 1)
+#     
+#     if (previous_A_assignments[i] == 0) {
+#       objective_coeffs_dissatisfaction[seq(i, num_doctors*num_terms, by=num_doctors)[indices_A]] <- 
+#         objective_coeffs_dissatisfaction[seq(i, num_doctors*num_terms, by=num_doctors)[indices_A]] - penalty_A
+#     }
+#     if (previous_B_assignments[i] == 0) {
+#       objective_coeffs_dissatisfaction[seq(i, num_doctors*num_terms, by=num_doctors)[indices_B]] <- 
+#         objective_coeffs_dissatisfaction[seq(i, num_doctors*num_terms, by=num_doctors)[indices_B]] - penalty_B
+#     }
+#     if (previous_C_assignments[i] == 0) {
+#       objective_coeffs_dissatisfaction[seq(i, num_doctors*num_terms, by=num_doctors)[indices_C]] <- 
+#         objective_coeffs_dissatisfaction[seq(i, num_doctors*num_terms, by=num_doctors)[indices_C]] - penalty_C
+#     }
+#   }
+#   
+#   # Update the objective function of the LP model with the adjusted coefficients
+#   set.objfn(lp_model_dissatisfaction, objective_coeffs_dissatisfaction)
   
-  # Identifying which terms are "Team Based"
-  #team_based_indices <- which(clinical_structure_term == "Team Based")
-  
-  #for (i in 1:num_doctors) {
-  #  constr_team_based <- rep(0, num_doctors * num_terms)
-  #  for (j in team_based_indices) {
-  #    constr_team_based[(i - 1) * num_terms + j] <- 1
-  #  }
-  
-  # Calculate how many "Team Based" terms have already been assigned to this doctor
-  #  previously_assigned_team_based <- sum(assigned_terms_matrix[i, team_based_indices])
-  
-  # Set the RHS to ensure they get at least 3 "Team Based" terms in total
-  #  rhs_value <- max(0, 3 - previously_assigned_team_based)
-  
-  #  add.constraint(lp_model_dissatisfaction, constr_team_based, type = ">=", rhs = rhs_value)
-  #}
-   
+
   
   # Solve the linear programming problem to minimize dissatisfaction
   lp_result_dissatisfaction <- solve(lp_model_dissatisfaction)
@@ -430,7 +463,7 @@ compliance_data <- data.frame(
   Term_Classifications_Compliance = term_classifications_compliance
 )
 
-# 2. Format with gt
+# Format with gt
 
 HETI_compliance_table <- compliance_data %>%
   gt() %>%
@@ -443,3 +476,227 @@ HETI_compliance_table <- compliance_data %>%
   )
 
 print(HETI_compliance_table)
+
+
+### MESSING AROUND WITH POST PROCESSING TO ACHIEVE PERFECT HETI COMPLIANCE ###
+
+
+# Define the swap_terms function to encapsulate the swap logic
+swap_terms <- function(matrix, doctor1, doctor2, term1, term2) {
+  matrix[doctor1, term1] <- 0
+  matrix[doctor1, term2] <- 1
+  matrix[doctor2, term1] <- 1
+  matrix[doctor2, term2] <- 0
+  return(matrix)
+}
+
+# Utility functions to check constraints
+
+is_max_doctors_violated <- function(assigned_terms_matrix, term, max_doctors_for_terms) {
+  current_assigned_doctors <- sum(assigned_terms_matrix[, term])
+  return(current_assigned_doctors > max_doctors_for_terms[term])
+}
+
+is_already_assigned_violated <- function(doctor, term, original_assignments) {
+  return(original_assignments[doctor, term] == 1)
+}
+
+is_specialty_violated <- function(doctor, term, specialty_status_per_term, assigned_terms_matrix) {
+  term_specialty <- specialty_status_per_term[term]
+  assigned_specialty_terms <- sum(assigned_terms_matrix[doctor, specialty_status_per_term == term_specialty])
+  return(assigned_specialty_terms > 2)
+}
+
+is_sub_specialty_violated <- function(doctor, term, sub_specialty_status_per_term, assigned_terms_matrix) {
+  term_sub_specialty <- sub_specialty_status_per_term[term]
+  assigned_sub_specialty_terms <- sum(assigned_terms_matrix[doctor, sub_specialty_status_per_term == term_sub_specialty])
+  return(assigned_sub_specialty_terms > 1)
+}
+
+# Post-processing function
+
+post_process_with_constraints <- function(assigned_terms_matrix, term_classification1, term_classification2, max_doctors_per_terms, specialty_status_per_term, sub_specialty_status_per_term, clinical_structure_term) {
+  
+  num_doctors <- nrow(assigned_terms_matrix)
+  num_terms <- ncol(assigned_terms_matrix)
+  team_based_indices <- which(clinical_structure_term == "Team Based")
+  
+  swap_possible <- TRUE
+  iterations <- 0
+  
+  while (swap_possible && iterations < 100) {
+    swap_made <- FALSE
+    
+    for (i in 1:num_doctors) {
+      
+      # Check "Team Based" constraint
+      currently_assigned_team_based <- sum(assigned_terms_matrix[i, team_based_indices])
+      shortfall <- max(0, 3 - currently_assigned_team_based)
+      
+      if (shortfall > 0) {
+        potential_team_based_terms <- setdiff(team_based_indices, which(assigned_terms_matrix[i, ] == 1))
+        for (term in potential_team_based_terms) {
+          if (!is_max_doctors_violated(assigned_terms_matrix, term, max_doctors_per_terms) && 
+              !is_already_assigned_violated(i, term, assigned_terms_matrix) && 
+              !is_specialty_violated(i, term, specialty_status_per_term, assigned_terms_matrix) && 
+              !is_sub_specialty_violated(i, term, sub_specialty_status_per_term, assigned_terms_matrix)) {
+            
+            assigned_terms_matrix[i, term] <- 1
+            shortfall <- shortfall - 1
+            if (shortfall == 0) break
+          }
+        }
+      }
+      
+      #... [Add rest of the post-processing constraints here if necessary]
+      
+    }
+    
+    if (!swap_made) {
+      swap_possible <- FALSE
+    }
+    
+    iterations <- iterations + 1
+  }
+  
+  return(assigned_terms_matrix)
+}
+
+# Applying the post-processing function:
+
+adjusted_assignments <- post_process_with_constraints(assigned_terms_matrix, term_classification1, term_classification2, max_doctors_per_terms, specialty_status_per_term, sub_specialty_status_per_term, clinical_structure_term)
+
+
+# 1. Doctors Preference Report (Adjusted)
+
+# Initialize an empty data frame to store the report
+doctor_preference_report <- data.frame(
+  Doctor = character(),
+  Term = character(),
+  Preference_Score = numeric(),
+  stringsAsFactors = FALSE
+)
+
+# Iterate through each doctor
+for (i in 1:num_doctors) {
+  doctor_name <- row_names[i]
+  
+  # Iterate through each of the assignments to extract the allocated terms for each doctor
+  for (assignment_num in 1:num_assignments) {
+    optimal_solution_dissatisfaction <- adjusted_assignments # Using the adjusted assignments
+    for (j in 1:num_terms) {
+      if (optimal_solution_dissatisfaction[i, j] == 1) { # Note the change in index
+        assigned_term <- column_names[j]
+        
+        # Access the doctor's preference row from the preference matrix
+        doctor_preference <- preference_matrix[i, ]
+        
+        # Calculate preference score for the assigned term
+        preference_score <- doctor_preference[match(assigned_term, column_names)]
+        
+        # Build a data frame with the results for this doctor and term
+        doctor_report <- data.frame(
+          Doctor = rep(doctor_name, 1),
+          Term = assigned_term,
+          Preference_Score = preference_score
+        )
+        
+        # Append the doctor's report to the overall report data frame
+        doctor_preference_report <- rbind(doctor_preference_report, doctor_report)
+      }
+    }
+  }
+}
+
+# Print the report using gt
+doctor_preference_report_table <- gt(doctor_preference_report)
+print(doctor_preference_report_table)
+
+
+# 2. HETI Compliance Report (Adjusted)
+
+
+# Calculate average preference for each doctor across all 5 assignments
+avg_preference <- aggregate(Preference_Score ~ Doctor, data = doctor_preference_report, mean)
+
+# Check if a doctor has been assigned to more than 1 term in any sub-specialty
+sub_specialty_compliance <- sapply(1:num_doctors, function(i) {
+  doctor_name <- row_names[i]
+  assigned_terms_df <- subset(doctor_preference_report, Doctor == doctor_name)
+  terms_assigned <- assigned_terms_df$Term
+  sub_specialty_terms <- sub_specialty_status_per_term[terms_assigned]
+  max_count <- max(table(sub_specialty_terms), na.rm = TRUE)
+  return(max_count <= 1)
+})
+
+# Check if a doctor has been assigned to more than 2 terms in any specialty
+specialty_compliance <- sapply(1:num_doctors, function(i) {
+  doctor_name <- row_names[i]
+  terms_assigned <- doctor_preference_report$Term[doctor_preference_report$Doctor == doctor_name]
+  specialty_terms <- specialty_status_per_term[terms_assigned]
+  max_count <- max(table(specialty_terms), na.rm = TRUE)
+  return(max_count <= 2)
+})
+
+# Check if a doctor has been assigned to at least 3 "Team Based" terms
+team_based_compliance <- sapply(1:num_doctors, function(i) {
+  doctor_name <- row_names[i]
+  terms_assigned <- doctor_preference_report$Term[doctor_preference_report$Doctor == doctor_name]
+  
+  # Debugging print statements
+  print(paste("Doctor:", doctor_name))
+  print(paste("Assigned terms:", toString(terms_assigned)))
+  structure_indices <- match(terms_assigned, names(clinical_structure_term))
+  print(paste("Matching indices:", toString(structure_indices)))
+  print(paste("Clinical structures:", toString(clinical_structure_term[structure_indices])))
+  
+  team_based_count <- sum(clinical_structure_term[structure_indices] == "Team Based")
+  
+  return(team_based_count >= 3)
+})
+
+# Check for compliance with the desired term classifications
+check_term_classifications <- function(terms_assigned) {
+  classification1 <- term_classification1[match(terms_assigned, column_names)]
+  classification2 <- term_classification2[match(terms_assigned, column_names)]
+  required_terms <- c("A-Undifferentiated illness patient care", 
+                      "B-Chronic illness patient care", 
+                      "C-Acute critical illness patient care")
+  
+  # Check for each term individually, without merging the classifications
+  has_required_terms <- sapply(required_terms, function(term) {
+    term %in% classification1 || term %in% classification2
+  })
+  
+  return(all(has_required_terms))
+}
+
+term_classifications_compliance <- sapply(1:num_doctors, function(i) {
+  doctor_name <- row_names[i]
+  terms_assigned <- doctor_preference_report$Term[doctor_preference_report$Doctor == doctor_name]
+  return(check_term_classifications(terms_assigned))
+})
+
+compliance_data <- data.frame(
+  Doctor = row_names,
+  Avg_Preference = avg_preference$Preference_Score,
+  SubSpecialty_Compliance = sub_specialty_compliance,
+  Specialty_Compliance = specialty_compliance,
+  Team_Based_Compliance = team_based_compliance,
+  Term_Classifications_Compliance = term_classifications_compliance
+)
+
+# Format with gt
+
+HETI_compliance_table <- compliance_data %>%
+  gt() %>%
+  cols_label(
+    Avg_Preference = "Avg. Preference (1-5)",
+    SubSpecialty_Compliance = "Max 1 Term in Sub-Specialty",
+    Specialty_Compliance = "Max 2 Terms in Specialty",
+    Team_Based_Compliance = "At Least 3 'Team Based' Terms",
+    Term_Classifications_Compliance = "Essential Classifications"
+  )
+
+print(HETI_compliance_table)
+
