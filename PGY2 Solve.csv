@@ -1,7 +1,7 @@
 Master jobs list,PGY2 Only,PGY2 Resource Allocation T1,PGY2 Resource Allocation T2,PGY2 Resource Allocation T3,PGY2 Resource Allocation T4,PGY2 Resource Allocation T5,Term Classification,Term Classification 2,Specialty,Subspecialty,Is this a service Term,Clinical Team Structure
 ARRH General Medicine 02 (RMO),Yes,5,5,5,5,5,A-Undifferentiated illness patient care,C-Acute critical illness patient care,General Medicine,,No,Ward Based
 ARRH Integrated Mental Health - inpatient & community (RMO),Yes,1,1,1,1,1,B-Chronic illness patient care,C-Acute critical illness patient care,General Medicine,,No,Ward Based
-ARRH Paediatrics (RMO),Yes,1,1,1,1,1,C-Acute critical illness patient care,A-Undifferentiated illness patient care,General Paediatric and child health,,No,Ward Based
+ARRH Paediatrics (RMO),Yes,1,1,1,1,1,C-Acute critical illness patient care,A-Undifferentiated illness patient care,General Paediatric and child health,,No,Team Based
 BDH Anaesthetics / Emergency (RMO),Yes,1,1,1,1,1,A-Undifferentiated illness patient care,D-Peri-operative / procedural patient care,Anaesthesia,Anaesthesia,No,Team Based
 BDH Emergency (03) (RMO),Yes,1,6,1,1,1,C-Acute critical illness patient care,A-Undifferentiated illness patient care,Emergency medicine,,No,Team Based
 CMN Medicine - Radiation oncology (01) (RMO),Yes,1,6,1,1,1,B-Chronic illness patient care,D-Peri-operative / procedural patient care,General Medicine,Radiation oncology,No,Team Based
@@ -38,7 +38,7 @@ MH Obstetrics & Gynaecology (RMO),Yes,1,1,1,1,1,C-Acute critical illness patient
 MH Paediatrics (RMO),Yes,1,1,1,1,1,C-Acute critical illness patient care,A-Undifferentiated illness patient care,General Paediatric and child health,General Paediatric and child health,No,Team Based
 MH Surgery - Orthopaedics (02) (RMO),Yes,1,1,1,1,1,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Orthopaedics,,No,Team Based
 MH Surgery Relief (RMO),Yes,1,1,1,1,1,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Relief,Relief,Yes,Other
-TRRH Emergency 06 (RMO),Yes,6,6,6,6,6,A-Undifferentiated illness patient care,C-Acute critical illness patient care,Emergency medicine,,No,Ward Based
+TRRH Emergency 06 (RMO),Yes,6,6,6,6,6,A-Undifferentiated illness patient care,C-Acute critical illness patient care,Emergency medicine,,No,Team Based
 TRRH Mental Health Banksia Unit 02 (RMO),Yes,1,1,1,1,1,C-Acute critical illness patient care,B-Chronic illness patient care,Psychiatry,,No,Team Based
 TRRH Obstetrics & Gynaecology (02) (RMO),Yes,1,1,1,1,1,D-Peri-operative / procedural patient care,C-Acute critical illness patient care,Obstetrics and gynaecology,Obstetrics and gynaecology,No,Team Based
 TRRH Paediatrics 01 (RMO),Yes,2,2,2,2,2,C-Acute critical illness patient care,A-Undifferentiated illness patient care,General Paediatric and child health,General Paediatric and child health,No,Ward Based
