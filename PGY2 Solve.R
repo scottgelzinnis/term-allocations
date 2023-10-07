@@ -335,8 +335,12 @@ for (assignment_num in 1:num_assignments) {
   }
 }
 
+# Sort by the Doctor's first name
+assignment_table_sorted <- assignment_table %>%
+  arrange(str_extract(Doctor, "^[\\w-]+"))
+
 # Print the table using gt
-gt_table <- gt(assignment_table)
+gt_table <- gt(assignment_table_sorted)
 print(gt_table)
 
 
@@ -384,8 +388,12 @@ for (i in 1:num_doctors) {
   }
 }
 
+# Sort by the Doctor's first name
+doctor_preference_report_sorted <- doctor_preference_report %>%
+  arrange(str_extract(Doctor, "^[\\w-]+"))
+
 # Print the report using gt
-doctor_preference_report_table <- gt(doctor_preference_report)
+doctor_preference_report_table <- gt(doctor_preference_report_sorted)
 print(doctor_preference_report_table)
 
 
@@ -394,7 +402,9 @@ print(doctor_preference_report_table)
 
 
 # Calculate average preference for each doctor across all 5 assignments
-avg_preference <- aggregate(Preference_Score ~ Doctor, data = doctor_preference_report, mean)
+avg_preference <- doctor_preference_report %>%
+  group_by(Doctor) %>%
+  summarize(Avg_Score = mean(Preference_Score, na.rm = TRUE))
 
 # Check if a doctor has been assigned to more than 1 term in any sub-specialty
 sub_specialty_compliance <- sapply(1:num_doctors, function(i) {
@@ -455,8 +465,8 @@ term_classifications_compliance <- sapply(1:num_doctors, function(i) {
 })
 
 compliance_data <- data.frame(
-  Doctor = row_names,
-  Avg_Preference = avg_preference$Preference_Score,
+  Doctor = avg_preference$Doctor,
+  Avg_Preference = avg_preference$Avg_Score,
   SubSpecialty_Compliance = sub_specialty_compliance,
   Specialty_Compliance = specialty_compliance,
   Team_Based_Compliance = team_based_compliance,
