@@ -480,7 +480,6 @@ print(HETI_compliance_table)
 
 ### MESSING AROUND WITH POST PROCESSING TO ACHIEVE PERFECT HETI COMPLIANCE ###
 
-
 # Define the swap_terms function to encapsulate the swap logic
 swap_terms <- function(matrix, doctor1, doctor2, term1, term2) {
   matrix[doctor1, term1] <- 0
@@ -490,81 +489,107 @@ swap_terms <- function(matrix, doctor1, doctor2, term1, term2) {
   return(matrix)
 }
 
+# Define a function to get the benefit of a swap between two doctors for a particular term
+swap_benefit <- function(assigned_terms_matrix, doctor1, doctor2, term1, term2, preferences) {
+  original_benefit_d1 = preferences[doctor1, term1] + preferences[doctor2, term2]
+  swapped_benefit_d1 = preferences[doctor1, term2] + preferences[doctor2, term1]
+  return(swapped_benefit_d1 - original_benefit_d1)
+}
+
 # Utility functions to check constraints
-
-is_max_doctors_violated <- function(assigned_terms_matrix, term, max_doctors_for_terms) {
-  current_assigned_doctors <- sum(assigned_terms_matrix[, term])
-  return(current_assigned_doctors > max_doctors_for_terms[term])
-}
-
-is_already_assigned_violated <- function(doctor, term, original_assignments) {
-  return(original_assignments[doctor, term] == 1)
-}
-
-is_specialty_violated <- function(doctor, term, specialty_status_per_term, assigned_terms_matrix) {
-  term_specialty <- specialty_status_per_term[term]
-  assigned_specialty_terms <- sum(assigned_terms_matrix[doctor, specialty_status_per_term == term_specialty])
-  return(assigned_specialty_terms > 2)
-}
-
-is_sub_specialty_violated <- function(doctor, term, sub_specialty_status_per_term, assigned_terms_matrix) {
-  term_sub_specialty <- sub_specialty_status_per_term[term]
-  assigned_sub_specialty_terms <- sum(assigned_terms_matrix[doctor, sub_specialty_status_per_term == term_sub_specialty])
-  return(assigned_sub_specialty_terms > 1)
-}
-
-# Post-processing function
-
-post_process_with_constraints <- function(assigned_terms_matrix, term_classification1, term_classification2, max_doctors_per_terms, specialty_status_per_term, sub_specialty_status_per_term, clinical_structure_term) {
+is_valid_swap <- function(matrix, doctor1, doctor2, term1, term2, clinical_structure_term, term_classification1, term_classification2) {
+  matrix <- swap_terms(matrix, doctor1, doctor2, term1, term2)
   
+  # Ensure the Team Based term requirement is met
+  if(sum(matrix[doctor1, clinical_structure_term == "Team Based"]) < 3) {
+    cat("Doctor", doctor1, "has less than 3 Team Based terms after swap.\n")
+    return(FALSE)
+  }
+  
+  if(sum(matrix[doctor2, clinical_structure_term == "Team Based"]) < 3) {
+    cat("Doctor", doctor2, "has less than 3 Team Based terms after swap.\n")
+    return(FALSE)
+  }
+  
+  # Get the terms for each doctor after the swap
+  terms_doctor1 <- which(matrix[doctor1,] == 1)
+  terms_doctor2 <- which(matrix[doctor2,] == 1)
+  
+  combined_classifications_doctor1 <- c(term_classification1[terms_doctor1], term_classification2[terms_doctor1])
+  combined_classifications_doctor2 <- c(term_classification1[terms_doctor2], term_classification2[terms_doctor2])
+  
+  # Check if doctor1 has all required categories across both classification vectors
+  if(sum(c("Cat A", "Cat B", "Cat C") %in% combined_classifications_doctor1) < 3) {
+    cat("Doctor", doctor1, "does not have all required categories across both classifications after swap.\n")
+    return(FALSE)
+  }
+  
+  # Check if doctor2 has all required categories across both classification vectors
+  if(sum(c("Cat A", "Cat B", "Cat C") %in% combined_classifications_doctor2) < 3) {
+    cat("Doctor", doctor2, "does not have all required categories across both classifications after swap.\n")
+    return(FALSE)
+  }
+  
+  return(TRUE)
+}
+
+post_process_with_constraints <- function(assigned_terms_matrix, preference_matrix, term_classification1, term_classification2, clinical_structure_term) {
   num_doctors <- nrow(assigned_terms_matrix)
   num_terms <- ncol(assigned_terms_matrix)
-  team_based_indices <- which(clinical_structure_term == "Team Based")
   
-  swap_possible <- TRUE
-  iterations <- 0
+  # Initialize an empty list to store the swaps
+  swaps_report <- list()
   
-  while (swap_possible && iterations < 100) {
-    swap_made <- FALSE
-    
-    for (i in 1:num_doctors) {
-      
-      # Check "Team Based" constraint
-      currently_assigned_team_based <- sum(assigned_terms_matrix[i, team_based_indices])
-      shortfall <- max(0, 3 - currently_assigned_team_based)
-      
-      if (shortfall > 0) {
-        potential_team_based_terms <- setdiff(team_based_indices, which(assigned_terms_matrix[i, ] == 1))
-        for (term in potential_team_based_terms) {
-          if (!is_max_doctors_violated(assigned_terms_matrix, term, max_doctors_per_terms) && 
-              !is_already_assigned_violated(i, term, assigned_terms_matrix) && 
-              !is_specialty_violated(i, term, specialty_status_per_term, assigned_terms_matrix) && 
-              !is_sub_specialty_violated(i, term, sub_specialty_status_per_term, assigned_terms_matrix)) {
+  for(i in 1:(num_doctors-1)) {
+    for(j in (i+1):num_doctors) {
+      for(term1 in 1:num_terms) {
+        for(term2 in 1:num_terms) {
+          if(assigned_terms_matrix[i, term1] == 1 && assigned_terms_matrix[j, term2] == 1) {
             
-            assigned_terms_matrix[i, term] <- 1
-            shortfall <- shortfall - 1
-            if (shortfall == 0) break
+            # Print out the current evaluation for debugging
+            cat("Currently evaluating Doctor1:", rownames(preference_matrix)[i], "Doctor2:", rownames(preference_matrix)[j], "Term1:", colnames(preference_matrix)[term1], "Term2:", colnames(preference_matrix)[term2], "\n")
+            
+            benefit <- swap_benefit(assigned_terms_matrix, i, j, term1, term2, preference_matrix)
+            if(benefit > 0) {
+              valid_swap <- is_valid_swap(assigned_terms_matrix, i, j, term1, term2, clinical_structure_term, term_classification1, term_classification2)
+              if(valid_swap) {
+                assigned_terms_matrix <- swap_terms(assigned_terms_matrix, i, j, term1, term2)
+                
+                # Store the swap details in the list
+                swaps_report[[length(swaps_report) + 1]] <- list(
+                  Doctor1 = rownames(preference_matrix)[i],
+                  Doctor2 = rownames(preference_matrix)[j],
+                  Term1_swapped = colnames(preference_matrix)[term1],
+                  Term2_swapped = colnames(preference_matrix)[term2],
+                  Benefit = benefit
+                )
+              }
+            }
           }
         }
       }
-      
-      #... [Add rest of the post-processing constraints here if necessary]
-      
     }
-    
-    if (!swap_made) {
-      swap_possible <- FALSE
-    }
-    
-    iterations <- iterations + 1
   }
   
-  return(assigned_terms_matrix)
+  return(list(AssignedMatrix = assigned_terms_matrix, Report = swaps_report))
 }
 
-# Applying the post-processing function:
+# Function to display the report
+display_swaps_report <- function(swaps_report) {
+  cat("Swap Report:\n\n")
+  for(swap in swaps_report) {
+    cat("Doctor:", swap$Doctor1, "swapped", swap$Term1_swapped, "with\n")
+    cat("Doctor:", swap$Doctor2, "who had", swap$Term2_swapped, "\n")
+    cat("Benefit of this swap:", swap$Benefit, "\n\n")
+  }
+}
 
-adjusted_assignments <- post_process_with_constraints(assigned_terms_matrix, term_classification1, term_classification2, max_doctors_per_terms, specialty_status_per_term, sub_specialty_status_per_term, clinical_structure_term)
+# Use the function
+results <- post_process_with_constraints(assigned_terms_matrix, preference_matrix, term_classification1, term_classification2, clinical_structure_term)
+display_swaps_report(results$Report)
+
+## Adjusted Assignments ##
+adjusted_assignments <- post_process_with_constraints(assigned_terms_matrix, preferences, term_classification1, term_classification2, clinical_structure_term)
 
 
 # 1. Doctors Preference Report (Adjusted)
