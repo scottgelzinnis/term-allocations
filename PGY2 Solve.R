@@ -343,6 +343,46 @@ assignment_table_sorted <- assignment_table %>%
 gt_table <- gt(assignment_table_sorted)
 print(gt_table)
 
+## MODEL EVALUATION - How many Doctors with one Top 10 preference ##
+
+# Convert the preference matrix into a top 10 boolean matrix
+top_10_matrix <- t(apply(preference_matrix, 1, function(row) row %in% sort(row, decreasing = TRUE)[1:10]))
+
+# For each doctor, determine if the assigned terms are in their top 10 preferences
+assignment_top_10_matrix <- matrix(0, nrow = num_doctors, ncol = num_assignments)
+
+for (assignment_num in 1:num_assignments) {
+  assignment_column <- paste0("Assignment", assignment_num)
+  assigned_terms <- assignment_table[, assignment_column]
+  
+  # Convert the assigned term names back to their column indices
+  assigned_indices <- match(assigned_terms, column_names)
+  
+  for (i in 1:num_doctors) {
+    assignment_top_10_matrix[i, assignment_num] <- top_10_matrix[i, assigned_indices[i]]
+  }
+}
+
+# Sum up for each doctor how many of their assignments are in their top 10
+top_10_counts_per_doctor <- rowSums(assignment_top_10_matrix)
+
+# Determine how many doctors got terms in their top 10 preferences for any of the assignments
+num_doctors_with_top_10 <- sum(top_10_counts_per_doctor > 0)
+
+cat("Number of doctors with at least one term in their top 10 preferences across all assignments:", num_doctors_with_top_10, "\n")
+
+# Determine how many doctors got at least 2 terms in their top 10 preferences for any of the assignments
+num_doctors_with_2_top_10 <- sum(top_10_counts_per_doctor >= 2)
+
+cat("Number of doctors with at least two terms in their top 10 preferences across all assignments:", num_doctors_with_2_top_10, "\n")
+
+# Determine how many doctors got at least 3 terms in their top 10 preferences for any of the assignments
+num_doctors_with_3_top_10 <- sum(top_10_counts_per_doctor >= 3)
+
+cat("Number of doctors with at least three terms in their top 10 preferences across all assignments:", num_doctors_with_3_top_10, "\n")
+
+
+
 ## MODEL EVALUATION - How many doctors with one Top 5 preference ##
 
 # Convert the preference matrix into a top 5 boolean matrix
@@ -372,15 +412,40 @@ num_doctors_with_top_5 <- sum(top_5_counts_per_doctor > 0)
 cat("Number of doctors with at least one term in their top 5 preferences across all assignments:", num_doctors_with_top_5, "\n")
 
 # Create a data frame with the evaluation metrics
+# Extract all assigned terms for each doctor across the assignments
+assigned_terms_all <- as.vector(t(assignment_table[, 2:(num_assignments + 1)]))
+
+# Convert the assigned term names back to their column indices
+assigned_indices_all <- match(assigned_terms_all, column_names)
+
+# Retrieve preference values using matrix indexing
+assigned_preference_values <- matrix(0, nrow = num_doctors, ncol = num_assignments)
+for (assignment_num in 1:num_assignments) {
+  assignment_column <- paste0("Assignment", assignment_num)
+  assigned_terms <- assignment_table[, assignment_column]
+  
+  # Convert the assigned term names back to their column indices
+  assigned_indices <- match(assigned_terms, column_names)
+  
+  for (i in 1:num_doctors) {
+    assigned_preference_values[i, assignment_num] <- preference_matrix[i, assigned_indices[i]]
+  }
+}
+
+average_assigned_preference <- mean(as.vector(assigned_preference_values))
+
+# Create a data frame with the evaluation metrics
 evaluation_data <- data.frame(
   Metric = c("At least 1 term in Top 10", 
              "At least 2 terms in Top 10", 
              "At least 3 terms in Top 10", 
-             "At least 1 term in Top 5"),
+             "At least 1 term in Top 5",
+             "Average Preference of Assigned Terms"),
   Value = c(num_doctors_with_top_10, 
             num_doctors_with_2_top_10, 
             num_doctors_with_3_top_10, 
-            num_doctors_with_top_5)
+            num_doctors_with_top_5,
+            average_assigned_preference)
 )
 
 # Generate the table using gt
@@ -390,7 +455,7 @@ evaluation_table <- gt(evaluation_data) %>%
   ) %>% 
   cols_label(
     Metric = "Metric",
-    Value = "Number of Doctors"
+    Value = "Value"
   )
 
 # Print the table

@@ -113,11 +113,20 @@ term_classification2 <- as_factor(term_classification2)
 ## Linear Optimization with Weighted Dissatisfaction Values ##
 
 # Calculate dissatisfaction values based on preferences (higher value indicates higher dissatisfaction)
-# ADDED - Quadratic penalty to greatly favour higher preferences
+# Quadratic dissatisfaction values
 dissatisfaction_values <- (num_columns - preference_matrix + 1)^2
+
+# Emphasis on top 10 preferences by setting very low dissatisfaction values
+for (i in 1:num_doctors) {
+  # Get indices of top 10 preferences for each doctor
+  top_10_indices <- order(preference_matrix[i,])[1:10]
+  # Assign very low dissatisfaction values
+  dissatisfaction_values[i, top_10_indices] <- 1 
+}
 
 # Convert dissatisfaction values to a vector for the objective function
 objective_coeffs_dissatisfaction <- as.vector(dissatisfaction_values)
+
 
 # Create an empty LP model for minimizing dissatisfaction
 lp_model_dissatisfaction <- make.lp(0, num_doctors * num_terms)
@@ -413,15 +422,41 @@ num_doctors_with_top_5 <- sum(top_5_counts_per_doctor > 0)
 cat("Number of doctors with at least one term in their top 5 preferences across all assignments:", num_doctors_with_top_5, "\n")
 
 # Create a data frame with the evaluation metrics
+
+# Extract all assigned terms for each doctor across the assignments
+assigned_terms_all <- as.vector(t(assignment_table[, 2:(num_assignments + 1)]))
+
+# Convert the assigned term names back to their column indices
+assigned_indices_all <- match(assigned_terms_all, column_names)
+
+# Retrieve preference values using matrix indexing
+assigned_preference_values <- matrix(0, nrow = num_doctors, ncol = num_assignments)
+for (assignment_num in 1:num_assignments) {
+  assignment_column <- paste0("Assignment", assignment_num)
+  assigned_terms <- assignment_table[, assignment_column]
+  
+  # Convert the assigned term names back to their column indices
+  assigned_indices <- match(assigned_terms, column_names)
+  
+  for (i in 1:num_doctors) {
+    assigned_preference_values[i, assignment_num] <- preference_matrix[i, assigned_indices[i]]
+  }
+}
+
+average_assigned_preference <- mean(as.vector(assigned_preference_values))
+
+# Create a data frame with the evaluation metrics
 evaluation_data <- data.frame(
   Metric = c("At least 1 term in Top 10", 
              "At least 2 terms in Top 10", 
              "At least 3 terms in Top 10", 
-             "At least 1 term in Top 5"),
+             "At least 1 term in Top 5",
+             "Average Preference of Assigned Terms"),
   Value = c(num_doctors_with_top_10, 
             num_doctors_with_2_top_10, 
             num_doctors_with_3_top_10, 
-            num_doctors_with_top_5)
+            num_doctors_with_top_5,
+            average_assigned_preference)
 )
 
 # Generate the table using gt
@@ -431,11 +466,12 @@ evaluation_table <- gt(evaluation_data) %>%
   ) %>% 
   cols_label(
     Metric = "Metric",
-    Value = "Number of Doctors"
+    Value = "Value"
   )
 
 # Print the table
 evaluation_table
+
 
 ## Further reporting to add transparency to allocations ##
 
