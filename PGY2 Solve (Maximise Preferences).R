@@ -110,10 +110,11 @@ term_classification2 <- df$`Term Classification 2`
 term_classification2 <- as_factor(term_classification2)
 
 
-## Linear Optimization with Minimized Dissatisfaction ##
+## Linear Optimization with Weighted Dissatisfaction Values ##
 
 # Calculate dissatisfaction values based on preferences (higher value indicates higher dissatisfaction)
-dissatisfaction_values <- num_columns - preference_matrix + 1
+# ADDED - Quadratic penalty to greatly favour higher preferences
+dissatisfaction_values <- (num_columns - preference_matrix + 1)^2
 
 # Convert dissatisfaction values to a vector for the objective function
 objective_coeffs_dissatisfaction <- as.vector(dissatisfaction_values)
@@ -158,7 +159,7 @@ for (assignment_num in 1:num_assignments) {
     add.constraint(lp_model_dissatisfaction, constr_one_assignment, type = "=", rhs = 1)
   }
   
-# 1. Add constraints to limit the maximum number of doctors allocated to each term
+  # 1. Add constraints to limit the maximum number of doctors allocated to each term
   
   # Helper function to retrieve the correct 'max doctors' vector for a given term
   get_max_doctors_for_term <- function(term) {
@@ -185,7 +186,7 @@ for (assignment_num in 1:num_assignments) {
   }
   
   
-# 2. Add constraints to prevent doctors from being assigned to the same term again
+  # 2. Add constraints to prevent doctors from being assigned to the same term again
   for (i in 1:num_doctors) {
     for (j in 1:num_terms) {
       if (assigned_terms_matrix[i, j] == 1) {
@@ -196,7 +197,7 @@ for (assignment_num in 1:num_assignments) {
     }
   }
   
-# 3. Constraints for Specialty Status:
+  # 3. Constraints for Specialty Status:
   unique_specialty_statuses <- unique(specialty_status_per_term[!is.na(specialty_status_per_term)])
   
   for (specialty in unique_specialty_statuses) {
@@ -209,7 +210,7 @@ for (assignment_num in 1:num_assignments) {
     }
   }
   
-# 4. Constraints for Sub-Specialty Status:
+  # 4. Constraints for Sub-Specialty Status:
   unique_sub_specialties <- unique(sub_specialty_status_per_term[!is.na(sub_specialty_status_per_term)])
   
   for (sub_specialty in unique_sub_specialties) {
@@ -221,60 +222,60 @@ for (assignment_num in 1:num_assignments) {
       add.constraint(lp_model_dissatisfaction, constr_sub_specialty, type = "<=", rhs = 1)
     }
   }
-
-# # 5. Term Classification Constraint - Must have a term in Cat A, Cat B and Cat C. 
-# 
-#   # Step 1: Pre-process the classifications
-#   classification_A <- matrix(0, nrow = num_doctors, ncol = num_terms)
-#   classification_B <- matrix(0, nrow = num_doctors, ncol = num_terms)
-#   classification_C <- matrix(0, nrow = num_doctors, ncol = num_terms)
-#   
-#   for (j in 1:num_terms) {
-#     if ("A-Undifferentiated illness patient care" %in% c(term_classification1[j], term_classification2[j])) {
-#       classification_A[, j] <- 1
-#     }
-#     if ("B-Chronic illness patient care" %in% c(term_classification1[j], term_classification2[j])) {
-#       classification_B[, j] <- 1
-#     }
-#     if ("C-Acute critical illness patient care" %in% c(term_classification1[j], term_classification2[j])) {
-#       classification_C[, j] <- 1
-#     }
-#   }
-#   
-#   # Calculate the number of A, B, and C assignments each doctor already has from previous iterations
-#   previous_A_assignments <- rowSums(assigned_terms_matrix * classification_A)
-#   previous_B_assignments <- rowSums(assigned_terms_matrix * classification_B)
-#   previous_C_assignments <- rowSums(assigned_terms_matrix * classification_C)
-#   
-#   # Set high penalty values for not having A, B, C terms
-#   penalty_A <- 1000 # Adjust as needed
-#   penalty_B <- 1000
-#   penalty_C <- 1000
-#   
-#   # Adjust the objective function coefficients based on penalties
-#   for (i in 1:num_doctors) {
-#     indices_A <- which(classification_A[i, ] == 1)
-#     indices_B <- which(classification_B[i, ] == 1)
-#     indices_C <- which(classification_C[i, ] == 1)
-#     
-#     if (previous_A_assignments[i] == 0) {
-#       objective_coeffs_dissatisfaction[seq(i, num_doctors*num_terms, by=num_doctors)[indices_A]] <- 
-#         objective_coeffs_dissatisfaction[seq(i, num_doctors*num_terms, by=num_doctors)[indices_A]] - penalty_A
-#     }
-#     if (previous_B_assignments[i] == 0) {
-#       objective_coeffs_dissatisfaction[seq(i, num_doctors*num_terms, by=num_doctors)[indices_B]] <- 
-#         objective_coeffs_dissatisfaction[seq(i, num_doctors*num_terms, by=num_doctors)[indices_B]] - penalty_B
-#     }
-#     if (previous_C_assignments[i] == 0) {
-#       objective_coeffs_dissatisfaction[seq(i, num_doctors*num_terms, by=num_doctors)[indices_C]] <- 
-#         objective_coeffs_dissatisfaction[seq(i, num_doctors*num_terms, by=num_doctors)[indices_C]] - penalty_C
-#     }
-#   }
-#   
-#   # Update the objective function of the LP model with the adjusted coefficients
-#   set.objfn(lp_model_dissatisfaction, objective_coeffs_dissatisfaction)
   
-
+  # # 5. Term Classification Constraint - Must have a term in Cat A, Cat B and Cat C. 
+  # 
+  #   # Step 1: Pre-process the classifications
+  #   classification_A <- matrix(0, nrow = num_doctors, ncol = num_terms)
+  #   classification_B <- matrix(0, nrow = num_doctors, ncol = num_terms)
+  #   classification_C <- matrix(0, nrow = num_doctors, ncol = num_terms)
+  #   
+  #   for (j in 1:num_terms) {
+  #     if ("A-Undifferentiated illness patient care" %in% c(term_classification1[j], term_classification2[j])) {
+  #       classification_A[, j] <- 1
+  #     }
+  #     if ("B-Chronic illness patient care" %in% c(term_classification1[j], term_classification2[j])) {
+  #       classification_B[, j] <- 1
+  #     }
+  #     if ("C-Acute critical illness patient care" %in% c(term_classification1[j], term_classification2[j])) {
+  #       classification_C[, j] <- 1
+  #     }
+  #   }
+  #   
+  #   # Calculate the number of A, B, and C assignments each doctor already has from previous iterations
+  #   previous_A_assignments <- rowSums(assigned_terms_matrix * classification_A)
+  #   previous_B_assignments <- rowSums(assigned_terms_matrix * classification_B)
+  #   previous_C_assignments <- rowSums(assigned_terms_matrix * classification_C)
+  #   
+  #   # Set high penalty values for not having A, B, C terms
+  #   penalty_A <- 1000 # Adjust as needed
+  #   penalty_B <- 1000
+  #   penalty_C <- 1000
+  #   
+  #   # Adjust the objective function coefficients based on penalties
+  #   for (i in 1:num_doctors) {
+  #     indices_A <- which(classification_A[i, ] == 1)
+  #     indices_B <- which(classification_B[i, ] == 1)
+  #     indices_C <- which(classification_C[i, ] == 1)
+  #     
+  #     if (previous_A_assignments[i] == 0) {
+  #       objective_coeffs_dissatisfaction[seq(i, num_doctors*num_terms, by=num_doctors)[indices_A]] <- 
+  #         objective_coeffs_dissatisfaction[seq(i, num_doctors*num_terms, by=num_doctors)[indices_A]] - penalty_A
+  #     }
+  #     if (previous_B_assignments[i] == 0) {
+  #       objective_coeffs_dissatisfaction[seq(i, num_doctors*num_terms, by=num_doctors)[indices_B]] <- 
+  #         objective_coeffs_dissatisfaction[seq(i, num_doctors*num_terms, by=num_doctors)[indices_B]] - penalty_B
+  #     }
+  #     if (previous_C_assignments[i] == 0) {
+  #       objective_coeffs_dissatisfaction[seq(i, num_doctors*num_terms, by=num_doctors)[indices_C]] <- 
+  #         objective_coeffs_dissatisfaction[seq(i, num_doctors*num_terms, by=num_doctors)[indices_C]] - penalty_C
+  #     }
+  #   }
+  #   
+  #   # Update the objective function of the LP model with the adjusted coefficients
+  #   set.objfn(lp_model_dissatisfaction, objective_coeffs_dissatisfaction)
+  
+  
   
   # Solve the linear programming problem to minimize dissatisfaction
   lp_result_dissatisfaction <- solve(lp_model_dissatisfaction)
@@ -343,6 +344,46 @@ assignment_table_sorted <- assignment_table %>%
 gt_table <- gt(assignment_table_sorted)
 print(gt_table)
 
+
+## MODEL EVALUATION - How many Doctors with one Top 10 preference ##
+
+# Convert the preference matrix into a top 10 boolean matrix
+top_10_matrix <- t(apply(preference_matrix, 1, function(row) row %in% sort(row, decreasing = TRUE)[1:10]))
+
+# For each doctor, determine if the assigned terms are in their top 10 preferences
+assignment_top_10_matrix <- matrix(0, nrow = num_doctors, ncol = num_assignments)
+
+for (assignment_num in 1:num_assignments) {
+  assignment_column <- paste0("Assignment", assignment_num)
+  assigned_terms <- assignment_table[, assignment_column]
+  
+  # Convert the assigned term names back to their column indices
+  assigned_indices <- match(assigned_terms, column_names)
+  
+  for (i in 1:num_doctors) {
+    assignment_top_10_matrix[i, assignment_num] <- top_10_matrix[i, assigned_indices[i]]
+  }
+}
+
+# Sum up for each doctor how many of their assignments are in their top 10
+top_10_counts_per_doctor <- rowSums(assignment_top_10_matrix)
+
+# Determine how many doctors got terms in their top 10 preferences for any of the assignments
+num_doctors_with_top_10 <- sum(top_10_counts_per_doctor > 0)
+
+cat("Number of doctors with at least one term in their top 10 preferences across all assignments:", num_doctors_with_top_10, "\n")
+
+# Determine how many doctors got at least 2 terms in their top 10 preferences for any of the assignments
+num_doctors_with_2_top_10 <- sum(top_10_counts_per_doctor >= 2)
+
+cat("Number of doctors with at least two terms in their top 10 preferences across all assignments:", num_doctors_with_2_top_10, "\n")
+
+# Determine how many doctors got at least 3 terms in their top 10 preferences for any of the assignments
+num_doctors_with_3_top_10 <- sum(top_10_counts_per_doctor >= 3)
+
+cat("Number of doctors with at least three terms in their top 10 preferences across all assignments:", num_doctors_with_3_top_10, "\n")
+
+
 ## MODEL EVALUATION - How many doctors with one Top 5 preference ##
 
 # Convert the preference matrix into a top 5 boolean matrix
@@ -395,7 +436,7 @@ evaluation_table <- gt(evaluation_data) %>%
 
 # Print the table
 evaluation_table
-                         
+
 ## Further reporting to add transparency to allocations ##
 
 # 1. Doctors Preference Report
