@@ -1,21 +1,31 @@
 ---
-title: "PGY2 Solve"
+title: "PGY2 Solve - Allocations 2024"
 author: "Dr Scott Johnson Gelzinnis"
+date: "`r Sys.Date()`"
 output:
-  html_document:
+  html_notebook:
+    theme: journal
     df_print: paged
-  html_notebook: default
+  html_document:
+    theme: journal
+    df_print: paged
   pdf_document: default
 ---
 
-Setting up the Environment
-```{r include=FALSE}
+*Copyright Dr Scott Johnson Gelzinnis (2023) - Statement below*
+
+
+  
+# Setting up the Environment  
+
+
+```{r include=TRUE, echo=TRUE, results='hide'}
 
 #Set WD
 setwd("D:/My Documents/GitHub/term-allocations")
 
 # List of required packages
-required_packages <- c("randomNames", "lpSolve", "lpSolveAPI", "ROI", "knitr", "gt", "readr", "tidyverse")
+required_packages <- c("randomNames", "lpSolve", "lpSolveAPI", "ROI", "gt", "readr", "tidyverse")
 
 # Check if packages are installed and install them if they are not
 new_packages <- required_packages[!(required_packages %in% installed.packages()[,"Package"])]
@@ -29,8 +39,12 @@ set.seed(69)
 
 ```
 
-Loading in the Preference Matrix (This is currently simulated data and will be in the form of an API - Surveymonkey)
-```{r include=FALSE}
+
+
+# Loading in the Preference Matrix 
+
+### (This is currently simulated data and will be in the form of an API - Surveymonkey)  
+```{r include=TRUE, echo=TRUE, results='hide'}
 ## Define preference matrix  ##
 
 # Set the number of rows and columns
@@ -120,8 +134,11 @@ term_classification2 <- as_factor(term_classification2)
 
 
 
-Linear Optimization Model with Minimized Dissatisfaction - With allowable constraints to provide viable solution (i.e if unable to solve, roll back constraint one at a time)
-```{r}
+# Linear Optimization Model with Minimized Dissatisfaction
+
+### With allowable constraints to provide viable solution (i.e if unable to solve, roll back constraint one at a time)
+
+```{r include=TRUE, echo=TRUE, results='hide'}
 
 # Calculate dissatisfaction values based on preferences (higher value indicates higher dissatisfaction)
 dissatisfaction_values <- num_columns - preference_matrix + 1
@@ -323,6 +340,14 @@ for (assignment_num in 1:num_assignments) {
   }
   cat("\n")
 }
+
+```
+
+
+
+# PGY2 Allocations Output
+
+```{r include=TRUE, echo=TRUE, results='hide'}
 # Initialize a data frame to store the results
 assignment_table <- data.frame(Doctor = row_names, 
                                Assignment1 = character(num_doctors), 
@@ -355,9 +380,12 @@ gt_table <- gt(assignment_table_sorted)
 print(gt_table)
 ```
 
-MODEL EVALUATION - This will be used when real data is available to play with quadratic penalties, iterative penalties to the dissatisfaction values in order give higher prioritization to Top 10 preferences over a generally good spread of preferences. 3 working models currently at present.
 
-```{r}
+# MODEL EVALUATION
+
+### This will be used when real data is available to play with quadratic penalties, iterative penalties to the dissatisfaction values in order give higher prioritization to Top 10 preferences over a generally good spread of preferences. 3 working models currently at present.
+
+```{r include=TRUE, echo=TRUE, results='markup'}
 
 # How many Doctors with one Top 10 preference
 
@@ -478,9 +506,13 @@ evaluation_table <- gt(evaluation_data) %>%
 evaluation_table
 ```
 
+
                          
-Reporting - To add transparancy to allocations process and to assist in manual auditing of lines in order to preserve the integrity of the preferences of the cohort. Assist with manual changes to make terms HETI compliant or understand GAPS in the event their is nil viable solution to whole gamut of constraints. 
-```{r}
+# Reporting - 
+
+### To add transparancy to allocations process and to assist in manual auditing of lines in order to preserve the integrity of the preferences of the cohort. Assist with manual changes to make terms HETI compliant or understand GAPS in the event their is nil viable solution to whole gamut of constraints. 
+
+```{r include=TRUE, echo=TRUE, results='markup'}
 
 # 1. Doctors Preference Report
 
@@ -622,3 +654,7 @@ HETI_compliance_table <- compliance_data %>%
 
 print(HETI_compliance_table)
 ```
+
+
+
+*This code, inclusive of all associated documentation and related content, is the exclusive intellectual property of Dr. Scott Johnson Gelzinnis under the Copyright Act 1968 (Cth) of Australia. Any unauthorized use, reproduction, distribution, or modification of this material, in entirety or in parts, without the prior written consent of Dr. Scott Johnson Gelzinnis, may constitute a breach of Australian copyright laws and can result in legal action.*
