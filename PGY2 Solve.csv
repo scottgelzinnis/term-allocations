@@ -31,13 +31,13 @@ MBH Paediatrics (RMO),Yes,1,1,1,1,1,C-Acute critical illness patient care,A-Undi
 MBH Surgery - Orthopaedics  01 (RMO),Yes,2,2,2,2,2,D-Peri-operative / procedural patient care,C-Acute critical illness patient care,Orthopaedics,,No,Team Based
 MH Emergency 06 (RMO),Yes,4,4,4,4,4,C-Acute critical illness patient care,A-Undifferentiated illness patient care,Emergency medicine,,No,Team Based
 MH General Medicine (01) (RMO),Yes,4,4,14,4,14,C-Acute critical illness patient care,B-Chronic illness patient care,General Medicine,,No,Team Based
-MH General Medicine Relief (01) (RMO),Yes,4,4,4,4,4,C-Acute critical illness patient care,B-Chronic illness patient care,Relief,Relief,Yes,Other
+MH General Medicine Relief (01) (RMO),Yes,4,4,4,4,4,C-Acute critical illness patient care,B-Chronic illness patient care,Relief,Relief,Yes,Team Based
 MH General Surgery 1 (RMO),Yes,1,1,1,1,1,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,General Surgery,,No,Team Based
 MH KK Rehabilitation (RMO),Yes,1,1,1,1,1,B-Chronic illness patient care,,General Medicine,Rehabilitation Medicine,no,Team Based
 MH Obstetrics & Gynaecology (RMO),Yes,1,1,1,1,1,C-Acute critical illness patient care,,Obstetrics and gynaecology,Obstetrics and gynaecology,No,Team Based
 MH Paediatrics (RMO),Yes,1,1,1,1,1,C-Acute critical illness patient care,A-Undifferentiated illness patient care,General Paediatric and child health,General Paediatric and child health,No,Team Based
 MH Surgery - Orthopaedics (02) (RMO),Yes,1,1,1,1,1,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Orthopaedics,,No,Team Based
-MH Surgery Relief (RMO),Yes,1,1,1,1,1,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Relief,Relief,Yes,Other
+MH Surgery Relief (RMO),Yes,1,1,1,1,1,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Relief,Relief,Yes,Team Based
 TRRH Emergency 06 (RMO),Yes,6,6,6,6,6,A-Undifferentiated illness patient care,C-Acute critical illness patient care,Emergency medicine,,No,Team Based
 TRRH Mental Health Banksia Unit 02 (RMO),Yes,1,1,1,1,1,C-Acute critical illness patient care,B-Chronic illness patient care,Psychiatry,,No,Team Based
 TRRH Obstetrics & Gynaecology (02) (RMO),Yes,1,1,1,1,1,D-Peri-operative / procedural patient care,C-Acute critical illness patient care,Obstetrics and gynaecology,Obstetrics and gynaecology,No,Team Based
