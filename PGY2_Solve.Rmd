@@ -143,7 +143,8 @@ term_classification2 <- as_factor(term_classification2)
 ```{r include=TRUE, echo=TRUE, results='hide'}
 
 # Calculate dissatisfaction values based on preferences (higher value indicates higher dissatisfaction)
-dissatisfaction_values <- num_columns - preference_matrix + 1
+# Quadratic dissatisfaction values
+dissatisfaction_values <- (num_columns - preference_matrix + 1)^2
 
 # Convert dissatisfaction values to a vector for the objective function
 objective_coeffs_dissatisfaction <- as.vector(dissatisfaction_values)
