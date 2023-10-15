@@ -20,9 +20,11 @@ output:
 
 
 ```{r include=TRUE, echo=TRUE, results='hide'}
+library(here())
+i_am("PGY2_Solve.Rmd")
 
 #Set WD
-setwd("D:/My Documents/GitHub/term-allocations")
+# setwd("D:/My Documents/GitHub/term-allocations")
 
 # List of required packages
 required_packages <- c("randomNames", "lpSolve", "lpSolveAPI", "ROI", "gt", "readr", "tidyverse")
@@ -67,7 +69,7 @@ for (i in 1:num_rows) {
 }
 
 # Read column names from CSV file starting from A2
-column_names <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
+column_names <- read_csv(paste0(here(), "/PGY2 Solve.csv"), col_names = FALSE, skip = 1)
 column_names <- column_names$X1
 
 # Update column names of preference matrix
