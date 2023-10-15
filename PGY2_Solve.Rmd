@@ -432,33 +432,32 @@ cat("Number of doctors with at least three terms in their top 10 preferences acr
 
 ## MODEL EVALUATION - How many doctors with one Top 5 preference ##
 
-# Convert the preference matrix into a top 5 boolean matrix
+# Convert the preference matrix into a top 10 boolean matrix
+top_10_matrix <- t(apply(preference_matrix, 1, function(row) row %in% sort(row, decreasing = TRUE)[1:10]))
 top_5_matrix <- t(apply(preference_matrix, 1, function(row) row %in% sort(row, decreasing = TRUE)[1:5]))
 
-# For each doctor, determine if the assigned terms are in their top 5 preferences
-assignment_top_5_matrix <- matrix(0, nrow = num_doctors, ncol = num_assignments)
-
-for (assignment_num in 1:num_assignments) {
-  assignment_column <- paste0("Assignment", assignment_num)
-  assigned_terms <- assignment_table[, assignment_column]
+# Create a function to compute metrics for a given top_x matrix
+get_metrics <- function(matrix, assignment_table, column_names, num_assignments) {
+  assignment_matrix <- matrix(0, nrow = num_doctors, ncol = num_assignments)
   
-  # Convert the assigned term names back to their column indices
-  assigned_indices <- match(assigned_terms, column_names)
-  
-  for (i in 1:num_doctors) {
-    assignment_top_5_matrix[i, assignment_num] <- top_5_matrix[i, assigned_indices[i]]
+  for (assignment_num in 1:num_assignments) {
+    assignment_column <- paste0("Assignment", assignment_num)
+    assigned_terms <- assignment_table[, assignment_column]
+    
+    # Convert the assigned term names back to their column indices
+    assigned_indices <- match(assigned_terms, column_names)
+    
+    for (i in 1:num_doctors) {
+      assignment_matrix[i, assignment_num] <- matrix[i, assigned_indices[i]]
+    }
   }
+  
+  return(rowSums(assignment_matrix))
 }
 
-# Sum up for each doctor how many of their assignments are in their top 5
-top_5_counts_per_doctor <- rowSums(assignment_top_5_matrix)
+top_10_counts_per_doctor <- get_metrics(top_10_matrix, assignment_table, column_names, num_assignments)
+top_5_counts_per_doctor <- get_metrics(top_5_matrix, assignment_table, column_names, num_assignments)
 
-# Determine how many doctors got terms in their top 5 preferences for any of the assignments
-num_doctors_with_top_5 <- sum(top_5_counts_per_doctor > 0)
-
-cat("Number of doctors with at least one term in their top 5 preferences across all assignments:", num_doctors_with_top_5, "\n")
-
-# Create a data frame with the evaluation metrics
 # Extract all assigned terms for each doctor across the assignments
 assigned_terms_all <- as.vector(t(assignment_table[, 2:(num_assignments + 1)]))
 
@@ -481,19 +480,36 @@ for (assignment_num in 1:num_assignments) {
 
 average_assigned_preference <- mean(as.vector(assigned_preference_values))
 
+# Calculate the range of assigned preference values for each doctor
+range_per_doctor <- apply(assigned_preference_values, 1, function(row) max(row) - min(row))
+
+# Calculate the standard deviation of assigned preference values for each doctor
+sd_per_doctor <- apply(assigned_preference_values, 1, sd)
+
+# Compute the average range and SD across all doctors
+average_range <- mean(range_per_doctor)
+average_sd <- mean(sd_per_doctor)
+
 # Create a data frame with the evaluation metrics
 evaluation_data <- data.frame(
-  Metric = c("At least 1 term in Top 10", 
-             "At least 2 terms in Top 10", 
-             "At least 3 terms in Top 10", 
-             "At least 1 term in Top 5",
-             "Average Preference of Assigned Terms"),
-  Value = c(num_doctors_with_top_10, 
-            num_doctors_with_2_top_10, 
-            num_doctors_with_3_top_10, 
-            num_doctors_with_top_5,
-            average_assigned_preference)
+  Metric = c("At least 1 term in Top 10 (%)", 
+             "At least 2 terms in Top 10 (%)", 
+             "At least 3 terms in Top 10 (%)", 
+             "At least 1 term in Top 5 (%)",
+             "Average Preference of Assigned Terms",
+             "Average Range of Assigned Preferences",
+             "Average SD of Assigned Preferences"),
+  Value = c(sum(top_10_counts_per_doctor > 0) / num_doctors * 100, 
+            sum(top_10_counts_per_doctor >= 2) / num_doctors * 100, 
+            sum(top_10_counts_per_doctor >= 3) / num_doctors * 100, 
+            sum(top_5_counts_per_doctor > 0) / num_doctors * 100,
+            average_assigned_preference,
+            average_range,
+            average_sd)
 )
+
+# Round the values to 2 decimal places
+evaluation_data$Value <- round(evaluation_data$Value, 1)
 
 # Generate the table using gt
 evaluation_table <- gt(evaluation_data) %>% 
