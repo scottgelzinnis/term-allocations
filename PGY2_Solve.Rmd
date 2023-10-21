@@ -46,7 +46,6 @@ set.seed(69)
 # Loading in the Preference Matrix 
 
 ```{r include=TRUE, echo=TRUE, results='hide'}
-
 ## Read in Google Sheet
 raw_preference_data <- read_sheet("https://docs.google.com/spreadsheets/d/1JW_KriVymSe9NNVi1QjKnshoWrkAhZ8FkKzpqXy1bf8/edit?usp=sharing")
 
@@ -76,11 +75,15 @@ head(selected_data)
 preference_matrix <- selected_data %>%
   pivot_longer(cols = -Doctor, names_to = "Term", values_to = "Preference") %>%
   spread(key = "Term", value = "Preference")
+```
 
 
-                        ## Linear Optimization - Defining the problem ##
+# Definitions
 
-df <- read_csv("PGY2 Solve.csv")
+```{r include=TRUE, echo=TRUE, results='hide'}
+                ## Linear Optimization - Defining the problem ##
+
+df <- read_csv("PGY2 2024.csv")
 
 # Define the number of doctors and terms
 num_doctors <- nrow(preference_matrix)
@@ -89,46 +92,50 @@ num_terms <- ncol(preference_matrix)
 # Define the objective function coefficients (preferences)
 objective_coeffs <- as.vector(preference_matrix)
 
-#Create a vector of the maximum number of doctors allowed for Term 1
-max_doctors_per_term1 <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
-max_doctors_per_term1 <- as.vector(max_doctors_per_term1$X3)
+# Create a vector of the maximum number of doctors allowed for Term 1
+max_doctors_per_term1 <- read_csv("PGY2 2024.csv", col_names = FALSE, skip = 1)
+max_doctors_per_term1 <- as.vector(max_doctors_per_term1$X2)
 
-#Create a vector of the maximum number of doctors allowed for Term 2
-max_doctors_per_term2 <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
-max_doctors_per_term2 <- as.vector(max_doctors_per_term2$X4)
+# Create a vector of the maximum number of doctors allowed for Term 2
+max_doctors_per_term2 <- read_csv("PGY2 2024.csv", col_names = FALSE, skip = 1)
+max_doctors_per_term2 <- as.vector(max_doctors_per_term2$X3)
 
-#Create a vector of the maximum number of doctors allowed for Term 3
-max_doctors_per_term3 <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
-max_doctors_per_term3 <- as.vector(max_doctors_per_term3$X5)
+# Create a vector of the maximum number of doctors allowed for Term 3
+max_doctors_per_term3 <- read_csv("PGY2 2024.csv", col_names = FALSE, skip = 1)
+max_doctors_per_term3 <- as.vector(max_doctors_per_term3$X4)
 
-#Create a vector of the maximum number of doctors allowed for Term 4
-max_doctors_per_term4 <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
-max_doctors_per_term4 <- as.vector(max_doctors_per_term4$X6)
+# Create a vector of the maximum number of doctors allowed for Term 4
+max_doctors_per_term4 <- read_csv("PGY2 2024.csv", col_names = FALSE, skip = 1)
+max_doctors_per_term4 <- as.vector(max_doctors_per_term4$X5)
 
-#Create a vector of the maximum number of doctors allowed for Term 5
-max_doctors_per_term5 <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
-max_doctors_per_term5 <- as.vector(max_doctors_per_term5$X7)
+# Create a vector of the maximum number of doctors allowed for Term 5
+max_doctors_per_term5 <- read_csv("PGY2 2024.csv", col_names = FALSE, skip = 1)
+max_doctors_per_term5 <- as.vector(max_doctors_per_term5$X6)
 
-#Create a vector that describes the Clinical Team structure of a term
-clinical_structure_term <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
-clinical_structure_term <- as.vector(clinical_structure_term$X13)
+# Create a vector that describes the Clinical Team structure of a term
+clinical_structure_term <- read_csv("PGY2 2024.csv", col_names = FALSE, skip = 1)
+clinical_structure_term <- as.vector(clinical_structure_term$X11)
 names(clinical_structure_term) <- df[[1]]
 
 
-#Create a vector that describes "Specialty" status of a term
-specialty_status_per_term <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
-specialty_status_per_term <- as.vector(specialty_status_per_term$X8)
+# Create a vector that describes "Specialty" status of a term
+specialty_status_per_term <- read_csv("PGY2 2024.csv", col_names = FALSE, skip = 1)
+specialty_status_per_term <- as.vector(specialty_status_per_term$X9)
 specialty_status_per_term <- as.factor(specialty_status_per_term)
 
-#Create a vector that describes "Sub-Specialty" status of a term
-sub_specialty_status_per_term <- read_csv("PGY2 Solve.csv", col_names = FALSE, skip = 1)
-sub_specialty_status_per_term <- as.vector(sub_specialty_status_per_term$X9)
+# Create a vector that describes "Sub-Specialty" status of a term
+sub_specialty_status_per_term <- read_csv("PGY2 2024.csv", col_names = FALSE, skip = 1)
+sub_specialty_status_per_term <- as.vector(sub_specialty_status_per_term$X10)
 sub_specialty_status_per_term <- as.factor(sub_specialty_status_per_term)
+
+# Create a vector that describes Rural status of a term
+rural_status_term <- read_csv("PGY2 2024.csv", col_names = FALSE, skip = 1)
+rural_status_term <- as.vector(rural_status_term$X12)
+rural_status_term <- as.factor(rural_status_term)
 
 #Create a vector that describes "Term Classification 1" of a term
 term_classification1 <- df$`Term Classification`
 term_classification1 <- as_factor(term_classification1)
-
 
 #Create a vector that describes "Term Classification 2" of a term
 term_classification2 <- df$`Term Classification 2`
