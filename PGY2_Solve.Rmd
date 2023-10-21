@@ -27,7 +27,7 @@ i_am("PGY2_Solve.Rmd")
 # setwd("D:/My Documents/GitHub/term-allocations")
 
 # List of required packages
-required_packages <- c("randomNames", "lpSolve", "lpSolveAPI", "ROI", "gt", "readr", "tidyverse")
+required_packages <- c("randomNames", "lpSolve", "lpSolveAPI", "ROI", "gt", "readr", "tidyverse", "googlesheets4", "stringr")
 
 # Check if packages are installed and install them if they are not
 new_packages <- required_packages[!(required_packages %in% installed.packages()[,"Package"])]
@@ -45,38 +45,40 @@ set.seed(69)
 
 # Loading in the Preference Matrix 
 
-### (This is currently simulated data and will be in the form of an API - Surveymonkey)  
 ```{r include=TRUE, echo=TRUE, results='hide'}
-## Define preference matrix  ##
 
-# Set the number of rows and columns
-num_rows <- 100
-num_columns <- 45
-
-# Generate random human-like row names
-row_names <- randomNames(num_rows)
-
-# Create an empty preference matrix with row names
-preference_matrix <- matrix(NA, nrow = num_rows, ncol = num_columns,
-                            dimnames = list(row_names, paste0("Term ", 1:num_columns)))
-
-# Fill the preference matrix with unique random numbers
-for (i in 1:num_rows) {
-  preference_matrix[i, ] <- sample(1:num_columns)
-  while (any(duplicated(preference_matrix[i, ]))) {
-    preference_matrix[i, ] <- sample(1:num_columns)
-  }
-}
-
-# Read column names from CSV file starting from A2
-column_names <- read_csv(paste0(here(), "/PGY2 Solve.csv"), col_names = FALSE, skip = 1)
-column_names <- column_names$X1
-
-# Update column names of preference matrix
-colnames(preference_matrix) <- column_names
+## Read in Google Sheet
+raw_preference_data <- read_sheet("https://docs.google.com/spreadsheets/d/1JW_KriVymSe9NNVi1QjKnshoWrkAhZ8FkKzpqXy1bf8/edit?usp=sharing")
 
 
-## Linear Optimization - Defining the problem ##
+                        ## Define preference matrix  ##
+
+# Combine columns 13 and 14 to create the "Doctor" column
+raw_preference_data$Doctor <- paste(raw_preference_data[[13]], raw_preference_data[[14]], sep = ", ")
+
+# Adjust the term extraction to account for the '| ' at the beginning
+unique_terms <- unique(str_extract(names(raw_preference_data), "(?<=\\| ).+"))
+unique_terms <- unique_terms[!is.na(unique_terms)]
+
+# Rename the columns to keep only the term names after '| ' (i.e., pipe followed by a space)
+colnames(raw_preference_data) <- ifelse(grepl("\\| ", names(raw_preference_data)),
+                                        str_extract(names(raw_preference_data), "(?<=\\| ).+"),
+                                        names(raw_preference_data))
+
+# Now, select relevant columns
+selected_data <- raw_preference_data %>%
+  select(Doctor, all_of(unique_terms))
+
+# Verify if the selection is successful
+head(selected_data)
+
+# Reshaping the data
+preference_matrix <- selected_data %>%
+  pivot_longer(cols = -Doctor, names_to = "Term", values_to = "Preference") %>%
+  spread(key = "Term", value = "Preference")
+
+
+                        ## Linear Optimization - Defining the problem ##
 
 df <- read_csv("PGY2 Solve.csv")
 
