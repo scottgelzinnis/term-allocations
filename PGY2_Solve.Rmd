@@ -164,6 +164,7 @@ term_classification2 <- as_factor(term_classification2)
 # Use the preference_matrix directly as the dissatisfaction_values
 dissatisfaction_values <- preference_matrix
 
+
 # Convert dissatisfaction values to a vector for the objective function
 objective_coeffs_dissatisfaction <- as.vector(dissatisfaction_values)
 
@@ -210,7 +211,17 @@ for (assignment_num in 1:num_assignments) {
     constr_one_assignment[((i - 1) * num_terms + 1):(i * num_terms)] <- 1
     add.constraint(lp_model_dissatisfaction, constr_one_assignment, type = "=", rhs = 1)
   }
-  
+
+  # Add constraint for top 10 terms for each doctor
+for (i in 1:num_doctors) {
+    top_10_terms_for_doctor <- order(preference_matrix[i,])[1:10]
+    constr_top_10 <- rep(0, num_doctors * num_terms)
+    for (j in top_10_terms_for_doctor) {
+        constr_top_10[(i - 1) * num_terms + j] <- 1
+    }
+    add.constraint(lp_model_dissatisfaction, constr_top_10, type = ">=", rhs = 1)
+}
+    
 # 1. Add constraints to limit the maximum number of doctors allocated to each term
   
   # Helper function to retrieve the correct 'max doctors' vector for a given term
