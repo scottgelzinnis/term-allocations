@@ -161,9 +161,8 @@ term_classification2 <- as_factor(term_classification2)
 
 ## Linear Optimization with Weighted Dissatisfaction Values ##
 
-# Calculate dissatisfaction values based on preferences (higher value indicates higher dissatisfaction)
-# Quadratic dissatisfaction values
-dissatisfaction_values <- (num_columns - preference_matrix + 1)
+# Use the preference_matrix directly as the dissatisfaction_values
+dissatisfaction_values <- preference_matrix
 
 # Convert dissatisfaction values to a vector for the objective function
 objective_coeffs_dissatisfaction <- as.vector(dissatisfaction_values)
@@ -366,7 +365,7 @@ print(gt_table)
 # How many Doctors with one Top 10 preference
 
 # Convert the preference matrix into a top 10 boolean matrix
-top_10_matrix <- t(apply(preference_matrix, 1, function(row) row %in% sort(row, decreasing = TRUE)[1:10]))
+top_10_matrix <- t(apply(preference_matrix, 1, function(row) row %in% sort(row, decreasing = FALSE)[1:10]))
 
 # For each doctor, determine if the assigned terms are in their top 10 preferences
 assignment_top_10_matrix <- matrix(0, nrow = num_doctors, ncol = num_assignments)
@@ -384,7 +383,7 @@ for (assignment_num in 1:num_assignments) {
 }
 
 # Convert the preference matrix into a top 5 boolean matrix
-top_5_matrix <- t(apply(preference_matrix, 1, function(row) row %in% sort(row, decreasing = TRUE)[1:5]))
+top_5_matrix <- t(apply(preference_matrix, 1, function(row) row %in% sort(row, decreasing = FALSE)[1:5]))
 
 # Create a function to compute metrics for a given top_x matrix
 get_metrics <- function(matrix, assignment_table, num_assignments) {
