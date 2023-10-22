@@ -163,15 +163,7 @@ term_classification2 <- as_factor(term_classification2)
 
 # Calculate dissatisfaction values based on preferences (higher value indicates higher dissatisfaction)
 # Quadratic dissatisfaction values
-dissatisfaction_values <- (num_columns - preference_matrix + 1)^2
-
-# Emphasis on top 10 preferences by setting very low dissatisfaction values
-for (i in 1:num_doctors) {
-  # Get indices of top 10 preferences for each doctor
-  top_10_indices <- order(preference_matrix[i,])[1:10]
-  # Assign very low dissatisfaction values
-  dissatisfaction_values[i, top_10_indices] <- 1 
-}
+dissatisfaction_values <- (num_columns - preference_matrix + 1)
 
 # Convert dissatisfaction values to a vector for the objective function
 objective_coeffs_dissatisfaction <- as.vector(dissatisfaction_values)
