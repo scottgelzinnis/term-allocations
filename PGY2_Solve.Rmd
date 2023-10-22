@@ -211,7 +211,7 @@ for (assignment_num in 1:num_assignments) {
     add.constraint(lp_model_dissatisfaction, constr_one_assignment, type = "=", rhs = 1)
   }
   
-  # 1. Add constraints to limit the maximum number of doctors allocated to each term
+# 1. Add constraints to limit the maximum number of doctors allocated to each term
   
   # Helper function to retrieve the correct 'max doctors' vector for a given term
   get_max_doctors_for_term <- function(term) {
@@ -236,8 +236,7 @@ for (assignment_num in 1:num_assignments) {
     
     add.constraint(lp_model_dissatisfaction, constr_max_doctors_per_term, type = "<=", rhs = max_doctors_for_this_term[j])
   }
-  
-  
+
   # 2. Add constraints to prevent doctors from being assigned to the same term again
   for (i in 1:num_doctors) {
     for (j in 1:num_terms) {
@@ -301,6 +300,24 @@ for (assignment_num in 1:num_assignments) {
     cat("LP problem could not be solved for assignment", assignment_num, "Result:", lp_result_dissatisfaction, "\n")
   }
 }
+
+
+# Get Status
+status_code <- lp_result_dissatisfaction
+
+status_explanation <- switch(as.character(status_code),
+                             "0" = "Optimal solution achieved",
+                             "1" = "Solver has run out of memory",
+                             "2" = "Problem is infeasible",
+                             "3" = "Problem is unbounded",
+                             "4" = "The solver has found a feasible solution (only for the primal or the dual)",
+                             "5" = "Problem is degenerate",
+                             "6" = "Timeout reached",
+                             "Unknown status")
+
+cat("Status code:", status_code, "\n")
+cat("Explanation:", status_explanation, "\n")
+
 
 # Print the results of each assignment
 for (assignment_num in 1:num_assignments) {
