@@ -377,16 +377,10 @@ print(gt_table)
 
 
 
-# PGY2 Unassigned terms
-
-```{r include=TRUE, echo=TRUE, results='markup'}
-
-```
+# PGY2 Unassigned terms (YET TO BE ADDED)
 
 
 # MODEL EVALUATION
-
-### This will be used when real data is available to play with quadratic penalties, iterative penalties to the dissatisfaction values in order give higher prioritization to Top 10 preferences over a generally good spread of preferences. 3 working models currently at present.
 
 ```{r include=TRUE, echo=TRUE, results='markup'}
 
