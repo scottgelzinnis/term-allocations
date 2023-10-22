@@ -20,6 +20,7 @@ output:
 
 
 ```{r include=TRUE, echo=TRUE, results='hide'}
+
 library(here())
 i_am("PGY2_Solve.Rmd")
 
@@ -27,7 +28,7 @@ i_am("PGY2_Solve.Rmd")
 # setwd("D:/My Documents/GitHub/term-allocations")
 
 # List of required packages
-required_packages <- c("randomNames", "lpSolve", "lpSolveAPI", "ROI", "gt", "readr", "tidyverse", "googlesheets4", "stringr")
+required_packages <- c("randomNames", "lpSolve", "lpSolveAPI", "ROI", "gt", "readr", "tidyverse", "googlesheets4", "stringr", "knitr")
 
 # Check if packages are installed and install them if they are not
 new_packages <- required_packages[!(required_packages %in% installed.packages()[,"Package"])]
@@ -46,42 +47,48 @@ set.seed(69)
 # Loading in the Preference Matrix 
 
 ```{r include=TRUE, echo=TRUE, results='hide'}
+
 ## Read in Google Sheet
 raw_preference_data <- read_sheet("https://docs.google.com/spreadsheets/d/1JW_KriVymSe9NNVi1QjKnshoWrkAhZ8FkKzpqXy1bf8/edit?usp=sharing")
 
+# Convert the tibble to a data.frame
+raw_preference_data <- as.data.frame(raw_preference_data)
 
-                        ## Define preference matrix  ##
+## Define preference matrix  ##
 
 # Combine columns 13 and 14 to create the "Doctor" column
 raw_preference_data$Doctor <- paste(raw_preference_data[[13]], raw_preference_data[[14]], sep = ", ")
 
-# Adjust the term extraction to account for the '| ' at the beginning
-unique_terms <- unique(str_extract(names(raw_preference_data), "(?<=\\| ).+"))
-unique_terms <- unique_terms[!is.na(unique_terms)]
+# Extract column names that have the pattern '| '
+term_columns <- grep("\\| ", names(raw_preference_data), value = TRUE)
 
-# Rename the columns to keep only the term names after '| ' (i.e., pipe followed by a space)
-colnames(raw_preference_data) <- ifelse(grepl("\\| ", names(raw_preference_data)),
-                                        str_extract(names(raw_preference_data), "(?<=\\| ).+"),
-                                        names(raw_preference_data))
+# Select the relevant columns
+selected_data <- raw_preference_data[, term_columns]
 
-# Now, select relevant columns
-selected_data <- raw_preference_data %>%
-  select(Doctor, all_of(unique_terms))
+# Set "Doctor" column as row names
+rownames(selected_data) <- raw_preference_data$Doctor
 
-# Verify if the selection is successful
-head(selected_data)
+# Clean the column names by removing everything before '| ' (i.e., pipe followed by a space)
+colnames(selected_data) <- gsub(".*\\| ", "", colnames(selected_data))
 
-# Reshaping the data
-preference_matrix <- selected_data %>%
-  pivot_longer(cols = -Doctor, names_to = "Term", values_to = "Preference") %>%
-  spread(key = "Term", value = "Preference")
+# Convert selected data to a matrix and exclude the "Doctor" column
+preference_matrix <- as.matrix(selected_data)
+
+# Define dimensions based on preference_matrix
+num_columns <- ncol(preference_matrix)
+num_doctors <- nrow(preference_matrix)
+num_terms <- num_columns  # Assuming the number of terms is equal to the number of columns in the matrix
+row_names <- rownames(selected_data)
+column_names <- colnames(selected_data)
+
 ```
 
 
 # Definitions
 
 ```{r include=TRUE, echo=TRUE, results='hide'}
-                ## Linear Optimization - Defining the problem ##
+               
+                         ## Linear Optimization - Defining the problem ##
 
 df <- read_csv("PGY2 2024.csv")
 
@@ -151,12 +158,24 @@ term_classification2 <- as_factor(term_classification2)
 
 ```{r include=TRUE, echo=TRUE, results='hide'}
 
+
+## Linear Optimization with Weighted Dissatisfaction Values ##
+
 # Calculate dissatisfaction values based on preferences (higher value indicates higher dissatisfaction)
 # Quadratic dissatisfaction values
 dissatisfaction_values <- (num_columns - preference_matrix + 1)^2
 
+# Emphasis on top 10 preferences by setting very low dissatisfaction values
+for (i in 1:num_doctors) {
+  # Get indices of top 10 preferences for each doctor
+  top_10_indices <- order(preference_matrix[i,])[1:10]
+  # Assign very low dissatisfaction values
+  dissatisfaction_values[i, top_10_indices] <- 1 
+}
+
 # Convert dissatisfaction values to a vector for the objective function
 objective_coeffs_dissatisfaction <- as.vector(dissatisfaction_values)
+
 
 # Create an empty LP model for minimizing dissatisfaction
 lp_model_dissatisfaction <- make.lp(0, num_doctors * num_terms)
@@ -175,6 +194,9 @@ num_assignments <- 5
 
 # Initialize a list to store the results of each assignment
 assignment_results <- list()
+
+# Create a list to store unassigned terms for each assignment iteration
+unassigned_terms_list <- list()
 
 # This matrix will have rows corresponding to doctors and columns corresponding to terms.
 # An entry of 1 in the matrix indicates that the doctor (row) has been assigned the term (column).
@@ -198,7 +220,7 @@ for (assignment_num in 1:num_assignments) {
     add.constraint(lp_model_dissatisfaction, constr_one_assignment, type = "=", rhs = 1)
   }
   
-# 1. Add constraints to limit the maximum number of doctors allocated to each term
+  # 1. Add constraints to limit the maximum number of doctors allocated to each term
   
   # Helper function to retrieve the correct 'max doctors' vector for a given term
   get_max_doctors_for_term <- function(term) {
@@ -225,7 +247,7 @@ for (assignment_num in 1:num_assignments) {
   }
   
   
-# 2. Add constraints to prevent doctors from being assigned to the same term again
+  # 2. Add constraints to prevent doctors from being assigned to the same term again
   for (i in 1:num_doctors) {
     for (j in 1:num_terms) {
       if (assigned_terms_matrix[i, j] == 1) {
@@ -236,7 +258,7 @@ for (assignment_num in 1:num_assignments) {
     }
   }
   
-# 3. Constraints for Specialty Status:
+  # 3. Constraints for Specialty Status:
   unique_specialty_statuses <- unique(specialty_status_per_term[!is.na(specialty_status_per_term)])
   
   for (specialty in unique_specialty_statuses) {
@@ -249,7 +271,7 @@ for (assignment_num in 1:num_assignments) {
     }
   }
   
-# 4. Constraints for Sub-Specialty Status:
+  # 4. Constraints for Sub-Specialty Status:
   unique_sub_specialties <- unique(sub_specialty_status_per_term[!is.na(sub_specialty_status_per_term)])
   
   for (sub_specialty in unique_sub_specialties) {
@@ -261,6 +283,12 @@ for (assignment_num in 1:num_assignments) {
       add.constraint(lp_model_dissatisfaction, constr_sub_specialty, type = "<=", rhs = 1)
     }
   }
+  
+  # Constraint for Rural terms
+  
+  
+  # Constraint for >50% in team based 
+  
   
   # Solve the linear programming problem to minimize dissatisfaction
   lp_result_dissatisfaction <- solve(lp_model_dissatisfaction)
@@ -298,14 +326,6 @@ for (assignment_num in 1:num_assignments) {
   }
   cat("\n")
 }
-
-```
-
-
-
-# PGY2 Allocations Output
-
-```{r include=TRUE, echo=TRUE, results='hide'}
 # Initialize a data frame to store the results
 assignment_table <- data.frame(Doctor = row_names, 
                                Assignment1 = character(num_doctors), 
@@ -329,13 +349,19 @@ for (assignment_num in 1:num_assignments) {
   }
 }
 
-# Sort by the Doctor's first name
-assignment_table_sorted <- assignment_table %>%
-  arrange(str_extract(Doctor, "^[\\w-]+"))
 
 # Print the table using gt
-gt_table <- gt(assignment_table_sorted)
+gt_table <- gt(assignment_table)
 print(gt_table)
+
+```
+
+
+
+# PGY2 Unassigned terms
+
+```{r include=TRUE, echo=TRUE, results='markup'}
+
 ```
 
 
@@ -358,41 +384,18 @@ for (assignment_num in 1:num_assignments) {
   assigned_terms <- assignment_table[, assignment_column]
   
   # Convert the assigned term names back to their column indices
-  assigned_indices <- match(assigned_terms, column_names)
+  assigned_indices <- match(assigned_terms, colnames(selected_data))
   
   for (i in 1:num_doctors) {
     assignment_top_10_matrix[i, assignment_num] <- top_10_matrix[i, assigned_indices[i]]
   }
 }
 
-# Sum up for each doctor how many of their assignments are in their top 10
-top_10_counts_per_doctor <- rowSums(assignment_top_10_matrix)
-
-# Determine how many doctors got terms in their top 10 preferences for any of the assignments
-num_doctors_with_top_10 <- sum(top_10_counts_per_doctor > 0)
-
-cat("Number of doctors with at least one term in their top 10 preferences across all assignments:", num_doctors_with_top_10, "\n")
-
-# Determine how many doctors got at least 2 terms in their top 10 preferences for any of the assignments
-num_doctors_with_2_top_10 <- sum(top_10_counts_per_doctor >= 2)
-
-cat("Number of doctors with at least two terms in their top 10 preferences across all assignments:", num_doctors_with_2_top_10, "\n")
-
-# Determine how many doctors got at least 3 terms in their top 10 preferences for any of the assignments
-num_doctors_with_3_top_10 <- sum(top_10_counts_per_doctor >= 3)
-
-cat("Number of doctors with at least three terms in their top 10 preferences across all assignments:", num_doctors_with_3_top_10, "\n")
-
-
-
-## MODEL EVALUATION - How many doctors with one Top 5 preference ##
-
-# Convert the preference matrix into a top 10 boolean matrix
-top_10_matrix <- t(apply(preference_matrix, 1, function(row) row %in% sort(row, decreasing = TRUE)[1:10]))
+# Convert the preference matrix into a top 5 boolean matrix
 top_5_matrix <- t(apply(preference_matrix, 1, function(row) row %in% sort(row, decreasing = TRUE)[1:5]))
 
 # Create a function to compute metrics for a given top_x matrix
-get_metrics <- function(matrix, assignment_table, column_names, num_assignments) {
+get_metrics <- function(matrix, assignment_table, num_assignments) {
   assignment_matrix <- matrix(0, nrow = num_doctors, ncol = num_assignments)
   
   for (assignment_num in 1:num_assignments) {
@@ -400,7 +403,7 @@ get_metrics <- function(matrix, assignment_table, column_names, num_assignments)
     assigned_terms <- assignment_table[, assignment_column]
     
     # Convert the assigned term names back to their column indices
-    assigned_indices <- match(assigned_terms, column_names)
+    assigned_indices <- match(assigned_terms, colnames(selected_data))
     
     for (i in 1:num_doctors) {
       assignment_matrix[i, assignment_num] <- matrix[i, assigned_indices[i]]
@@ -410,14 +413,14 @@ get_metrics <- function(matrix, assignment_table, column_names, num_assignments)
   return(rowSums(assignment_matrix))
 }
 
-top_10_counts_per_doctor <- get_metrics(top_10_matrix, assignment_table, column_names, num_assignments)
-top_5_counts_per_doctor <- get_metrics(top_5_matrix, assignment_table, column_names, num_assignments)
+top_10_counts_per_doctor <- get_metrics(top_10_matrix, assignment_table, num_assignments)
+top_5_counts_per_doctor <- get_metrics(top_5_matrix, assignment_table, num_assignments)
 
 # Extract all assigned terms for each doctor across the assignments
 assigned_terms_all <- as.vector(t(assignment_table[, 2:(num_assignments + 1)]))
 
 # Convert the assigned term names back to their column indices
-assigned_indices_all <- match(assigned_terms_all, column_names)
+assigned_indices_all <- match(assigned_terms_all, colnames(selected_data))
 
 # Retrieve preference values using matrix indexing
 assigned_preference_values <- matrix(0, nrow = num_doctors, ncol = num_assignments)
@@ -426,7 +429,7 @@ for (assignment_num in 1:num_assignments) {
   assigned_terms <- assignment_table[, assignment_column]
   
   # Convert the assigned term names back to their column indices
-  assigned_indices <- match(assigned_terms, column_names)
+  assigned_indices <- match(assigned_terms, colnames(selected_data))
   
   for (i in 1:num_doctors) {
     assigned_preference_values[i, assignment_num] <- preference_matrix[i, assigned_indices[i]]
@@ -481,6 +484,8 @@ evaluation_table <- gt(evaluation_data) %>%
 
 # Print the table
 evaluation_table
+
+
 ```
 
 
@@ -490,7 +495,6 @@ evaluation_table
 ### To add transparancy to allocations process and to assist in manual auditing of lines in order to preserve the integrity of the preferences of the cohort. Assist with manual changes to make terms HETI compliant or understand GAPS in the event their is nil viable solution to whole gamut of constraints. 
 
 ```{r include=TRUE, echo=TRUE, results='markup'}
-
 # 1. Doctors Preference Report
 
 # Initialize an empty data frame to store the report
@@ -532,16 +536,12 @@ for (i in 1:num_doctors) {
   }
 }
 
-# Sort by the Doctor's first name
-doctor_preference_report_sorted <- doctor_preference_report %>%
-  arrange(str_extract(Doctor, "^[\\w-]+"))
 
-# Print the report using gt
-doctor_preference_report_table <- gt(doctor_preference_report_sorted)
-print(doctor_preference_report_table)
+gt(doctor_preference_report)
+```
 
 
-
+```{r include=TRUE, echo=TRUE, results='markup'}
 # 2. HETI Compliance Report
 
 
