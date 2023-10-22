@@ -169,14 +169,20 @@ dissatisfaction_values <- preference_matrix
 objective_coeffs_dissatisfaction <- as.vector(dissatisfaction_values)
 
 
-# Create an empty LP model for minimizing dissatisfaction
-lp_model_dissatisfaction <- make.lp(0, num_doctors * num_terms)
+# Extend LP model to include slack variables
+lp_model_dissatisfaction <- make.lp(0, num_doctors * num_terms + num_doctors)
+
+# SLACK VARIABLE TRIAL
+slack_penalty <- max(dissatisfaction_values) + 1000
+slack_coefficients <- rep(slack_penalty, num_doctors)
+objective_coeffs_extended <- c(objective_coeffs_dissatisfaction, slack_coefficients)
 
 # Set binary decision variables (0 or 1)
 set.type(lp_model_dissatisfaction, columns = 1:(num_doctors * num_terms), type = "binary")
 
 # Set the objective function coefficients for minimizing dissatisfaction
-set.objfn(lp_model_dissatisfaction, objective_coeffs_dissatisfaction)
+set.objfn(lp_model_dissatisfaction, objective_coeffs_extended)
+
 
 
 ## NEXT STEP TO RUN A LOOP TO ASSIGN 5 TERMS ACROSS THE YEAR BASED ON PREFERENCES ##
@@ -197,93 +203,90 @@ assigned_terms_matrix <- matrix(0, nrow = num_doctors, ncol = num_terms)
 # Loop through the assignments
 for (assignment_num in 1:num_assignments) {
   # Create an empty LP model for minimizing dissatisfaction
-  lp_model_dissatisfaction <- make.lp(0, num_doctors * num_terms)
+lp_model_dissatisfaction <- make.lp(0, num_doctors * num_terms + num_doctors)
   
   # Set binary decision variables (0 or 1)
   set.type(lp_model_dissatisfaction, columns = 1:(num_doctors * num_terms), type = "binary")
   
   # Set the objective function coefficients for minimizing dissatisfaction
-  set.objfn(lp_model_dissatisfaction, objective_coeffs_dissatisfaction)
+  set.objfn(lp_model_dissatisfaction, objective_coeffs_extended)
   
   # Add constraints to ensure one assignment per doctor
-  for (i in 1:num_doctors) {
-    constr_one_assignment <- rep(0, num_doctors * num_terms)
+for (i in 1:num_doctors) {
+    constr_one_assignment <- rep(0, num_doctors * num_terms + num_doctors)
     constr_one_assignment[((i - 1) * num_terms + 1):(i * num_terms)] <- 1
     add.constraint(lp_model_dissatisfaction, constr_one_assignment, type = "=", rhs = 1)
-  }
+}
 
-  # Add constraint for top 10 terms for each doctor
+  # Add constraint for top 10 terms for each doctor (MODIFIED TO ADD SLACK)
+margin = 24
 for (i in 1:num_doctors) {
-    top_10_terms_for_doctor <- order(preference_matrix[i,])[1:10]
-    constr_top_10 <- rep(0, num_doctors * num_terms)
+    top_10_terms_for_doctor <- order(preference_matrix[i,])[1:(10+margin)]
+    constr_top_10 <- rep(0, num_doctors * num_terms + num_doctors)
     for (j in top_10_terms_for_doctor) {
         constr_top_10[(i - 1) * num_terms + j] <- 1
     }
+    constr_top_10[num_doctors * num_terms + i] <- -margin
     add.constraint(lp_model_dissatisfaction, constr_top_10, type = ">=", rhs = 1)
 }
     
-# 1. Add constraints to limit the maximum number of doctors allocated to each term
-  
-  # Helper function to retrieve the correct 'max doctors' vector for a given term
-  get_max_doctors_for_term <- function(term) {
-    switch(term,
-           "1" = max_doctors_per_term1,
-           "2" = max_doctors_per_term2,
-           "3" = max_doctors_per_term3,
-           "4" = max_doctors_per_term4,
-           "5" = max_doctors_per_term5)
-  }
-  
-  # Add constraints based on the unique requirements of each term
-  for (j in 1:num_terms) {
-    constr_max_doctors_per_term <- rep(0, num_doctors * num_terms)
-    
-    # Indices for this term's assignment for all doctors
-    indices <- j + seq(0, (num_doctors - 1) * num_terms, by = num_terms)
-    constr_max_doctors_per_term[indices] <- 1
-    
-    # Get the respective 'max doctors' vector for this term
-    max_doctors_for_this_term <- get_max_doctors_for_term(assignment_num)
-    
-    add.constraint(lp_model_dissatisfaction, constr_max_doctors_per_term, type = "<=", rhs = max_doctors_for_this_term[j])
-  }
+# 1. Max doctors per term constraint:
 
-  # 2. Add constraints to prevent doctors from being assigned to the same term again
+# Helper function to retrieve the correct 'max doctors' vector for a given term
+   get_max_doctors_for_term <- function(term) {
+     switch(term,
+            "1" = max_doctors_per_term1,
+            "2" = max_doctors_per_term2,
+            "3" = max_doctors_per_term3,
+            "4" = max_doctors_per_term4,
+            "5" = max_doctors_per_term5)
+   }
+
+
+for (j in 1:num_terms) {
+  constr_max_doctors_per_term <- rep(0, num_doctors * num_terms + num_doctors)
+  
+  indices <- j + seq(0, (num_doctors - 1) * num_terms, by = num_terms)
+  constr_max_doctors_per_term[indices] <- 1
+  
+  max_doctors_for_this_term <- get_max_doctors_for_term(assignment_num)
+  add.constraint(lp_model_dissatisfaction, constr_max_doctors_per_term, type = "<=", rhs = max_doctors_for_this_term[j])
+}
+
+# 2. Constraint to prevent reassignment to same term:
+for (i in 1:num_doctors) {
+  for (j in 1:num_terms) {
+    if (assigned_terms_matrix[i, j] == 1) {
+      constraint_already_assigned <- rep(0, num_doctors * num_terms + num_doctors)
+      constraint_already_assigned[(i - 1) * num_terms + j] <- 1
+      add.constraint(lp_model_dissatisfaction, constraint_already_assigned, type = "=", rhs = 0)
+    }
+  }
+}
+
+# 3. Specialty Status Constraint:
+unique_specialty_statuses <- unique(specialty_status_per_term[!is.na(specialty_status_per_term)])
+for (specialty in unique_specialty_statuses) {
   for (i in 1:num_doctors) {
-    for (j in 1:num_terms) {
-      if (assigned_terms_matrix[i, j] == 1) {
-        constraint_already_assigned <- rep(0, num_doctors * num_terms)
-        constraint_already_assigned[(i - 1) * num_terms + j] <- 1
-        add.constraint(lp_model_dissatisfaction, constraint_already_assigned, type = "=", rhs = 0)
-      }
+    constr_specialty <- rep(0, num_doctors * num_terms + num_doctors)
+    for (j in which(specialty_status_per_term == specialty)) {
+      constr_specialty[(i - 1) * num_terms + j] <- 1
     }
+    add.constraint(lp_model_dissatisfaction, constr_specialty, type = "<=", rhs = 2)
   }
-  
-  # 3. Constraints for Specialty Status:
-  unique_specialty_statuses <- unique(specialty_status_per_term[!is.na(specialty_status_per_term)])
-  
-  for (specialty in unique_specialty_statuses) {
-    for (i in 1:num_doctors) {
-      constr_specialty <- rep(0, num_doctors * num_terms)
-      for (j in which(specialty_status_per_term == specialty)) {
-        constr_specialty[(i - 1) * num_terms + j] <- 1
-      }
-      add.constraint(lp_model_dissatisfaction, constr_specialty, type = "<=", rhs = 2)
+}
+
+# 4. Sub-Specialty Status Constraint:
+unique_sub_specialties <- unique(sub_specialty_status_per_term[!is.na(sub_specialty_status_per_term)])
+for (sub_specialty in unique_sub_specialties) {
+  for (i in 1:num_doctors) {
+    constr_sub_specialty <- rep(0, num_doctors * num_terms + num_doctors)
+    for (j in which(sub_specialty_status_per_term == sub_specialty)) {
+      constr_sub_specialty[(i - 1) * num_terms + j] <- 1
     }
+    add.constraint(lp_model_dissatisfaction, constr_sub_specialty, type = "<=", rhs = 1)
   }
-  
-  # 4. Constraints for Sub-Specialty Status:
-  unique_sub_specialties <- unique(sub_specialty_status_per_term[!is.na(sub_specialty_status_per_term)])
-  
-  for (sub_specialty in unique_sub_specialties) {
-    for (i in 1:num_doctors) {
-      constr_sub_specialty <- rep(0, num_doctors * num_terms)
-      for (j in which(sub_specialty_status_per_term == sub_specialty)) {
-        constr_sub_specialty[(i - 1) * num_terms + j] <- 1
-      }
-      add.constraint(lp_model_dissatisfaction, constr_sub_specialty, type = "<=", rhs = 1)
-    }
-  }
+}
   
   # Constraint for Rural terms
   
@@ -378,6 +381,9 @@ print(gt_table)
 
 
 # PGY2 Unassigned terms (YET TO BE ADDED)
+```{r}
+
+```
 
 
 # MODEL EVALUATION
