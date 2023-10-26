@@ -92,7 +92,7 @@ column_names <- colnames(selected_data)
                
                          ## Linear Optimization - Defining the problem ##
 
-term_master_df <- read_csv("PGY2 2024.csv")
+term_master_df <- read_csv("TRIAL PGY2 2024.csv")
 
 # Directly infer the number of doctors and terms from the preference matrix
 num_doctors <- nrow(preference_matrix)

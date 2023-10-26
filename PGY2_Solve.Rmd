@@ -28,7 +28,7 @@ i_am("PGY2_Solve.Rmd")
 # setwd("D:/My Documents/GitHub/term-allocations")
 
 # List of required packages
-required_packages <- c("randomNames", "lpSolve", "lpSolveAPI", "ROI", "gt", "readr", "tidyverse", "googlesheets4", "stringr", "knitr", )
+required_packages <- c("randomNames", "lpSolve", "lpSolveAPI", "ROI", "gt", "readr", "tidyverse", "googlesheets4", "stringr", "knitr")
 
 # Check if packages are installed and install them if they are not
 new_packages <- required_packages[!(required_packages %in% installed.packages()[,"Package"])]
@@ -92,7 +92,7 @@ column_names <- colnames(selected_data)
                
                          ## Linear Optimization - Defining the problem ##
 
-term_master_df <- read_csv("PGY2 2024.csv")
+term_master_df <- read_csv("TRIAL PGY2 2024.csv")
 
 # Directly infer the number of doctors and terms from the preference matrix
 num_doctors <- nrow(preference_matrix)
@@ -101,10 +101,12 @@ num_terms <- ncol(preference_matrix)
 # Define the objective function coefficients (preferences)
 objective_coeffs <- as.vector(preference_matrix)
 
-# Simplifying max doctor allocations
-max_doctors_per_terms <- term_master_df %>%
-  select(matches("PGY2 Term \\d+ Allocation")) %>%
-  map_df(~ as.vector(.))
+# Extract the maximum number of doctors allowed for each term using the column names
+max_doctors_per_term1 <- as.vector(term_master_df$`PGY2 Term 1 Allocation`)
+max_doctors_per_term2 <- as.vector(term_master_df$`PGY2 Term 2 Allocation`)
+max_doctors_per_term3 <- as.vector(term_master_df$`PGY2 Term 3 Allocation`)
+max_doctors_per_term4 <- as.vector(term_master_df$`PGY2 Term 4 Allocation`)
+max_doctors_per_term5 <- as.vector(term_master_df$`PGY2 Term 5 Allocation`)
 
 # Helper function for tidy conversions
 convert_and_name <- function(column_name) {
@@ -503,7 +505,7 @@ for (i in 1:num_doctors) {
         )
         
         # Append the doctor's report to the overall report data frame
-        doctor_preference_report <- rbind(doctor_preference_report, doctor_report)
+        doctor_preference_report <- doctor_preference_report[order(doctor_preference_report$Doctor), ]
       }
     }
   }
