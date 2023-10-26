@@ -90,7 +90,7 @@ column_names <- colnames(selected_data)
                
                          ## Linear Optimization - Defining the problem ##
 
-df <- read_csv("PGY2 2024.csv")
+term_master_df <- read_csv("PGY2 2024.csv")
 
 # Define the number of doctors and terms
 num_doctors <- nrow(preference_matrix)
@@ -100,53 +100,43 @@ num_terms <- ncol(preference_matrix)
 objective_coeffs <- as.vector(preference_matrix)
 
 # Create a vector of the maximum number of doctors allowed for Term 1
-max_doctors_per_term1 <- read_csv("PGY2 2024.csv", col_names = FALSE, skip = 1)
-max_doctors_per_term1 <- as.vector(max_doctors_per_term1$X2)
+max_doctors_per_term1 <- as.vector(term_master_df$`PGY2 Term 1 Allocation`)
 
 # Create a vector of the maximum number of doctors allowed for Term 2
-max_doctors_per_term2 <- read_csv("PGY2 2024.csv", col_names = FALSE, skip = 1)
-max_doctors_per_term2 <- as.vector(max_doctors_per_term2$X3)
+max_doctors_per_term2 <- as.vector(term_master_df$`PGY2 Term 2 Allocation`)
 
 # Create a vector of the maximum number of doctors allowed for Term 3
-max_doctors_per_term3 <- read_csv("PGY2 2024.csv", col_names = FALSE, skip = 1)
-max_doctors_per_term3 <- as.vector(max_doctors_per_term3$X4)
+max_doctors_per_term3 <- as.vector(term_master_df$`PGY2 Term 3 Allocation`)
 
 # Create a vector of the maximum number of doctors allowed for Term 4
-max_doctors_per_term4 <- read_csv("PGY2 2024.csv", col_names = FALSE, skip = 1)
-max_doctors_per_term4 <- as.vector(max_doctors_per_term4$X5)
+max_doctors_per_term4 <- as.vector(term_master_df$`PGY2 Term 4 Allocation`)
 
 # Create a vector of the maximum number of doctors allowed for Term 5
-max_doctors_per_term5 <- read_csv("PGY2 2024.csv", col_names = FALSE, skip = 1)
-max_doctors_per_term5 <- as.vector(max_doctors_per_term5$X6)
+max_doctors_per_term5 <- as.vector(term_master_df$`PGY2 Term 5 Allocation`)
 
 # Create a vector that describes the Clinical Team structure of a term
-clinical_structure_term <- read_csv("PGY2 2024.csv", col_names = FALSE, skip = 1)
-clinical_structure_term <- as.vector(clinical_structure_term$X11)
-names(clinical_structure_term) <- df[[1]]
-
+clinical_structure_term <- as.factor(term_master_df$`Clinical Team Structure`)
+clinical_structure_term <- setNames(df$`Clinical Team Structure`, df$`Term Name`)
 
 # Create a vector that describes "Specialty" status of a term
-specialty_status_per_term <- read_csv("PGY2 2024.csv", col_names = FALSE, skip = 1)
-specialty_status_per_term <- as.vector(specialty_status_per_term$X9)
-specialty_status_per_term <- as.factor(specialty_status_per_term)
+specialty_status_per_term <- as.factor(term_master_df$`Specialty Status`)
+specialty_status_per_term <- setNames(df$`Specialty Status`, df$`Term Name`)
 
 # Create a vector that describes "Sub-Specialty" status of a term
-sub_specialty_status_per_term <- read_csv("PGY2 2024.csv", col_names = FALSE, skip = 1)
-sub_specialty_status_per_term <- as.vector(sub_specialty_status_per_term$X10)
-sub_specialty_status_per_term <- as.factor(sub_specialty_status_per_term)
+sub_specialty_status_per_term <- as.factor(term_master_df$`Subspecialty Status`)
+sub_specialty_status_per_term <- setNames(df$`Subspecialty Status`, df$`Term Name`)
 
 # Create a vector that describes Rural status of a term
-rural_status_term <- read_csv("PGY2 2024.csv", col_names = FALSE, skip = 1)
-rural_status_term <- as.vector(rural_status_term$X12)
-rural_status_term <- as.factor(rural_status_term)
+rural_status_term <- as.factor(term_master_df$Rurality)
+rural_status_term <- setNames(df$Rurality, df$`Term Name`)
 
 #Create a vector that describes "Term Classification 1" of a term
-term_classification1 <- df$`Term Classification`
-term_classification1 <- as_factor(term_classification1)
+term_classification1 <- as.factor(df$`Term Classification`)
+term_classification1 <- setNames(df$`Term Classification`, df$`Term Name`)
 
 #Create a vector that describes "Term Classification 2" of a term
-term_classification2 <- df$`Term Classification 2`
-term_classification2 <- as_factor(term_classification2)
+term_classification2 <- as.factor(df$`Term Classification 2`)
+term_classification2 <- setNames(df$`Term Classification 2`, df$`Term Name`)
 
 ```
 
@@ -287,9 +277,6 @@ for (sub_specialty in unique_sub_specialties) {
     add.constraint(lp_model_dissatisfaction, constr_sub_specialty, type = "<=", rhs = 1)
   }
 }
-  
-  # Constraint for Rural terms
-  
   
   # Constraint for >50% in team based 
   
