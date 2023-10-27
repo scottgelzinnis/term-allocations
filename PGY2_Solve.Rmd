@@ -198,7 +198,7 @@ for (i in 1:num_doctors) {
 }
 
   # Add constraint for top 10 terms for each doctor (MODIFIED TO ADD SLACK)
-margin = 15
+margin = 20
 for (i in 1:num_doctors) {
     top_10_terms_for_doctor <- order(preference_matrix[i,])[1:(10+margin)]
     constr_top_10 <- rep(0, num_doctors * num_terms + num_doctors)
@@ -339,8 +339,70 @@ gt(assignment_table)
 
 
 
-# PGY2 Unassigned terms (YET TO BE ADDED)
+# PGY2 Unassigned terms Data Frame and Terms List
 ```{r}
+
+# Initialize a data frame to store the unassigned slots for each term
+unassigned_terms_table <- data.frame(Term = column_names, 
+                                     Assignment1 = integer(length(column_names)), 
+                                     Assignment2 = integer(length(column_names)),
+                                     Assignment3 = integer(length(column_names)),
+                                     Assignment4 = integer(length(column_names)),
+                                     Assignment5 = integer(length(column_names)),
+                                     stringsAsFactors = FALSE)
+
+# Helper function to get total assignments for a term for a given assignment number
+get_total_assignments_for_term <- function(term_index, assignment_num) {
+  optimal_solution_dissatisfaction <- assignment_results[[assignment_num]]
+  return(sum(optimal_solution_dissatisfaction[seq(term_index, num_doctors * num_terms, by = num_terms)]))
+}
+
+# Compute the unassigned slots for each term and assignment
+for (term_index in 1:length(column_names)) {
+  for (assignment_num in 1:num_assignments) {
+    max_doctors_for_this_term <- get_max_doctors_for_term(assignment_num)
+    total_assignments <- get_total_assignments_for_term(term_index, assignment_num)
+    
+    unassigned_slots <- max_doctors_for_this_term[term_index] - total_assignments
+    
+    assignment_column <- paste0("Assignment", assignment_num)
+    unassigned_terms_table[term_index, assignment_column] <- unassigned_slots
+  }
+}
+
+# View the unassigned_terms_table
+gt(unassigned_terms_table)
+
+                                            # Generate this data frame as a term list
+
+# Initialize a new dataframe for unassigned terms
+# Drop the first column for calculation purposes
+numeric_unassigned_terms <- unassigned_terms_table[,-1]
+
+# Compute the maximum unassigned terms across all assignments
+max_unassigned <- max(as.matrix(numeric_unassigned_terms))
+
+# Create a list to store term repetitions for each assignment
+unassigned_list <- list()
+
+for (assignment_num in 1:num_assignments) {
+  assignment_column <- paste0("Assignment", assignment_num)
+  terms_rep <- rep(unassigned_terms_table$Term, numeric_unassigned_terms[[assignment_column]])
+  unassigned_list[[assignment_num]] <- terms_rep
+}
+
+# Make all lists the same length by padding with NA
+max_length <- max(sapply(unassigned_list, length))
+unassigned_list <- lapply(unassigned_list, function(x) {
+  c(x, rep(NA, max_length - length(x)))
+})
+
+# Convert the list to dataframe
+unassigned_df <- as.data.frame(unassigned_list)
+names(unassigned_df) <- paste0("Term", 1:num_assignments)
+
+# View the dataframe
+gt(unassigned_df)
 
 
 ```
