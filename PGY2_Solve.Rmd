@@ -28,7 +28,7 @@ i_am("PGY2_Solve.Rmd")
 # setwd("D:/My Documents/GitHub/term-allocations")
 
 # List of required packages
-required_packages <- c("randomNames", "lpSolve", "lpSolveAPI", "ROI", "gt", "readr", "tidyverse", "googlesheets4", "stringr", "knitr")
+required_packages <- c("randomNames", "lpSolve", "lpSolveAPI", "ROI", "gt", "readr", "tidyverse", "googlesheets4", "stringr", "knitr", "writexl")
 
 # Check if packages are installed and install them if they are not
 new_packages <- required_packages[!(required_packages %in% installed.packages()[,"Package"])]
@@ -59,6 +59,10 @@ raw_preference_data <- as.data.frame(raw_preference_data)
 # Combine columns 13 and 14 to create the "Doctor" column
 raw_preference_data$Doctor <- paste(raw_preference_data[[13]], raw_preference_data[[14]], sep = ", ")
 
+# Sort the raw_preference_data by Doctor column
+raw_preference_data <- raw_preference_data %>%
+  arrange(Doctor)
+
 # Extract column names that have the pattern '| '
 term_columns <- grep("\\| ", names(raw_preference_data), value = TRUE)
 
@@ -82,7 +86,6 @@ num_terms <- num_columns
 # Assuming the number of terms is equal to the number of columns in the matrix
 row_names <- rownames(selected_data)
 column_names <- colnames(selected_data)
-
 ```
 
 
@@ -195,7 +198,7 @@ for (i in 1:num_doctors) {
 }
 
   # Add constraint for top 10 terms for each doctor (MODIFIED TO ADD SLACK)
-margin = 20
+margin = 15
 for (i in 1:num_doctors) {
     top_10_terms_for_doctor <- order(preference_matrix[i,])[1:(10+margin)]
     constr_top_10 <- rep(0, num_doctors * num_terms + num_doctors)
@@ -329,8 +332,8 @@ for (assignment_num in 1:num_assignments) {
 
 
 # Print the table using gt
-gt_table <- gt(assignment_table)
-print(gt_table)
+gt(assignment_table)
+
 
 ```
 
@@ -458,7 +461,7 @@ evaluation_table <- gt(evaluation_data) %>%
   )
 
 # Print the table
-evaluation_table
+print(evaluation_table)
 
 
 ```
@@ -505,7 +508,7 @@ for (i in 1:num_doctors) {
         )
         
         # Append the doctor's report to the overall report data frame
-        doctor_preference_report <- doctor_preference_report[order(doctor_preference_report$Doctor), ]
+        doctor_preference_report <- rbind(doctor_preference_report, doctor_report)
       }
     }
   }
@@ -607,6 +610,49 @@ HETI_compliance_table <- compliance_data %>%
 print(HETI_compliance_table)
 ```
 
+```{r}
+export_tables <- function(assignment_table, evaluation_table, doctor_preference_report, HETI_compliance_table, filename) {
+  
+  # Convert gt tables back to data.frame if necessary
+  if (inherits(assignment_table, "gt_tbl")) {
+    assignment_table <- as.data.frame(assignment_table)
+  }
+  
+  if (inherits(evaluation_table, "gt_tbl")) {
+    evaluation_table <- as.data.frame(evaluation_table)
+  }
+  
+  if (inherits(doctor_preference_report, "gt_tbl")) {
+    doctor_preference_report <- as.data.frame(doctor_preference_report)
+  }
+  
+  if (inherits(HETI_compliance_table, "gt_tbl")) {
+    HETI_compliance_table <- as.data.frame(HETI_compliance_table)
+  }
+  
+  # List of tables to be exported
+  tables_list <- list(
+    AssignmentTable = assignment_table,
+    EvaluationTable = evaluation_table,
+    DoctorPreferenceReport = doctor_preference_report,
+    HETIComplianceTable = HETI_compliance_table
+  )
+  
+  # Export to .xlsx
+  writexl::write_xlsx(tables_list, path = filename)
+}
+
+# Call the function
+export_tables(
+  assignment_table,
+  evaluation_table,
+  doctor_preference_report,
+  HETI_compliance_table,
+  filename = "exported_tables.xlsx"
+)
+
+
+```
 
 
 *This code, inclusive of all associated documentation and related content, is the exclusive intellectual property of Dr. Scott Johnson Gelzinnis under the Copyright Act 1968 (Cth) of Australia. Any unauthorized use, reproduction, distribution, or modification of this material, in entirety or in parts, without the prior written consent of Dr. Scott Johnson Gelzinnis, may constitute a breach of Australian copyright laws and can result in legal action.*
