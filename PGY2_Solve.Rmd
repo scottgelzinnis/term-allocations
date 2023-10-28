@@ -606,11 +606,11 @@ avg_preference <- doctor_preference_report %>%
   summarize(Avg_Score = mean(Preference_Score, na.rm = TRUE))
 
 # Check if a doctor has been assigned to more than 1 term in any sub-specialty
-sub_specialty_compliance <- sapply(1:num_doctors, function(i) {
-  doctor_name <- row_names[i]
-  assigned_terms_df <- subset(doctor_preference_report, Doctor == doctor_name)
-  terms_assigned <- assigned_terms_df$Term
-  sub_specialty_terms <- sub_specialty_status_per_term[terms_assigned]
+sub_specialty_compliance <- apply(assignment_table[,-1], 1, function(assignments) {
+  # Map the assignments to their corresponding sub_specialty_status_per_term
+  sub_specialty_terms <- sub_specialty_status_per_term[assignments]
+  
+  # Check if any sub-specialty is assigned more than 1 time
   max_count <- max(table(sub_specialty_terms), na.rm = TRUE)
   return(max_count <= 1)
 })
@@ -687,6 +687,139 @@ HETI_compliance_table <- compliance_data %>%
 
 print(HETI_compliance_table)
 ```
+
+```{r}
+
+assignment_table_post_processing <- assignment_table
+
+## SWAP FOR SPECIALTY TERM HETI ADHERANCE ##
+
+find_suitable_swap <- function(term_to_swap, doctor_id, preference_matrix, specialty_status_per_term) {
+  for (swap_candidate_doc in 1:num_doctors) {
+    # Skip if checking the same doctor
+    if (swap_candidate_doc == doctor_id) next
+    
+    for (swap_candidate_term in assignment_table_post_processing[swap_candidate_doc, -1]) {
+      
+      # Handle NA values and skip if the term is from the same specialty
+      term1_specialty <- specialty_status_per_term[term_to_swap]
+      term2_specialty <- specialty_status_per_term[swap_candidate_term]
+      
+      # Skip if either of the terms doesn't have a specialty
+      if (is.na(term1_specialty) || is.na(term2_specialty)) next
+      
+      # Skip if the term is from the same specialty
+      if (term1_specialty == term2_specialty) next
+      
+      # Check preference difference criteria
+      original_preference_doc = preference_matrix[doctor_id, term_to_swap]
+      swap_preference_doc = preference_matrix[doctor_id, swap_candidate_term]
+      
+      original_preference_swap_candidate = preference_matrix[swap_candidate_doc, swap_candidate_term]
+      swap_preference_swap_candidate = preference_matrix[swap_candidate_doc, term_to_swap]
+      
+      if (abs(original_preference_doc - swap_preference_doc) <= 10 && 
+          abs(original_preference_swap_candidate - swap_preference_swap_candidate) <= 10) {
+        return(list(swap_candidate_doc, swap_candidate_term))
+      }
+    }
+  }
+  
+  # If no suitable swap found
+  return(NULL)
+}
+
+# Use the function in the post-processing step
+violating_docs = which(!specialty_compliance)
+for (doc in violating_docs) {
+  doc_assignments <- unlist(assignment_table_post_processing[doc, -1]) # Ensure it's a vector, not a list
+  for (term in doc_assignments) {
+    specialty_counts <- table(specialty_status_per_term[doc_assignments])
+    term_specialty <- specialty_status_per_term[term]
+    
+    if (is.na(term_specialty)) next # Skip if the term doesn't have a specialty
+    
+    if (specialty_counts[term_specialty] > 2) {
+      swap = find_suitable_swap(term, doc, preference_matrix, specialty_status_per_term)
+      if (!is.null(swap)) {
+        # Execute the swap
+        temp = assignment_table_post_processing[doc, which(assignment_table_post_processing[doc, -1] == term)]
+        assignment_table_post_processing[doc, which(assignment_table_post_processing[doc, -1] == term)] = swap[[2]]
+        assignment_table_post_processing[swap[[1]], which(assignment_table_post_processing[swap[[1]], -1] == swap[[2]])] = temp
+
+        # Print the swapped terms
+        cat(sprintf("Swapped term %s of doctor %d with term %s of doctor %d\n", term, doc, swap[[2]], swap[[1]]))
+      }
+    }
+  }
+}
+
+
+## SWAP FOR SUBSPECIALTY TERM HETI ADHERANCE ##
+
+find_subspecialty_swap <- function(term_to_swap, doctor_id, preference_matrix, sub_specialty_status_per_term) {
+  for (swap_candidate_doc in 1:num_doctors) {
+    # Skip if checking the same doctor
+    if (swap_candidate_doc == doctor_id) next
+    
+    for (swap_candidate_term in assignment_table_post_processing[swap_candidate_doc, -1]) {
+      
+      # Handle NA values and skip if the term is from the same sub-specialty
+      term1_sub_specialty <- sub_specialty_status_per_term[term_to_swap]
+      term2_sub_specialty <- sub_specialty_status_per_term[swap_candidate_term]
+      
+      # Skip if either of the terms doesn't have a sub-specialty
+      if (is.na(term1_sub_specialty) || is.na(term2_sub_specialty)) next
+      
+      # Skip if the term is from the same sub-specialty
+      if (term1_sub_specialty == term2_sub_specialty) next
+      
+      # Check preference difference criteria
+      original_preference_doc = preference_matrix[doctor_id, term_to_swap]
+      swap_preference_doc = preference_matrix[doctor_id, swap_candidate_term]
+      
+      original_preference_swap_candidate = preference_matrix[swap_candidate_doc, swap_candidate_term]
+      swap_preference_swap_candidate = preference_matrix[swap_candidate_doc, term_to_swap]
+      
+      if (abs(original_preference_doc - swap_preference_doc) <= 10 && 
+          abs(original_preference_swap_candidate - swap_preference_swap_candidate) <= 10) {
+        return(list(swap_candidate_doc, swap_candidate_term))
+      }
+    }
+  }
+  
+  # If no suitable swap found
+  return(NULL)
+}
+
+# Use the function in the post-processing step
+violating_docs_subspecialty = which(!sub_specialty_compliance)
+for (doc in violating_docs_subspecialty) {
+  doc_assignments <- unlist(assignment_table_post_processing[doc, -1]) # Ensure it's a vector, not a list
+  for (term in doc_assignments) {
+    sub_specialty_counts <- table(sub_specialty_status_per_term[doc_assignments])
+    term_sub_specialty <- sub_specialty_status_per_term[term]
+    
+    if (is.na(term_sub_specialty)) next # Skip if the term doesn't have a sub-specialty
+    
+    if (sub_specialty_counts[term_sub_specialty] > 1) {
+      swap = find_subspecialty_swap(term, doc, preference_matrix, sub_specialty_status_per_term)
+      if (!is.null(swap)) {
+        # Execute the swap
+        temp = assignment_table_post_processing[doc, which(assignment_table_post_processing[doc, -1] == term)]
+        assignment_table_post_processing[doc, which(assignment_table_post_processing[doc, -1] == term)] = swap[[2]]
+        assignment_table_post_processing[swap[[1]], which(assignment_table_post_processing[swap[[1]], -1] == swap[[2]])] = temp
+
+        # Print the swapped terms
+        cat(sprintf("Swapped term %s of doctor %d with term %s of doctor %d\n", term, doc, swap[[2]], swap[[1]]))
+      }
+    }
+  }
+}
+
+```
+
+
 
 ```{r}
 export_tables <- function(assignment_table, evaluation_table, doctor_preference_report, HETI_compliance_table, filename) {
