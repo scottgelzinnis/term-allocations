@@ -69,6 +69,19 @@ term_columns <- grep("\\| ", names(raw_preference_data), value = TRUE)
 # Select the relevant columns
 selected_data <- raw_preference_data[, term_columns]
 
+# Select survey data and load as a data frame
+# Read in and rename columns of survey_data
+survey_data <- raw_preference_data %>%
+  select(
+    Doctor, 
+    `Desired Career Pathway (GP, Medicine, Surgery, Critical Care, Psych)`, 
+    `Do you have plans requiring leave of more than 2 weeks in the 2024 clinical year? (If possible your request will be accommodated)`
+  ) %>%
+  rename(
+    `Desired Career Pathway` = `Desired Career Pathway (GP, Medicine, Surgery, Critical Care, Psych)`,
+    `Leave Request Term` = `Do you have plans requiring leave of more than 2 weeks in the 2024 clinical year? (If possible your request will be accommodated)`
+  )
+
 # Set "Doctor" column as row names
 rownames(selected_data) <- raw_preference_data$Doctor
 
@@ -86,6 +99,7 @@ num_terms <- num_columns
 # Assuming the number of terms is equal to the number of columns in the matrix
 row_names <- rownames(selected_data)
 column_names <- colnames(selected_data)
+
 ```
 
 
@@ -246,13 +260,13 @@ for (i in 1:num_doctors) {
 # 3. Specialty Status Constraint:
 unique_specialty_statuses <- unique(specialty_status_per_term[!is.na(specialty_status_per_term)])
 for (specialty in unique_specialty_statuses) {
-  for (i in 1:num_doctors) {
-    constr_specialty <- rep(0, num_doctors * num_terms + num_doctors)
-    for (j in which(specialty_status_per_term == specialty)) {
-      constr_specialty[(i - 1) * num_terms + j] <- 1
-    }
-    add.constraint(lp_model_dissatisfaction, constr_specialty, type = "<=", rhs = 2)
-  }
+   for (i in 1:num_doctors) {
+     constr_specialty <- rep(0, num_doctors * num_terms + num_doctors)
+     for (j in which(specialty_status_per_term == specialty)) {
+       constr_specialty[(i - 1) * num_terms + j] <- 1
+     }
+     add.constraint(lp_model_dissatisfaction, constr_specialty, type = "<=", rhs = 2)
+   }
 }
 
 # 4. Sub-Specialty Status Constraint:
@@ -602,12 +616,13 @@ sub_specialty_compliance <- sapply(1:num_doctors, function(i) {
 })
 
 # Check if a doctor has been assigned to more than 2 terms in any specialty
-specialty_compliance <- sapply(1:num_doctors, function(i) {
-  doctor_name <- row_names[i]
-  terms_assigned <- doctor_preference_report$Term[doctor_preference_report$Doctor == doctor_name]
-  specialty_terms <- specialty_status_per_term[terms_assigned]
+specialty_compliance <- apply(assignment_table[,-1], 1, function(assignments) {
+  # Map the assignments to their corresponding specialty_status_per_term
+  specialty_terms <- specialty_status_per_term[assignments]
+  
+  # Check if any specialty is assigned more than 2 times
   max_count <- max(table(specialty_terms), na.rm = TRUE)
-  return(max_count <= 2)
+  return(max_count < 3)
 })
 
 # Check if a doctor has been assigned to at least 3 "Team Based" terms
@@ -693,13 +708,16 @@ export_tables <- function(assignment_table, evaluation_table, doctor_preference_
     HETI_compliance_table <- as.data.frame(HETI_compliance_table)
   }
   
-  # List of tables to be exported
-  tables_list <- list(
-    AssignmentTable = assignment_table,
+  # Join the survey_data and assignment_table on the "Doctor" column
+assignment_table_updated <- left_join(survey_data, assignment_table, by = "Doctor")
+  
+  # Now, continue with the rest of your code to add to the tables_list
+    tables_list <- list(
+    AssignmentTable = assignment_table_updated,
     EvaluationTable = evaluation_table,
     DoctorPreferenceReport = doctor_preference_report,
     HETIComplianceTable = HETI_compliance_table
-  )
+)
   
   # Export to .xlsx
   writexl::write_xlsx(tables_list, path = filename)
