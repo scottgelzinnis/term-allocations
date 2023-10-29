@@ -212,7 +212,7 @@ for (i in 1:num_doctors) {
 }
 
   # Add constraint for top 10 terms for each doctor (MODIFIED TO ADD SLACK)
-margin = 20
+margin = 47
 for (i in 1:num_doctors) {
     top_10_terms_for_doctor <- order(preference_matrix[i,])[1:(10+margin)]
     constr_top_10 <- rep(0, num_doctors * num_terms + num_doctors)
@@ -816,6 +816,54 @@ for (doc in violating_docs_subspecialty) {
     }
   }
 }
+
+
+
+```
+```{r}
+## Calculate subspecialty violations
+
+# Already computed for assignment_table
+original_violations <- sum(!sub_specialty_compliance)
+
+# Compute for assignment_table_post_processing
+sub_specialty_compliance_post_processing <- apply(assignment_table_post_processing[,-1], 1, function(assignments) {
+  # Map the assignments to their corresponding sub_specialty_status_per_term
+  sub_specialty_terms <- sub_specialty_status_per_term[assignments]
+  
+  # Check if any sub-specialty is assigned more than 1 time
+  max_count <- max(table(sub_specialty_terms), na.rm = TRUE)
+  return(max_count <= 1)
+})
+
+post_processing_violations <- sum(!sub_specialty_compliance_post_processing)
+
+# Print results
+cat(sprintf("Number of violations in original assignment_table: %d\n", original_violations))
+cat(sprintf("Number of violations in assignment_table_post_processing: %d\n", post_processing_violations))
+
+
+## Calculate Specialty violations
+
+# Assuming you already have computed for assignment_table
+original_specialty_violations <- sum(!specialty_compliance)
+
+# Compute specialty compliance for assignment_table_post_processing
+specialty_compliance_post_processing <- apply(assignment_table_post_processing[,-1], 1, function(assignments) {
+  # Map the assignments to their corresponding specialty_status_per_term
+  specialty_terms <- specialty_status_per_term[assignments]
+  
+  # Check if any specialty is assigned more than 2 times (assuming the same rule applies for specialties)
+  max_count <- max(table(specialty_terms), na.rm = TRUE)
+  return(max_count <= 2)
+})
+
+post_processing_specialty_violations <- sum(!specialty_compliance_post_processing)
+
+# Print results
+cat(sprintf("Number of specialty violations in original assignment_table: %d\n", original_specialty_violations))
+cat(sprintf("Number of specialty violations in assignment_table_post_processing: %d\n", post_processing_specialty_violations))
+
 
 ```
 
