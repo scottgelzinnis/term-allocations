@@ -166,7 +166,7 @@ objective_coeffs_dissatisfaction <- as.vector(dissatisfaction_values)
 lp_model_dissatisfaction <- make.lp(0, num_doctors * num_terms + num_doctors)
 
 # SLACK VARIABLE TRIAL
-slack_penalty <- max(dissatisfaction_values) + 100
+slack_penalty <- max(dissatisfaction_values) * 10
 slack_coefficients <- rep(slack_penalty, num_doctors)
 objective_coeffs_extended <- c(objective_coeffs_dissatisfaction, slack_coefficients)
 
@@ -212,7 +212,7 @@ for (i in 1:num_doctors) {
 }
 
   # Add constraint for top 10 terms for each doctor (MODIFIED TO ADD SLACK)
-margin = -5
+margin = 0
 for (i in 1:num_doctors) {
     top_10_terms_for_doctor <- order(preference_matrix[i,])[1:(10+margin)]
     constr_top_10 <- rep(0, num_doctors * num_terms + num_doctors)
