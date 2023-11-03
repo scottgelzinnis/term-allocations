@@ -250,13 +250,11 @@ set.seed(69)
 <h1>Loading in the Preference Matrix</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4jIyBSZWFkIGluIEdvb2dsZSBTaGVldFxucmF3X3ByZWZlcmVuY2VfZGF0YSA8LSByZWFkX3NoZWV0KFwiaHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vc3ByZWFkc2hlZXRzL2QvMTl4TXVsRE1JSzZGZ21mTWFqbUkxQm5sYVNzVnV0X2lkenNJTjFrLVgtQXcvZWRpdD91c3A9c2hhcmluZ1wiKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4jIyBSZWFkIGluIEdvb2dsZSBTaGVldFxucmF3X3ByZWZlcmVuY2VfZGF0YSA8LSByZWFkX3NoZWV0KFwiaHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vc3ByZWFkc2hlZXRzL2QvMTl4TXVsRE1JSzZGZ21mTWFqbUkxQm5sYVNzVnV0X2lkenNJTjFrLVgtQXcvZWRpdD91c3A9c2hhcmluZ1wiKVxuIyBDb252ZXJ0IHRoZSB0aWJibGUgdG8gYSBkYXRhLmZyYW1lXG5yYXdfcHJlZmVyZW5jZV9kYXRhIDwtIGFzLmRhdGEuZnJhbWUocmF3X3ByZWZlcmVuY2VfZGF0YSlcblxuIyMgRGVmaW5lIHByZWZlcmVuY2UgbWF0cml4ICAjI1xuXG4jIENvbWJpbmUgY29sdW1ucyAxMyBhbmQgMTQgdG8gY3JlYXRlIHRoZSBcIkRvY3RvclwiIGNvbHVtblxucmF3X3ByZWZlcmVuY2VfZGF0YSREb2N0b3IgPC0gcGFzdGUocmF3X3ByZWZlcmVuY2VfZGF0YVtbMTNdXSwgcmF3X3ByZWZlcmVuY2VfZGF0YVtbMTRdXSwgc2VwID0gXCIsIFwiKVxuXG4jIFNvcnQgdGhlIHJhd19wcmVmZXJlbmNlX2RhdGEgYnkgRG9jdG9yIGNvbHVtblxucmF3X3ByZWZlcmVuY2VfZGF0YSA8LSByYXdfcHJlZmVyZW5jZV9kYXRhICU+JVxuICBhcnJhbmdlKERvY3RvcilcblxuIyBFeHRyYWN0IGNvbHVtbiBuYW1lcyB0aGF0IGhhdmUgdGhlIHBhdHRlcm4gJ3wgJ1xudGVybV9jb2x1bW5zIDwtIGdyZXAoXCJcXFxcfCBcIiwgbmFtZXMocmF3X3ByZWZlcmVuY2VfZGF0YSksIHZhbHVlID0gVFJVRSlcblxuIyBTZWxlY3QgdGhlIHJlbGV2YW50IGNvbHVtbnNcbnNlbGVjdGVkX2RhdGEgPC0gcmF3X3ByZWZlcmVuY2VfZGF0YVssIHRlcm1fY29sdW1uc11cblxuIyBTZWxlY3Qgc3VydmV5IGRhdGEgYW5kIGxvYWQgYXMgYSBkYXRhIGZyYW1lXG4jIFJlYWQgaW4gYW5kIHJlbmFtZSBjb2x1bW5zIG9mIHN1cnZleV9kYXRhXG5zdXJ2ZXlfZGF0YSA8LSByYXdfcHJlZmVyZW5jZV9kYXRhICU+JVxuICBzZWxlY3QoXG4gICAgRG9jdG9yLCBcbiAgICBgRGVzaXJlZCBDYXJlZXIgUGF0aHdheSAoR1AsIE1lZGljaW5lLCBTdXJnZXJ5LCBDcml0aWNhbCBDYXJlLCBQc3ljaClgLCBcbiAgICBgRG8geW91IGhhdmUgcGxhbnMgcmVxdWlyaW5nIGxlYXZlIG9mIG1vcmUgdGhhbiAyIHdlZWtzIGluIHRoZSAyMDI0IGNsaW5pY2FsIHllYXI/IChJZiBwb3NzaWJsZSB5b3VyIHJlcXVlc3Qgd2lsbCBiZSBhY2NvbW1vZGF0ZWQpYFxuICApICU+JVxuICByZW5hbWUoXG4gICAgYERlc2lyZWQgQ2FyZWVyIFBhdGh3YXlgID0gYERlc2lyZWQgQ2FyZWVyIFBhdGh3YXkgKEdQLCBNZWRpY2luZSwgU3VyZ2VyeSwgQ3JpdGljYWwgQ2FyZSwgUHN5Y2gpYCxcbiAgICBgTGVhdmUgUmVxdWVzdCBUZXJtYCA9IGBEbyB5b3UgaGF2ZSBwbGFucyByZXF1aXJpbmcgbGVhdmUgb2YgbW9yZSB0aGFuIDIgd2Vla3MgaW4gdGhlIDIwMjQgY2xpbmljYWwgeWVhcj8gKElmIHBvc3NpYmxlIHlvdXIgcmVxdWVzdCB3aWxsIGJlIGFjY29tbW9kYXRlZClgXG4gIClcblxuIyBTZXQgXCJEb2N0b3JcIiBjb2x1bW4gYXMgcm93IG5hbWVzXG5yb3duYW1lcyhzZWxlY3RlZF9kYXRhKSA8LSByYXdfcHJlZmVyZW5jZV9kYXRhJERvY3RvclxuXG4jIENsZWFuIHRoZSBjb2x1bW4gbmFtZXMgYnkgcmVtb3ZpbmcgZXZlcnl0aGluZyBiZWZvcmUgJ3wgJyAoaS5lLiwgcGlwZSBmb2xsb3dlZCBieSBhIHNwYWNlKVxuY29sbmFtZXMoc2VsZWN0ZWRfZGF0YSkgPC0gZ3N1YihcIi4qXFxcXHwgXCIsIFwiXCIsIGNvbG5hbWVzKHNlbGVjdGVkX2RhdGEpKVxuXG4jIENvbnZlcnQgc2VsZWN0ZWQgZGF0YSB0byBhIG1hdHJpeCBhbmQgZXhjbHVkZSB0aGUgXCJEb2N0b3JcIiBjb2x1bW5cbnByZWZlcmVuY2VfbWF0cml4IDwtIGFzLm1hdHJpeChzZWxlY3RlZF9kYXRhKVxuXG4jIERlZmluZSBkaW1lbnNpb25zIGJhc2VkIG9uIHByZWZlcmVuY2VfbWF0cml4XG5udW1fY29sdW1ucyA8LSBuY29sKHByZWZlcmVuY2VfbWF0cml4KVxubnVtX2RvY3RvcnMgPC0gbnJvdyhwcmVmZXJlbmNlX21hdHJpeClcbm51bV90ZXJtcyA8LSBudW1fY29sdW1ucyAgXG5cbiMgQXNzdW1pbmcgdGhlIG51bWJlciBvZiB0ZXJtcyBpcyBlcXVhbCB0byB0aGUgbnVtYmVyIG9mIGNvbHVtbnMgaW4gdGhlIG1hdHJpeFxucm93X25hbWVzIDwtIHJvd25hbWVzKHNlbGVjdGVkX2RhdGEpXG5jb2x1bW5fbmFtZXMgPC0gY29sbmFtZXMoc2VsZWN0ZWRfZGF0YSlcblxuYGBgIn0= -->
 <pre class="r"><code>
 ## Read in Google Sheet
-raw_preference_data &lt;- read_sheet(&quot;https://docs.google.com/spreadsheets/d/19xMulDMIK6FgmfMajmI1BnlaSsVut_idzsIN1k-X-Aw/edit?usp=sharing&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDb252ZXJ0IHRoZSB0aWJibGUgdG8gYSBkYXRhLmZyYW1lXG5yYXdfcHJlZmVyZW5jZV9kYXRhIDwtIGFzLmRhdGEuZnJhbWUocmF3X3ByZWZlcmVuY2VfZGF0YSlcblxuIyMgRGVmaW5lIHByZWZlcmVuY2UgbWF0cml4ICAjI1xuXG4jIENvbWJpbmUgY29sdW1ucyAxMyBhbmQgMTQgdG8gY3JlYXRlIHRoZSBcIkRvY3RvclwiIGNvbHVtblxucmF3X3ByZWZlcmVuY2VfZGF0YSREb2N0b3IgPC0gcGFzdGUocmF3X3ByZWZlcmVuY2VfZGF0YVtbMTNdXSwgcmF3X3ByZWZlcmVuY2VfZGF0YVtbMTRdXSwgc2VwID0gXCIsIFwiKVxuXG4jIFNvcnQgdGhlIHJhd19wcmVmZXJlbmNlX2RhdGEgYnkgRG9jdG9yIGNvbHVtblxucmF3X3ByZWZlcmVuY2VfZGF0YSA8LSByYXdfcHJlZmVyZW5jZV9kYXRhICU+JVxuICBhcnJhbmdlKERvY3RvcilcblxuIyBFeHRyYWN0IGNvbHVtbiBuYW1lcyB0aGF0IGhhdmUgdGhlIHBhdHRlcm4gJ3wgJ1xudGVybV9jb2x1bW5zIDwtIGdyZXAoXCJcXFxcfCBcIiwgbmFtZXMocmF3X3ByZWZlcmVuY2VfZGF0YSksIHZhbHVlID0gVFJVRSlcblxuIyBTZWxlY3QgdGhlIHJlbGV2YW50IGNvbHVtbnNcbnNlbGVjdGVkX2RhdGEgPC0gcmF3X3ByZWZlcmVuY2VfZGF0YVssIHRlcm1fY29sdW1uc11cblxuIyBTZWxlY3Qgc3VydmV5IGRhdGEgYW5kIGxvYWQgYXMgYSBkYXRhIGZyYW1lXG4jIFJlYWQgaW4gYW5kIHJlbmFtZSBjb2x1bW5zIG9mIHN1cnZleV9kYXRhXG5zdXJ2ZXlfZGF0YSA8LSByYXdfcHJlZmVyZW5jZV9kYXRhICU+JVxuICBzZWxlY3QoXG4gICAgRG9jdG9yLCBcbiAgICBgRGVzaXJlZCBDYXJlZXIgUGF0aHdheSAoR1AsIE1lZGljaW5lLCBTdXJnZXJ5LCBDcml0aWNhbCBDYXJlLCBQc3ljaClgLCBcbiAgICBgRG8geW91IGhhdmUgcGxhbnMgcmVxdWlyaW5nIGxlYXZlIG9mIG1vcmUgdGhhbiAyIHdlZWtzIGluIHRoZSAyMDI0IGNsaW5pY2FsIHllYXI/IChJZiBwb3NzaWJsZSB5b3VyIHJlcXVlc3Qgd2lsbCBiZSBhY2NvbW1vZGF0ZWQpYFxuICApICU+JVxuICByZW5hbWUoXG4gICAgYERlc2lyZWQgQ2FyZWVyIFBhdGh3YXlgID0gYERlc2lyZWQgQ2FyZWVyIFBhdGh3YXkgKEdQLCBNZWRpY2luZSwgU3VyZ2VyeSwgQ3JpdGljYWwgQ2FyZSwgUHN5Y2gpYCxcbiAgICBgTGVhdmUgUmVxdWVzdCBUZXJtYCA9IGBEbyB5b3UgaGF2ZSBwbGFucyByZXF1aXJpbmcgbGVhdmUgb2YgbW9yZSB0aGFuIDIgd2Vla3MgaW4gdGhlIDIwMjQgY2xpbmljYWwgeWVhcj8gKElmIHBvc3NpYmxlIHlvdXIgcmVxdWVzdCB3aWxsIGJlIGFjY29tbW9kYXRlZClgXG4gIClcblxuIyBTZXQgXCJEb2N0b3JcIiBjb2x1bW4gYXMgcm93IG5hbWVzXG5yb3duYW1lcyhzZWxlY3RlZF9kYXRhKSA8LSByYXdfcHJlZmVyZW5jZV9kYXRhJERvY3RvclxuXG4jIENsZWFuIHRoZSBjb2x1bW4gbmFtZXMgYnkgcmVtb3ZpbmcgZXZlcnl0aGluZyBiZWZvcmUgJ3wgJyAoaS5lLiwgcGlwZSBmb2xsb3dlZCBieSBhIHNwYWNlKVxuY29sbmFtZXMoc2VsZWN0ZWRfZGF0YSkgPC0gZ3N1YihcIi4qXFxcXHwgXCIsIFwiXCIsIGNvbG5hbWVzKHNlbGVjdGVkX2RhdGEpKVxuXG4jIENvbnZlcnQgc2VsZWN0ZWQgZGF0YSB0byBhIG1hdHJpeCBhbmQgZXhjbHVkZSB0aGUgXCJEb2N0b3JcIiBjb2x1bW5cbnByZWZlcmVuY2VfbWF0cml4IDwtIGFzLm1hdHJpeChzZWxlY3RlZF9kYXRhKVxuXG4jIERlZmluZSBkaW1lbnNpb25zIGJhc2VkIG9uIHByZWZlcmVuY2VfbWF0cml4XG5udW1fY29sdW1ucyA8LSBuY29sKHByZWZlcmVuY2VfbWF0cml4KVxubnVtX2RvY3RvcnMgPC0gbnJvdyhwcmVmZXJlbmNlX21hdHJpeClcbm51bV90ZXJtcyA8LSBudW1fY29sdW1ucyAgXG5cbiMgQXNzdW1pbmcgdGhlIG51bWJlciBvZiB0ZXJtcyBpcyBlcXVhbCB0byB0aGUgbnVtYmVyIG9mIGNvbHVtbnMgaW4gdGhlIG1hdHJpeFxucm93X25hbWVzIDwtIHJvd25hbWVzKHNlbGVjdGVkX2RhdGEpXG5jb2x1bW5fbmFtZXMgPC0gY29sbmFtZXMoc2VsZWN0ZWRfZGF0YSlcblxuYGBgIn0= -->
-<pre class="r"><code># Convert the tibble to a data.frame
+raw_preference_data &lt;- read_sheet(&quot;https://docs.google.com/spreadsheets/d/19xMulDMIK6FgmfMajmI1BnlaSsVut_idzsIN1k-X-Aw/edit?usp=sharing&quot;)
+# Convert the tibble to a data.frame
 raw_preference_data &lt;- as.data.frame(raw_preference_data)
 
 ## Define preference matrix  ##
@@ -1013,12 +1011,18 @@ gt(assignment_table)</code></pre>
     </tr>
   </thead>
   <tbody class="gt_table_body">
+    <tr><td headers="Doctor" class="gt_row gt_left">A, Test</td>
+<td headers="Assignment1" class="gt_row gt_left">HNE Mental Health &amp; Substance Use Service - Mater Hospital (PGY1/2)</td>
+<td headers="Assignment2" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
+<td headers="Assignment3" class="gt_row gt_left">JHH Medicine - Cardiology (PGY1/2)</td>
+<td headers="Assignment4" class="gt_row gt_left">JHH General Surgery / Upper GI (PGY1/2)</td>
+<td headers="Assignment5" class="gt_row gt_left">MBH Emergency (PGY1/2)</td></tr>
     <tr><td headers="Doctor" class="gt_row gt_left">C, Test</td>
-<td headers="Assignment1" class="gt_row gt_left">MH Emergency (PGY1/2)</td>
-<td headers="Assignment2" class="gt_row gt_left">BDH Emergency (PGY1/2)</td>
-<td headers="Assignment3" class="gt_row gt_left">CMN Emergency (PGY1/2)</td>
-<td headers="Assignment4" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
-<td headers="Assignment5" class="gt_row gt_left">BDH Acute General Medicine &amp; Cardiology (PGY1/2)</td></tr>
+<td headers="Assignment1" class="gt_row gt_left">BDH Acute General Medicine &amp; Cardiology (PGY1/2)</td>
+<td headers="Assignment2" class="gt_row gt_left">JHH Obstetrics &amp; Gynaecology (PGY1/2)</td>
+<td headers="Assignment3" class="gt_row gt_left">BDH Emergency (PGY1/2)</td>
+<td headers="Assignment4" class="gt_row gt_left">JHH Medicine - Nephrology &amp; Dialysis (PGY1/2)</td>
+<td headers="Assignment5" class="gt_row gt_left">JHH General Surgery / Hepatopancreatobiliary and Upper GI Surgery (PGY1/2)</td></tr>
   </tbody>
   
   
@@ -1530,11 +1534,11 @@ gt(unassigned_terms_table)</code></pre>
   </thead>
   <tbody class="gt_table_body">
     <tr><td headers="Term" class="gt_row gt_left">BDH Acute General Medicine &amp; Cardiology (PGY1/2)</td>
-<td headers="Assignment1" class="gt_row gt_right">1</td>
+<td headers="Assignment1" class="gt_row gt_right">0</td>
 <td headers="Assignment2" class="gt_row gt_right">0</td>
 <td headers="Assignment3" class="gt_row gt_right">1</td>
 <td headers="Assignment4" class="gt_row gt_right">0</td>
-<td headers="Assignment5" class="gt_row gt_right">0</td></tr>
+<td headers="Assignment5" class="gt_row gt_right">1</td></tr>
     <tr><td headers="Term" class="gt_row gt_left">BDH Acute General Medicine &amp; Rehabilitation (PGY1/2)</td>
 <td headers="Assignment1" class="gt_row gt_right">0</td>
 <td headers="Assignment2" class="gt_row gt_right">1</td>
@@ -1555,8 +1559,8 @@ gt(unassigned_terms_table)</code></pre>
 <td headers="Assignment5" class="gt_row gt_right">0</td></tr>
     <tr><td headers="Term" class="gt_row gt_left">BDH Emergency (PGY1/2)</td>
 <td headers="Assignment1" class="gt_row gt_right">2</td>
-<td headers="Assignment2" class="gt_row gt_right">0</td>
-<td headers="Assignment3" class="gt_row gt_right">2</td>
+<td headers="Assignment2" class="gt_row gt_right">1</td>
+<td headers="Assignment3" class="gt_row gt_right">1</td>
 <td headers="Assignment4" class="gt_row gt_right">1</td>
 <td headers="Assignment5" class="gt_row gt_right">2</td></tr>
     <tr><td headers="Term" class="gt_row gt_left">BDH Sub-Acute General Medicine (Team 5) (PGY1/2)</td>
@@ -1574,7 +1578,7 @@ gt(unassigned_terms_table)</code></pre>
     <tr><td headers="Term" class="gt_row gt_left">CMN Emergency (PGY1/2)</td>
 <td headers="Assignment1" class="gt_row gt_right">3</td>
 <td headers="Assignment2" class="gt_row gt_right">3</td>
-<td headers="Assignment3" class="gt_row gt_right">2</td>
+<td headers="Assignment3" class="gt_row gt_right">3</td>
 <td headers="Assignment4" class="gt_row gt_right">3</td>
 <td headers="Assignment5" class="gt_row gt_right">3</td></tr>
     <tr><td headers="Term" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td>
@@ -1620,7 +1624,7 @@ gt(unassigned_terms_table)</code></pre>
 <td headers="Assignment4" class="gt_row gt_right">2</td>
 <td headers="Assignment5" class="gt_row gt_right">2</td></tr>
     <tr><td headers="Term" class="gt_row gt_left">HNE Mental Health &amp; Substance Use Service - Mater Hospital (PGY1/2)</td>
-<td headers="Assignment1" class="gt_row gt_right">1</td>
+<td headers="Assignment1" class="gt_row gt_right">0</td>
 <td headers="Assignment2" class="gt_row gt_right">1</td>
 <td headers="Assignment3" class="gt_row gt_right">1</td>
 <td headers="Assignment4" class="gt_row gt_right">1</td>
@@ -1653,7 +1657,7 @@ gt(unassigned_terms_table)</code></pre>
 <td headers="Assignment1" class="gt_row gt_right">7</td>
 <td headers="Assignment2" class="gt_row gt_right">8</td>
 <td headers="Assignment3" class="gt_row gt_right">7</td>
-<td headers="Assignment4" class="gt_row gt_right">6</td>
+<td headers="Assignment4" class="gt_row gt_right">7</td>
 <td headers="Assignment5" class="gt_row gt_right">8</td></tr>
     <tr><td headers="Term" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td>
 <td headers="Assignment1" class="gt_row gt_right">4</td>
@@ -1672,7 +1676,7 @@ gt(unassigned_terms_table)</code></pre>
 <td headers="Assignment2" class="gt_row gt_right">0</td>
 <td headers="Assignment3" class="gt_row gt_right">1</td>
 <td headers="Assignment4" class="gt_row gt_right">0</td>
-<td headers="Assignment5" class="gt_row gt_right">1</td></tr>
+<td headers="Assignment5" class="gt_row gt_right">0</td></tr>
     <tr><td headers="Term" class="gt_row gt_left">JHH General Surgery / Trauma (PGY1/2)</td>
 <td headers="Assignment1" class="gt_row gt_right">1</td>
 <td headers="Assignment2" class="gt_row gt_right">1</td>
@@ -1683,12 +1687,12 @@ gt(unassigned_terms_table)</code></pre>
 <td headers="Assignment1" class="gt_row gt_right">0</td>
 <td headers="Assignment2" class="gt_row gt_right">1</td>
 <td headers="Assignment3" class="gt_row gt_right">0</td>
-<td headers="Assignment4" class="gt_row gt_right">1</td>
+<td headers="Assignment4" class="gt_row gt_right">0</td>
 <td headers="Assignment5" class="gt_row gt_right">0</td></tr>
     <tr><td headers="Term" class="gt_row gt_left">JHH Medicine - Cardiology (PGY1/2)</td>
 <td headers="Assignment1" class="gt_row gt_right">2</td>
 <td headers="Assignment2" class="gt_row gt_right">1</td>
-<td headers="Assignment3" class="gt_row gt_right">2</td>
+<td headers="Assignment3" class="gt_row gt_right">1</td>
 <td headers="Assignment4" class="gt_row gt_right">1</td>
 <td headers="Assignment5" class="gt_row gt_right">2</td></tr>
     <tr><td headers="Term" class="gt_row gt_left">JHH Medicine - Dermatology (PGY1/2)</td>
@@ -1719,7 +1723,7 @@ gt(unassigned_terms_table)</code></pre>
 <td headers="Assignment1" class="gt_row gt_right">1</td>
 <td headers="Assignment2" class="gt_row gt_right">1</td>
 <td headers="Assignment3" class="gt_row gt_right">1</td>
-<td headers="Assignment4" class="gt_row gt_right">1</td>
+<td headers="Assignment4" class="gt_row gt_right">0</td>
 <td headers="Assignment5" class="gt_row gt_right">0</td></tr>
     <tr><td headers="Term" class="gt_row gt_left">JHH Medicine - Neurology (PGY1/2)</td>
 <td headers="Assignment1" class="gt_row gt_right">1</td>
@@ -1747,7 +1751,7 @@ gt(unassigned_terms_table)</code></pre>
 <td headers="Assignment5" class="gt_row gt_right">0</td></tr>
     <tr><td headers="Term" class="gt_row gt_left">JHH Obstetrics &amp; Gynaecology (PGY1/2)</td>
 <td headers="Assignment1" class="gt_row gt_right">1</td>
-<td headers="Assignment2" class="gt_row gt_right">1</td>
+<td headers="Assignment2" class="gt_row gt_right">0</td>
 <td headers="Assignment3" class="gt_row gt_right">1</td>
 <td headers="Assignment4" class="gt_row gt_right">1</td>
 <td headers="Assignment5" class="gt_row gt_right">1</td></tr>
@@ -1777,7 +1781,7 @@ gt(unassigned_terms_table)</code></pre>
 <td headers="Assignment5" class="gt_row gt_right">0</td></tr>
     <tr><td headers="Term" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
 <td headers="Assignment1" class="gt_row gt_right">5</td>
-<td headers="Assignment2" class="gt_row gt_right">5</td>
+<td headers="Assignment2" class="gt_row gt_right">4</td>
 <td headers="Assignment3" class="gt_row gt_right">5</td>
 <td headers="Assignment4" class="gt_row gt_right">5</td>
 <td headers="Assignment5" class="gt_row gt_right">5</td></tr>
@@ -1804,7 +1808,7 @@ gt(unassigned_terms_table)</code></pre>
 <td headers="Assignment2" class="gt_row gt_right">1</td>
 <td headers="Assignment3" class="gt_row gt_right">1</td>
 <td headers="Assignment4" class="gt_row gt_right">1</td>
-<td headers="Assignment5" class="gt_row gt_right">1</td></tr>
+<td headers="Assignment5" class="gt_row gt_right">0</td></tr>
     <tr><td headers="Term" class="gt_row gt_left">MH  Medicine - Cardiology (PGY1/2)</td>
 <td headers="Assignment1" class="gt_row gt_right">1</td>
 <td headers="Assignment2" class="gt_row gt_right">0</td>
@@ -1812,7 +1816,7 @@ gt(unassigned_terms_table)</code></pre>
 <td headers="Assignment4" class="gt_row gt_right">0</td>
 <td headers="Assignment5" class="gt_row gt_right">1</td></tr>
     <tr><td headers="Term" class="gt_row gt_left">MH Emergency (PGY1/2)</td>
-<td headers="Assignment1" class="gt_row gt_right">4</td>
+<td headers="Assignment1" class="gt_row gt_right">5</td>
 <td headers="Assignment2" class="gt_row gt_right">5</td>
 <td headers="Assignment3" class="gt_row gt_right">5</td>
 <td headers="Assignment4" class="gt_row gt_right">5</td>
@@ -2380,33 +2384,33 @@ gt(unassigned_df)</code></pre>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td headers="Term1" class="gt_row gt_left">BDH Acute General Medicine &amp; Cardiology (PGY1/2)</td>
+    <tr><td headers="Term1" class="gt_row gt_left">BDH Acute General Medicine (PGY1/2)</td>
 <td headers="Term2" class="gt_row gt_left">BDH Acute General Medicine &amp; Rehabilitation (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">BDH Acute General Medicine &amp; Cardiology (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">BDH Acute General Medicine &amp; Rehabilitation (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">BDH Acute General Medicine (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">BDH Acute General Medicine (PGY1/2)</td>
+<td headers="Term5" class="gt_row gt_left">BDH Acute General Medicine &amp; Cardiology (PGY1/2)</td></tr>
+    <tr><td headers="Term1" class="gt_row gt_left">BDH Emergency (PGY1/2)</td>
 <td headers="Term2" class="gt_row gt_left">BDH Acute General Medicine (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">BDH Acute General Medicine (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">BDH Acute General Medicine (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">BDH Emergency (PGY1/2)</td></tr>
+<td headers="Term5" class="gt_row gt_left">BDH Acute General Medicine (PGY1/2)</td></tr>
     <tr><td headers="Term1" class="gt_row gt_left">BDH Emergency (PGY1/2)</td>
 <td headers="Term2" class="gt_row gt_left">BDH Drug and Alcohol Clinical Services (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">BDH Emergency (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">BDH Drug and Alcohol Clinical Services (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">BDH Emergency (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">BDH Emergency (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">BDH Sub-Acute General Medicine (Team 5) (PGY1/2)</td>
-<td headers="Term3" class="gt_row gt_left">BDH Emergency (PGY1/2)</td>
-<td headers="Term4" class="gt_row gt_left">BDH Emergency (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">BDH Surgery (PGY1/2)</td></tr>
     <tr><td headers="Term1" class="gt_row gt_left">BDH Surgery (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">BDH Surgery (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">BDH Emergency (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">BDH Surgery (PGY1/2)</td>
-<td headers="Term4" class="gt_row gt_left">BDH Sub-Acute General Medicine (Team 5) (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">CMN Emergency (PGY1/2)</td></tr>
+<td headers="Term4" class="gt_row gt_left">BDH Emergency (PGY1/2)</td>
+<td headers="Term5" class="gt_row gt_left">BDH Emergency (PGY1/2)</td></tr>
     <tr><td headers="Term1" class="gt_row gt_left">CMN Emergency (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">CMN Emergency (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">BDH Sub-Acute General Medicine (Team 5) (PGY1/2)</td>
+<td headers="Term3" class="gt_row gt_left">CMN Emergency (PGY1/2)</td>
+<td headers="Term4" class="gt_row gt_left">BDH Sub-Acute General Medicine (Team 5) (PGY1/2)</td>
+<td headers="Term5" class="gt_row gt_left">BDH Surgery (PGY1/2)</td></tr>
+    <tr><td headers="Term1" class="gt_row gt_left">CMN Emergency (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">BDH Surgery (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">CMN Emergency (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">BDH Surgery (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">CMN Emergency (PGY1/2)</td></tr>
@@ -2415,7 +2419,12 @@ gt(unassigned_df)</code></pre>
 <td headers="Term3" class="gt_row gt_left">CMN Emergency (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">CMN Emergency (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">CMN Emergency (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">CMN Emergency (PGY1/2)</td>
+    <tr><td headers="Term1" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">CMN Emergency (PGY1/2)</td>
+<td headers="Term3" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td>
+<td headers="Term4" class="gt_row gt_left">CMN Emergency (PGY1/2)</td>
+<td headers="Term5" class="gt_row gt_left">CMN Emergency (PGY1/2)</td></tr>
+    <tr><td headers="Term1" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td>
 <td headers="Term2" class="gt_row gt_left">CMN Emergency (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">CMN Emergency (PGY1/2)</td>
@@ -2423,11 +2432,6 @@ gt(unassigned_df)</code></pre>
     <tr><td headers="Term1" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td>
 <td headers="Term2" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td>
-<td headers="Term4" class="gt_row gt_left">CMN Emergency (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td>
-<td headers="Term3" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td></tr>
     <tr><td headers="Term1" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td>
@@ -2435,65 +2439,70 @@ gt(unassigned_df)</code></pre>
 <td headers="Term3" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td>
+    <tr><td headers="Term1" class="gt_row gt_left">CMN Medicine - Cardiology (PGY1/2)</td>
 <td headers="Term2" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">CMN Medicine - Cardiology (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">CMN Medicine - Cardiology (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">CMN Medicine - Cardiology (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">CMN Medicine - Gastroenterology with Drug &amp; Alcohol (PGY1/2)</td>
+<td headers="Term5" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td></tr>
+    <tr><td headers="Term1" class="gt_row gt_left">CMN Medicine - Haematology (01) (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">CMN Medicine - Haematology (01) (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">CMN General Medicine (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">CMN Medicine - Haematology (01) (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">CMN Medicine - Haematology (01) (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">CMN Medicine - Haematology (01) (PGY1/2)</td>
+<td headers="Term5" class="gt_row gt_left">CMN Medicine - Cardiology (PGY1/2)</td></tr>
+    <tr><td headers="Term1" class="gt_row gt_left">CMN Medicine - Medical Oncology (01) (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">CMN Medicine - Gastroenterology with Drug &amp; Alcohol (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">CMN Medicine - Medical Oncology (01) (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">CMN Medicine - Gastroenterology with Drug &amp; Alcohol (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">CMN Medicine - Medical Oncology (01) (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">CMN Medicine - Medical Oncology (01) (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">CMN Medicine - Medical Oncology (01) (PGY1/2)</td>
+<td headers="Term5" class="gt_row gt_left">CMN Medicine - Haematology (01) (PGY1/2)</td></tr>
+    <tr><td headers="Term1" class="gt_row gt_left">CMN Surgery (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">CMN Medicine - Haematology (01) (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">CMN Surgery (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">CMN Medicine - Haematology (01) (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">CMN Surgery (PGY1/2)</td></tr>
+<td headers="Term5" class="gt_row gt_left">CMN Medicine - Medical Oncology (01) (PGY1/2)</td></tr>
     <tr><td headers="Term1" class="gt_row gt_left">CMN Surgery (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">CMN Palliative Care (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">CMN Medicine - Medical Oncology (01) (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">CMN Surgery (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">CMN Medicine - Medical Oncology (01) (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">CMN Surgery (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">CMN Surgery (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">CMN Surgery (PGY1/2)</td>
+    <tr><td headers="Term1" class="gt_row gt_left">HNE Mental Health Lake Macquarie Ward - Mater hospital (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">CMN Palliative Care (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">HNE Mental Health &amp; Substance Use Service - Mater Hospital (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">CMN Palliative Care (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">HNE Mental Health &amp; Substance Use Service - Mater Hospital (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">HNE Mental Health &amp; Substance Use Service - Mater Hospital (PGY1/2)</td>
+<td headers="Term5" class="gt_row gt_left">CMN Surgery (PGY1/2)</td></tr>
+    <tr><td headers="Term1" class="gt_row gt_left">HNE Mental Health Newcastle Inpatient Unit - Mater Hospital (PGY1/2)</td>
 <td headers="Term2" class="gt_row gt_left">CMN Surgery (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">HNE Mental Health Lake Macquarie Ward - Mater hospital (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">CMN Surgery (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">HNE Mental Health Lake Macquarie Ward - Mater hospital (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">HNE Mental Health Lake Macquarie Ward - Mater hospital (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">HNE Mental Health &amp; Substance Use Service - Mater Hospital (PGY1/2)</td>
+<td headers="Term5" class="gt_row gt_left">HNE Mental Health &amp; Substance Use Service - Mater Hospital (PGY1/2)</td></tr>
+    <tr><td headers="Term1" class="gt_row gt_left">HNE Mental Health Older People&#39;s Service - Mater Hospital (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">CMN Surgery (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">HNE Mental Health Newcastle Inpatient Unit - Mater Hospital (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">CMN Surgery (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">HNE Mental Health Newcastle Inpatient Unit - Mater Hospital (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">HNE Mental Health Newcastle Inpatient Unit - Mater Hospital (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">HNE Mental Health Lake Macquarie Ward - Mater hospital (PGY1/2)</td>
+<td headers="Term5" class="gt_row gt_left">HNE Mental Health Lake Macquarie Ward - Mater hospital (PGY1/2)</td></tr>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH Acute General Surgery Unit (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">HNE Mental Health &amp; Substance Use Service - Mater Hospital (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">HNE Mental Health Older People&#39;s Service - Mater Hospital (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">HNE Mental Health &amp; Substance Use Service - Mater Hospital (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">HNE Mental Health Older People&#39;s Service - Mater Hospital (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">HNE Mental Health Older People&#39;s Service - Mater Hospital (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">HNE Mental Health Newcastle Inpatient Unit - Mater Hospital (PGY1/2)</td>
+<td headers="Term5" class="gt_row gt_left">HNE Mental Health Newcastle Inpatient Unit - Mater Hospital (PGY1/2)</td></tr>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH Acute General Surgery Unit (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">HNE Mental Health Lake Macquarie Ward - Mater hospital (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">JHH Acute General Surgery Unit (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">HNE Mental Health Lake Macquarie Ward - Mater hospital (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">JHH Acute General Surgery Unit (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH Acute General Surgery Unit (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">HNE Mental Health Older People&#39;s Service - Mater Hospital (PGY1/2)</td>
+<td headers="Term5" class="gt_row gt_left">HNE Mental Health Older People&#39;s Service - Mater Hospital (PGY1/2)</td></tr>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">HNE Mental Health Newcastle Inpatient Unit - Mater Hospital (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">JHH Acute General Surgery Unit (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">HNE Mental Health Newcastle Inpatient Unit - Mater Hospital (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">JHH Acute General Surgery Unit (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH Acute General Surgery Unit (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">JHH Acute General Surgery Unit (PGY1/2)</td>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">HNE Mental Health Older People&#39;s Service - Mater Hospital (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">HNE Mental Health Older People&#39;s Service - Mater Hospital (PGY1/2)</td>
+<td headers="Term5" class="gt_row gt_left">JHH Acute General Surgery Unit (PGY1/2)</td></tr>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">JHH Acute General Surgery Unit (PGY1/2)</td>
+<td headers="Term3" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
+<td headers="Term4" class="gt_row gt_left">JHH Acute General Surgery Unit (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">JHH Emergency (PGY1/2)</td></tr>
     <tr><td headers="Term1" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
 <td headers="Term2" class="gt_row gt_left">JHH Acute General Surgery Unit (PGY1/2)</td>
@@ -2503,11 +2512,6 @@ gt(unassigned_df)</code></pre>
     <tr><td headers="Term1" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
 <td headers="Term2" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
-<td headers="Term4" class="gt_row gt_left">JHH Acute General Surgery Unit (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">JHH Emergency (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
-<td headers="Term3" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">JHH Emergency (PGY1/2)</td></tr>
     <tr><td headers="Term1" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
@@ -2520,12 +2524,17 @@ gt(unassigned_df)</code></pre>
 <td headers="Term3" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">JHH Emergency (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td>
 <td headers="Term2" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">JHH Emergency (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
+<td headers="Term3" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td>
+<td headers="Term4" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
+<td headers="Term5" class="gt_row gt_left">JHH Emergency (PGY1/2)</td></tr>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td>
 <td headers="Term2" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
@@ -2535,113 +2544,103 @@ gt(unassigned_df)</code></pre>
 <td headers="Term3" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH General Surgery / Hepatopancreatobiliary and Upper GI Surgery (PGY1/2)</td>
 <td headers="Term2" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td>
-<td headers="Term3" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td>
-<td headers="Term4" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH General Surgery / Trauma (PGY1/2)</td>
 <td headers="Term2" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">JHH General Surgery / Hepatopancreatobiliary and Upper GI Surgery (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH General Surgery / Hepatopancreatobiliary and Upper GI Surgery (PGY1/2)</td>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH Medicine - Cardiology (PGY1/2)</td>
 <td headers="Term2" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">JHH General Surgery / Trauma (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">JHH General Surgery / Hepatopancreatobiliary and Upper GI Surgery (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH General Surgery / Trauma (PGY1/2)</td>
+<td headers="Term5" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td></tr>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH Medicine - Cardiology (PGY1/2)</td>
 <td headers="Term2" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">JHH Medicine - Cardiology (PGY1/2)</td>
-<td headers="Term4" class="gt_row gt_left">JHH General Surgery / Colorectal (PGY1/2)</td>
+<td headers="Term4" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">JHH General Surgery / Trauma (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH Medicine - Cardiology (PGY1/2)</td>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH Medicine - Gastroenterology (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">JHH General Medicine (PGY1/2)</td>
+<td headers="Term3" class="gt_row gt_left">JHH Medicine - Gastroenterology (PGY1/2)</td>
+<td headers="Term4" class="gt_row gt_left">JHH General Surgery / Colorectal (PGY1/2)</td>
+<td headers="Term5" class="gt_row gt_left">JHH Medicine - Cardiology (PGY1/2)</td></tr>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH Medicine - Gastroenterology (PGY1/2)</td>
 <td headers="Term2" class="gt_row gt_left">JHH General Surgery / Colorectal (PGY1/2)</td>
-<td headers="Term3" class="gt_row gt_left">JHH Medicine - Cardiology (PGY1/2)</td>
+<td headers="Term3" class="gt_row gt_left">JHH Medicine - Gastroenterology (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH General Surgery / Trauma (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">JHH Medicine - Cardiology (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH Medicine - Cardiology (PGY1/2)</td>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH Medicine - Infectious Disease (PGY1/2)</td>
 <td headers="Term2" class="gt_row gt_left">JHH General Surgery / Trauma (PGY1/2)</td>
-<td headers="Term3" class="gt_row gt_left">JHH Medicine - Gastroenterology (PGY1/2)</td>
-<td headers="Term4" class="gt_row gt_left">JHH General Surgery / Upper GI (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">JHH Medicine - Cardiology (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH Medicine - Gastroenterology (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">JHH General Surgery / Upper GI (PGY1/2)</td>
-<td headers="Term3" class="gt_row gt_left">JHH Medicine - Gastroenterology (PGY1/2)</td>
+<td headers="Term3" class="gt_row gt_left">JHH Medicine - Infectious Disease (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Medicine - Cardiology (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">JHH Medicine - Gastroenterology (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH Medicine - Gastroenterology (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">JHH Medicine - Cardiology (PGY1/2)</td>
-<td headers="Term3" class="gt_row gt_left">JHH Medicine - Infectious Disease (PGY1/2)</td>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH Medicine - Nephrology &amp; Dialysis (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">JHH General Surgery / Upper GI (PGY1/2)</td>
+<td headers="Term3" class="gt_row gt_left">JHH Medicine - Nephrology &amp; Dialysis (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Medicine - Dermatology (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">JHH Medicine - Gastroenterology (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH Medicine - Infectious Disease (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">JHH Medicine - Dermatology (PGY1/2)</td>
-<td headers="Term3" class="gt_row gt_left">JHH Medicine - Nephrology &amp; Dialysis (PGY1/2)</td>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH Medicine - Neurology (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">JHH Medicine - Cardiology (PGY1/2)</td>
+<td headers="Term3" class="gt_row gt_left">JHH Medicine - Rehabilitation (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Medicine - Gastroenterology (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">JHH Medicine - Infectious Disease (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH Medicine - Nephrology &amp; Dialysis (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">JHH Medicine - Gastroenterology (PGY1/2)</td>
-<td headers="Term3" class="gt_row gt_left">JHH Medicine - Rehabilitation (PGY1/2)</td>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH Medicine - Rehabilitation (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">JHH Medicine - Dermatology (PGY1/2)</td>
+<td headers="Term3" class="gt_row gt_left">JHH Medicine - Respiratory (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Medicine - MACU (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">JHH Medicine - Neurology (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH Medicine - Neurology (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">JHH Medicine - MACU (PGY1/2)</td>
-<td headers="Term3" class="gt_row gt_left">JHH Medicine - Respiratory (PGY1/2)</td>
-<td headers="Term4" class="gt_row gt_left">JHH Medicine - Nephrology &amp; Dialysis (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">JHH Medicine - Rehabilitation (PGY1/2)</td></tr>
     <tr><td headers="Term1" class="gt_row gt_left">JHH Medicine - Rehabilitation (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">JHH Medicine - Nephrology &amp; Dialysis (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">JHH Medicine - Gastroenterology (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">JHH Obstetrics &amp; Gynaecology (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Medicine - Neurology (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">JHH Medicine - Rehabilitation (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH Medicine - Rehabilitation (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">JHH Medicine - Neurology (PGY1/2)</td>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH Medicine - Respiratory (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">JHH Medicine - MACU (PGY1/2)</td>
+<td headers="Term3" class="gt_row gt_left">JHH Surgery - Neurosurgery (PGY1/2)</td>
+<td headers="Term4" class="gt_row gt_left">JHH Medicine - Rehabilitation (PGY1/2)</td>
+<td headers="Term5" class="gt_row gt_left">JHH Medicine - Rehabilitation (PGY1/2)</td></tr>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH Medicine - Respiratory (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">JHH Medicine - Nephrology &amp; Dialysis (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">JHH Surgery - Neurosurgery (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Medicine - Rehabilitation (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">JHH Medicine - Respiratory (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH Medicine - Respiratory (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">JHH Medicine - Rehabilitation (PGY1/2)</td>
-<td headers="Term3" class="gt_row gt_left">JHH Surgery - Neurosurgery (PGY1/2)</td>
-<td headers="Term4" class="gt_row gt_left">JHH Medicine - Rehabilitation (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">JHH Obstetrics &amp; Gynaecology (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH Medicine - Respiratory (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">JHH Medicine - Rehabilitation (PGY1/2)</td>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH Obstetrics &amp; Gynaecology (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">JHH Medicine - Neurology (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Medicine - Respiratory (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">JHH Surgery - Cardiothoracic Surgery (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH Obstetrics &amp; Gynaecology (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">JHH Medicine - Respiratory (PGY1/2)</td>
+<td headers="Term5" class="gt_row gt_left">JHH Obstetrics &amp; Gynaecology (PGY1/2)</td></tr>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH Surgery - Cardiothoracic Surgery (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">JHH Medicine - Rehabilitation (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Medicine - Rheumatology (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">JHH Surgery - Neurosurgery (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH Surgery - Cardiothoracic Surgery (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">JHH Medicine - Respiratory (PGY1/2)</td>
+<td headers="Term5" class="gt_row gt_left">JHH Surgery - Cardiothoracic Surgery (PGY1/2)</td></tr>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH Surgery - Neurosurgery (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">JHH Medicine - Rehabilitation (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Obstetrics &amp; Gynaecology (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">JHH Surgery - Neurosurgery (PGY1/2)</td></tr>
     <tr><td headers="Term1" class="gt_row gt_left">JHH Surgery - Neurosurgery (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">JHH Obstetrics &amp; Gynaecology (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">JHH Medicine - Respiratory (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Surgery - Cardiothoracic Surgery (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH Surgery - Neurosurgery (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">JHH Surgery - Cardiothoracic Surgery (PGY1/2)</td>
+<td headers="Term5" class="gt_row gt_left">JHH Surgery - Neurosurgery (PGY1/2)</td></tr>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">JHH Medicine - Respiratory (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Surgery - Ear, Nose and Throat (ENT) (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td></tr>
     <tr><td headers="Term1" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">JHH Surgery - Ear, Nose and Throat (ENT) (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">JHH Surgery - Cardiothoracic Surgery (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">JHH Surgery - Orthopaedics (Team 6) (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Surgery - Neurosurgery (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td></tr>
     <tr><td headers="Term1" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">JHH Surgery - Neurosurgery (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">JHH Surgery - Ear, Nose and Throat (ENT) (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">JHH Surgery - Urology (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Surgery - Neurosurgery (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td></tr>
@@ -2651,16 +2650,16 @@ gt(unassigned_df)</code></pre>
 <td headers="Term4" class="gt_row gt_left">JHH Surgery - Oral Maxillofacial (OMF) (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td></tr>
     <tr><td headers="Term1" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
+<td headers="Term2" class="gt_row gt_left">JHH Surgery - Neurosurgery (PGY1/2)</td>
+<td headers="Term3" class="gt_row gt_left">JHH Surgery - Vascular (PGY1/2)</td>
+<td headers="Term4" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
+<td headers="Term5" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td></tr>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH Surgery - Orthopaedics (Team 6) (PGY1/2)</td>
 <td headers="Term2" class="gt_row gt_left">JHH Surgery - Oral Maxillofacial (OMF) (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">JHH Surgery - Vascular (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">JHH Surgery - Orthopaedics (Team 6) (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
-<td headers="Term2" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
-<td headers="Term3" class="gt_row gt_left">JHH Surgery - Vascular (PGY1/2)</td>
-<td headers="Term4" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">JHH Surgery - Urology (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH Surgery - Orthopaedics (Team 6) (PGY1/2)</td>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH Surgery - Urology (PGY1/2)</td>
 <td headers="Term2" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">MBH Emergency (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
@@ -2669,18 +2668,18 @@ gt(unassigned_df)</code></pre>
 <td headers="Term2" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">MH  Medicine - Cardiology (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">JHH Surgery - Vascular (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH Surgery - Urology (PGY1/2)</td>
+<td headers="Term5" class="gt_row gt_left">JHH Surgery - Urology (PGY1/2)</td></tr>
+    <tr><td headers="Term1" class="gt_row gt_left">JHH Surgery - Vascular (PGY1/2)</td>
 <td headers="Term2" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">MH Emergency (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
 <td headers="Term5" class="gt_row gt_left">JHH Surgery - Vascular (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">JHH Surgery - Vascular (PGY1/2)</td>
+    <tr><td headers="Term1" class="gt_row gt_left">MH  Medicine - Cardiology (PGY1/2)</td>
 <td headers="Term2" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">MH Emergency (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Surgery - Urology (PGY1/2)</td>
-<td headers="Term5" class="gt_row gt_left">MBH Emergency (PGY1/2)</td></tr>
-    <tr><td headers="Term1" class="gt_row gt_left">MH  Medicine - Cardiology (PGY1/2)</td>
+<td headers="Term5" class="gt_row gt_left">JHH Surgery - Vascular (PGY1/2)</td></tr>
+    <tr><td headers="Term1" class="gt_row gt_left">MH Emergency (PGY1/2)</td>
 <td headers="Term2" class="gt_row gt_left">JHH Surgery - Urology (PGY1/2)</td>
 <td headers="Term3" class="gt_row gt_left">MH Emergency (PGY1/2)</td>
 <td headers="Term4" class="gt_row gt_left">JHH Surgery - Urology (PGY1/2)</td>
@@ -3456,17 +3455,17 @@ print(evaluation_table)</code></pre>
     <tr><td headers="Metric" class="gt_row gt_left">At least 2 terms in Top 10 (%)</td>
 <td headers="Value" class="gt_row gt_right">100.00</td></tr>
     <tr><td headers="Metric" class="gt_row gt_left">At least 3 terms in Top 10 (%)</td>
-<td headers="Value" class="gt_row gt_right">100.00</td></tr>
+<td headers="Value" class="gt_row gt_right">50.00</td></tr>
     <tr><td headers="Metric" class="gt_row gt_left">At least 1 term in Top 5 (%)</td>
 <td headers="Value" class="gt_row gt_right">100.00</td></tr>
     <tr><td headers="Metric" class="gt_row gt_left">Average Preference of Assigned Terms</td>
-<td headers="Value" class="gt_row gt_right">3.00</td></tr>
+<td headers="Value" class="gt_row gt_right">11.80</td></tr>
     <tr><td headers="Metric" class="gt_row gt_left">Average Max of Assigned Preferences</td>
-<td headers="Value" class="gt_row gt_right">5.00</td></tr>
+<td headers="Value" class="gt_row gt_right">21.50</td></tr>
     <tr><td headers="Metric" class="gt_row gt_left">Average Min of Assigned Preferences</td>
-<td headers="Value" class="gt_row gt_right">1.00</td></tr>
+<td headers="Value" class="gt_row gt_right">1.50</td></tr>
     <tr><td headers="Metric" class="gt_row gt_left">Average SD of Assigned Preferences</td>
-<td headers="Value" class="gt_row gt_right">1.58</td></tr>
+<td headers="Value" class="gt_row gt_right">8.95</td></tr>
   </tbody>
   
   
@@ -3986,21 +3985,36 @@ gt(doctor_preference_report)</code></pre>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td headers="Doctor" class="gt_row gt_left">C, Test</td>
-<td headers="Term" class="gt_row gt_left">MH Emergency (PGY1/2)</td>
-<td headers="Preference_Score" class="gt_row gt_right">1</td></tr>
-    <tr><td headers="Doctor" class="gt_row gt_left">C, Test</td>
-<td headers="Term" class="gt_row gt_left">BDH Emergency (PGY1/2)</td>
-<td headers="Preference_Score" class="gt_row gt_right">2</td></tr>
-    <tr><td headers="Doctor" class="gt_row gt_left">C, Test</td>
-<td headers="Term" class="gt_row gt_left">CMN Emergency (PGY1/2)</td>
+    <tr><td headers="Doctor" class="gt_row gt_left">A, Test</td>
+<td headers="Term" class="gt_row gt_left">HNE Mental Health &amp; Substance Use Service - Mater Hospital (PGY1/2)</td>
 <td headers="Preference_Score" class="gt_row gt_right">3</td></tr>
-    <tr><td headers="Doctor" class="gt_row gt_left">C, Test</td>
-<td headers="Term" class="gt_row gt_left">JHH Emergency (PGY1/2)</td>
+    <tr><td headers="Doctor" class="gt_row gt_left">A, Test</td>
+<td headers="Term" class="gt_row gt_left">JHH Surgery - Orthopaedics (PGY1/2)</td>
+<td headers="Preference_Score" class="gt_row gt_right">5</td></tr>
+    <tr><td headers="Doctor" class="gt_row gt_left">A, Test</td>
+<td headers="Term" class="gt_row gt_left">JHH Medicine - Cardiology (PGY1/2)</td>
+<td headers="Preference_Score" class="gt_row gt_right">2</td></tr>
+    <tr><td headers="Doctor" class="gt_row gt_left">A, Test</td>
+<td headers="Term" class="gt_row gt_left">JHH General Surgery / Upper GI (PGY1/2)</td>
+<td headers="Preference_Score" class="gt_row gt_right">1</td></tr>
+    <tr><td headers="Doctor" class="gt_row gt_left">A, Test</td>
+<td headers="Term" class="gt_row gt_left">MBH Emergency (PGY1/2)</td>
 <td headers="Preference_Score" class="gt_row gt_right">4</td></tr>
     <tr><td headers="Doctor" class="gt_row gt_left">C, Test</td>
 <td headers="Term" class="gt_row gt_left">BDH Acute General Medicine &amp; Cardiology (PGY1/2)</td>
 <td headers="Preference_Score" class="gt_row gt_right">5</td></tr>
+    <tr><td headers="Doctor" class="gt_row gt_left">C, Test</td>
+<td headers="Term" class="gt_row gt_left">JHH Obstetrics &amp; Gynaecology (PGY1/2)</td>
+<td headers="Preference_Score" class="gt_row gt_right">38</td></tr>
+    <tr><td headers="Doctor" class="gt_row gt_left">C, Test</td>
+<td headers="Term" class="gt_row gt_left">BDH Emergency (PGY1/2)</td>
+<td headers="Preference_Score" class="gt_row gt_right">2</td></tr>
+    <tr><td headers="Doctor" class="gt_row gt_left">C, Test</td>
+<td headers="Term" class="gt_row gt_left">JHH Medicine - Nephrology &amp; Dialysis (PGY1/2)</td>
+<td headers="Preference_Score" class="gt_row gt_right">33</td></tr>
+    <tr><td headers="Doctor" class="gt_row gt_left">C, Test</td>
+<td headers="Term" class="gt_row gt_left">JHH General Surgery / Hepatopancreatobiliary and Upper GI Surgery (PGY1/2)</td>
+<td headers="Preference_Score" class="gt_row gt_right">25</td></tr>
   </tbody>
   
   
@@ -4060,10 +4074,14 @@ team_based_compliance &lt;- sapply(1:num_doctors, function(i) {
   return(team_based_count &gt;= 3)
 })</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiRG9jdG9yOiBDLCBUZXN0XCJcblsxXSBcIkFzc2lnbmVkIHRlcm1zOiBNSCBFbWVyZ2VuY3kgKFBHWTEvMiksIEJESCBFbWVyZ2VuY3kgKFBHWTEvMiksIENNTiBFbWVyZ2VuY3kgKFBHWTEvMiksIEpISCBFbWVyZ2VuY3kgKFBHWTEvMiksIEJESCBBY3V0ZSBHZW5lcmFsIE1lZGljaW5lICYgQ2FyZGlvbG9neSAoUEdZMS8yKVwiXG5bMV0gXCJNYXRjaGluZyBpbmRpY2VzOiA0OCwgNSwgOCwgMjEsIDFcIlxuWzFdIFwiQ2xpbmljYWwgc3RydWN0dXJlczogVGVhbSBCYXNlZCwgVGVhbSBCYXNlZCwgVGVhbSBCYXNlZCwgVGVhbSBCYXNlZCwgVGVhbSBCYXNlZFwiXG4ifQ== -->
-<pre><code>[1] &quot;Doctor: C, Test&quot;
-[1] &quot;Assigned terms: MH Emergency (PGY1/2), BDH Emergency (PGY1/2), CMN Emergency (PGY1/2), JHH Emergency (PGY1/2), BDH Acute General Medicine &amp; Cardiology (PGY1/2)&quot;
-[1] &quot;Matching indices: 48, 5, 8, 21, 1&quot;
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiRG9jdG9yOiBBLCBUZXN0XCJcblsxXSBcIkFzc2lnbmVkIHRlcm1zOiBITkUgTWVudGFsIEhlYWx0aCAmIFN1YnN0YW5jZSBVc2UgU2VydmljZSAtIE1hdGVyIEhvc3BpdGFsIChQR1kxLzIpLCBKSEggU3VyZ2VyeSAtIE9ydGhvcGFlZGljcyAoUEdZMS8yKSwgSkhIIE1lZGljaW5lIC0gQ2FyZGlvbG9neSAoUEdZMS8yKSwgSkhIIEdlbmVyYWwgU3VyZ2VyeSAvIFVwcGVyIEdJIChQR1kxLzIpLCBNQkggRW1lcmdlbmN5IChQR1kxLzIpXCJcblsxXSBcIk1hdGNoaW5nIGluZGljZXM6IDE2LCA0MiwgMjcsIDI2LCA0NlwiXG5bMV0gXCJDbGluaWNhbCBzdHJ1Y3R1cmVzOiBUZWFtIEJhc2VkLCBUZWFtIEJhc2VkLCBUZWFtIEJhc2VkLCBUZWFtIEJhc2VkLCBUZWFtIEJhc2VkXCJcblsxXSBcIkRvY3RvcjogQywgVGVzdFwiXG5bMV0gXCJBc3NpZ25lZCB0ZXJtczogQkRIIEFjdXRlIEdlbmVyYWwgTWVkaWNpbmUgJiBDYXJkaW9sb2d5IChQR1kxLzIpLCBKSEggT2JzdGV0cmljcyAmIEd5bmFlY29sb2d5IChQR1kxLzIpLCBCREggRW1lcmdlbmN5IChQR1kxLzIpLCBKSEggTWVkaWNpbmUgLSBOZXBocm9sb2d5ICYgRGlhbHlzaXMgKFBHWTEvMiksIEpISCBHZW5lcmFsIFN1cmdlcnkgLyBIZXBhdG9wYW5jcmVhdG9iaWxpYXJ5IGFuZCBVcHBlciBHSSBTdXJnZXJ5IChQR1kxLzIpXCJcblsxXSBcIk1hdGNoaW5nIGluZGljZXM6IDEsIDM3LCA1LCAzMiwgMjRcIlxuWzFdIFwiQ2xpbmljYWwgc3RydWN0dXJlczogVGVhbSBCYXNlZCwgVGVhbSBCYXNlZCwgVGVhbSBCYXNlZCwgVGVhbSBCYXNlZCwgVGVhbSBCYXNlZFwiXG4ifQ== -->
+<pre><code>[1] &quot;Doctor: A, Test&quot;
+[1] &quot;Assigned terms: HNE Mental Health &amp; Substance Use Service - Mater Hospital (PGY1/2), JHH Surgery - Orthopaedics (PGY1/2), JHH Medicine - Cardiology (PGY1/2), JHH General Surgery / Upper GI (PGY1/2), MBH Emergency (PGY1/2)&quot;
+[1] &quot;Matching indices: 16, 42, 27, 26, 46&quot;
+[1] &quot;Clinical structures: Team Based, Team Based, Team Based, Team Based, Team Based&quot;
+[1] &quot;Doctor: C, Test&quot;
+[1] &quot;Assigned terms: BDH Acute General Medicine &amp; Cardiology (PGY1/2), JHH Obstetrics &amp; Gynaecology (PGY1/2), BDH Emergency (PGY1/2), JHH Medicine - Nephrology &amp; Dialysis (PGY1/2), JHH General Surgery / Hepatopancreatobiliary and Upper GI Surgery (PGY1/2)&quot;
+[1] &quot;Matching indices: 1, 37, 5, 32, 24&quot;
 [1] &quot;Clinical structures: Team Based, Team Based, Team Based, Team Based, Team Based&quot;</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDaGVjayBmb3IgY29tcGxpYW5jZSB3aXRoIHRoZSBkZXNpcmVkIHRlcm0gY2xhc3NpZmljYXRpb25zXG5jaGVja190ZXJtX2NsYXNzaWZpY2F0aW9ucyA8LSBmdW5jdGlvbih0ZXJtc19hc3NpZ25lZCkge1xuICBjbGFzc2lmaWNhdGlvbjEgPC0gdGVybV9jbGFzc2lmaWNhdGlvbjFbbWF0Y2godGVybXNfYXNzaWduZWQsIGNvbHVtbl9uYW1lcyldXG4gIGNsYXNzaWZpY2F0aW9uMiA8LSB0ZXJtX2NsYXNzaWZpY2F0aW9uMlttYXRjaCh0ZXJtc19hc3NpZ25lZCwgY29sdW1uX25hbWVzKV1cbiAgcmVxdWlyZWRfdGVybXMgPC0gYyhcIkEtVW5kaWZmZXJlbnRpYXRlZCBpbGxuZXNzIHBhdGllbnQgY2FyZVwiLCBcbiAgICAgICAgICAgICAgICAgICAgICBcIkItQ2hyb25pYyBpbGxuZXNzIHBhdGllbnQgY2FyZVwiLCBcbiAgICAgICAgICAgICAgICAgICAgICBcIkMtQWN1dGUgY3JpdGljYWwgaWxsbmVzcyBwYXRpZW50IGNhcmVcIixcbiAgICAgICAgICAgICAgICAgICAgICBcIkQtUGVyaS1vcGVyYXRpdmUgLyBwcm9jZWR1cmFsIHBhdGllbnQgY2FyZVwiKVxuICBcbiAgIyBDaGVjayBmb3IgZWFjaCB0ZXJtIGluZGl2aWR1YWxseSwgd2l0aG91dCBtZXJnaW5nIHRoZSBjbGFzc2lmaWNhdGlvbnNcbiAgaGFzX3JlcXVpcmVkX3Rlcm1zIDwtIHNhcHBseShyZXF1aXJlZF90ZXJtcywgZnVuY3Rpb24odGVybSkge1xuICAgIHRlcm0gJWluJSBjbGFzc2lmaWNhdGlvbjEgfHwgdGVybSAlaW4lIGNsYXNzaWZpY2F0aW9uMlxuICB9KVxuICBcbiAgcmV0dXJuKGFsbChoYXNfcmVxdWlyZWRfdGVybXMpKVxufVxuXG50ZXJtX2NsYXNzaWZpY2F0aW9uc19jb21wbGlhbmNlIDwtIHNhcHBseSgxOm51bV9kb2N0b3JzLCBmdW5jdGlvbihpKSB7XG4gIGRvY3Rvcl9uYW1lIDwtIHJvd19uYW1lc1tpXVxuICB0ZXJtc19hc3NpZ25lZCA8LSBkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQkVGVybVtkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQkRG9jdG9yID09IGRvY3Rvcl9uYW1lXVxuICByZXR1cm4oY2hlY2tfdGVybV9jbGFzc2lmaWNhdGlvbnModGVybXNfYXNzaWduZWQpKVxufSlcblxuY29tcGxpYW5jZV9kYXRhIDwtIGRhdGEuZnJhbWUoXG4gIERvY3RvciA9IGF2Z19wcmVmZXJlbmNlJERvY3RvcixcbiAgQXZnX1ByZWZlcmVuY2UgPSBhdmdfcHJlZmVyZW5jZSRBdmdfU2NvcmUsXG4gIFN1YlNwZWNpYWx0eV9Db21wbGlhbmNlID0gc3ViX3NwZWNpYWx0eV9jb21wbGlhbmNlLFxuICBTcGVjaWFsdHlfQ29tcGxpYW5jZSA9IHNwZWNpYWx0eV9jb21wbGlhbmNlLFxuICBUZWFtX0Jhc2VkX0NvbXBsaWFuY2UgPSB0ZWFtX2Jhc2VkX2NvbXBsaWFuY2UsXG4gIFRlcm1fQ2xhc3NpZmljYXRpb25zX0NvbXBsaWFuY2UgPSB0ZXJtX2NsYXNzaWZpY2F0aW9uc19jb21wbGlhbmNlXG4pXG5cbiMgRm9ybWF0IHdpdGggZ3RcblxuSEVUSV9jb21wbGlhbmNlX3RhYmxlIDwtIGNvbXBsaWFuY2VfZGF0YSAlPiVcbiAgZ3QoKSAlPiVcbiAgY29sc19sYWJlbChcbiAgICBBdmdfUHJlZmVyZW5jZSA9IFwiQXZnLiBQcmVmZXJlbmNlICgxLTUpXCIsXG4gICAgU3ViU3BlY2lhbHR5X0NvbXBsaWFuY2UgPSBcIk1heCAxIFRlcm0gaW4gU3ViLVNwZWNpYWx0eVwiLFxuICAgIFNwZWNpYWx0eV9Db21wbGlhbmNlID0gXCJNYXggMiBUZXJtcyBpbiBTcGVjaWFsdHlcIixcbiAgICBUZWFtX0Jhc2VkX0NvbXBsaWFuY2UgPSBcIkF0IExlYXN0IDMgJ1RlYW0gQmFzZWQnIFRlcm1zXCIsXG4gICAgVGVybV9DbGFzc2lmaWNhdGlvbnNfQ29tcGxpYW5jZSA9IFwiRXNzZW50aWFsIENsYXNzaWZpY2F0aW9uc1wiXG4gIClcblxucHJpbnQoSEVUSV9jb21wbGlhbmNlX3RhYmxlKVxuYGBgIn0= -->
@@ -4116,23 +4134,23 @@ print(HETI_compliance_table)</code></pre>
 
 <!-- rnb-html-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInNoaW55LnRhZyJdLCJzaXppbmdQb2xpY3kiOltdfX0= -->
 
-<div id="fycmhxxpjz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-  <style>#fycmhxxpjz table {
+<div id="suevtqktyy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+  <style>#suevtqktyy table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#fycmhxxpjz thead, #fycmhxxpjz tbody, #fycmhxxpjz tfoot, #fycmhxxpjz tr, #fycmhxxpjz td, #fycmhxxpjz th {
+#suevtqktyy thead, #suevtqktyy tbody, #suevtqktyy tfoot, #suevtqktyy tr, #suevtqktyy td, #suevtqktyy th {
   border-style: none;
 }
 
-#fycmhxxpjz p {
+#suevtqktyy p {
   margin: 0;
   padding: 0;
 }
 
-#fycmhxxpjz .gt_table {
+#suevtqktyy .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -4158,12 +4176,12 @@ print(HETI_compliance_table)</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#fycmhxxpjz .gt_caption {
+#suevtqktyy .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#fycmhxxpjz .gt_title {
+#suevtqktyy .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -4175,7 +4193,7 @@ print(HETI_compliance_table)</code></pre>
   border-bottom-width: 0;
 }
 
-#fycmhxxpjz .gt_subtitle {
+#suevtqktyy .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -4187,7 +4205,7 @@ print(HETI_compliance_table)</code></pre>
   border-top-width: 0;
 }
 
-#fycmhxxpjz .gt_heading {
+#suevtqktyy .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -4199,13 +4217,13 @@ print(HETI_compliance_table)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#fycmhxxpjz .gt_bottom_border {
+#suevtqktyy .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#fycmhxxpjz .gt_col_headings {
+#suevtqktyy .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4220,7 +4238,7 @@ print(HETI_compliance_table)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#fycmhxxpjz .gt_col_heading {
+#suevtqktyy .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4240,7 +4258,7 @@ print(HETI_compliance_table)</code></pre>
   overflow-x: hidden;
 }
 
-#fycmhxxpjz .gt_column_spanner_outer {
+#suevtqktyy .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4252,15 +4270,15 @@ print(HETI_compliance_table)</code></pre>
   padding-right: 4px;
 }
 
-#fycmhxxpjz .gt_column_spanner_outer:first-child {
+#suevtqktyy .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#fycmhxxpjz .gt_column_spanner_outer:last-child {
+#suevtqktyy .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#fycmhxxpjz .gt_column_spanner {
+#suevtqktyy .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -4272,11 +4290,11 @@ print(HETI_compliance_table)</code></pre>
   width: 100%;
 }
 
-#fycmhxxpjz .gt_spanner_row {
+#suevtqktyy .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#fycmhxxpjz .gt_group_heading {
+#suevtqktyy .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4302,7 +4320,7 @@ print(HETI_compliance_table)</code></pre>
   text-align: left;
 }
 
-#fycmhxxpjz .gt_empty_group_heading {
+#suevtqktyy .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4317,15 +4335,15 @@ print(HETI_compliance_table)</code></pre>
   vertical-align: middle;
 }
 
-#fycmhxxpjz .gt_from_md > :first-child {
+#suevtqktyy .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#fycmhxxpjz .gt_from_md > :last-child {
+#suevtqktyy .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#fycmhxxpjz .gt_row {
+#suevtqktyy .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4344,7 +4362,7 @@ print(HETI_compliance_table)</code></pre>
   overflow-x: hidden;
 }
 
-#fycmhxxpjz .gt_stub {
+#suevtqktyy .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4357,7 +4375,7 @@ print(HETI_compliance_table)</code></pre>
   padding-right: 5px;
 }
 
-#fycmhxxpjz .gt_stub_row_group {
+#suevtqktyy .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4371,15 +4389,15 @@ print(HETI_compliance_table)</code></pre>
   vertical-align: top;
 }
 
-#fycmhxxpjz .gt_row_group_first td {
+#suevtqktyy .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#fycmhxxpjz .gt_row_group_first th {
+#suevtqktyy .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#fycmhxxpjz .gt_summary_row {
+#suevtqktyy .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4389,16 +4407,16 @@ print(HETI_compliance_table)</code></pre>
   padding-right: 5px;
 }
 
-#fycmhxxpjz .gt_first_summary_row {
+#suevtqktyy .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#fycmhxxpjz .gt_first_summary_row.thick {
+#suevtqktyy .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#fycmhxxpjz .gt_last_summary_row {
+#suevtqktyy .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4408,7 +4426,7 @@ print(HETI_compliance_table)</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#fycmhxxpjz .gt_grand_summary_row {
+#suevtqktyy .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4418,7 +4436,7 @@ print(HETI_compliance_table)</code></pre>
   padding-right: 5px;
 }
 
-#fycmhxxpjz .gt_first_grand_summary_row {
+#suevtqktyy .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4428,7 +4446,7 @@ print(HETI_compliance_table)</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#fycmhxxpjz .gt_last_grand_summary_row_top {
+#suevtqktyy .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4438,11 +4456,11 @@ print(HETI_compliance_table)</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#fycmhxxpjz .gt_striped {
+#suevtqktyy .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#fycmhxxpjz .gt_table_body {
+#suevtqktyy .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4451,7 +4469,7 @@ print(HETI_compliance_table)</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#fycmhxxpjz .gt_footnotes {
+#suevtqktyy .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4465,7 +4483,7 @@ print(HETI_compliance_table)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#fycmhxxpjz .gt_footnote {
+#suevtqktyy .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -4474,7 +4492,7 @@ print(HETI_compliance_table)</code></pre>
   padding-right: 5px;
 }
 
-#fycmhxxpjz .gt_sourcenotes {
+#suevtqktyy .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4488,7 +4506,7 @@ print(HETI_compliance_table)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#fycmhxxpjz .gt_sourcenote {
+#suevtqktyy .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -4496,63 +4514,63 @@ print(HETI_compliance_table)</code></pre>
   padding-right: 5px;
 }
 
-#fycmhxxpjz .gt_left {
+#suevtqktyy .gt_left {
   text-align: left;
 }
 
-#fycmhxxpjz .gt_center {
+#suevtqktyy .gt_center {
   text-align: center;
 }
 
-#fycmhxxpjz .gt_right {
+#suevtqktyy .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#fycmhxxpjz .gt_font_normal {
+#suevtqktyy .gt_font_normal {
   font-weight: normal;
 }
 
-#fycmhxxpjz .gt_font_bold {
+#suevtqktyy .gt_font_bold {
   font-weight: bold;
 }
 
-#fycmhxxpjz .gt_font_italic {
+#suevtqktyy .gt_font_italic {
   font-style: italic;
 }
 
-#fycmhxxpjz .gt_super {
+#suevtqktyy .gt_super {
   font-size: 65%;
 }
 
-#fycmhxxpjz .gt_footnote_marks {
+#suevtqktyy .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#fycmhxxpjz .gt_asterisk {
+#suevtqktyy .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#fycmhxxpjz .gt_indent_1 {
+#suevtqktyy .gt_indent_1 {
   text-indent: 5px;
 }
 
-#fycmhxxpjz .gt_indent_2 {
+#suevtqktyy .gt_indent_2 {
   text-indent: 10px;
 }
 
-#fycmhxxpjz .gt_indent_3 {
+#suevtqktyy .gt_indent_3 {
   text-indent: 15px;
 }
 
-#fycmhxxpjz .gt_indent_4 {
+#suevtqktyy .gt_indent_4 {
   text-indent: 20px;
 }
 
-#fycmhxxpjz .gt_indent_5 {
+#suevtqktyy .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -4569,12 +4587,18 @@ print(HETI_compliance_table)</code></pre>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td headers="Doctor" class="gt_row gt_left">C, Test</td>
-<td headers="Avg_Preference" class="gt_row gt_right">3</td>
+    <tr><td headers="Doctor" class="gt_row gt_left">A, Test</td>
+<td headers="Avg_Preference" class="gt_row gt_right">3.0</td>
 <td headers="SubSpecialty_Compliance" class="gt_row gt_center">TRUE</td>
-<td headers="Specialty_Compliance" class="gt_row gt_center">FALSE</td>
+<td headers="Specialty_Compliance" class="gt_row gt_center">TRUE</td>
 <td headers="Team_Based_Compliance" class="gt_row gt_center">TRUE</td>
-<td headers="Term_Classifications_Compliance" class="gt_row gt_center">FALSE</td></tr>
+<td headers="Term_Classifications_Compliance" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="Doctor" class="gt_row gt_left">C, Test</td>
+<td headers="Avg_Preference" class="gt_row gt_right">20.6</td>
+<td headers="SubSpecialty_Compliance" class="gt_row gt_center">TRUE</td>
+<td headers="Specialty_Compliance" class="gt_row gt_center">TRUE</td>
+<td headers="Team_Based_Compliance" class="gt_row gt_center">TRUE</td>
+<td headers="Term_Classifications_Compliance" class="gt_row gt_center">TRUE</td></tr>
   </tbody>
   
   
@@ -4591,7 +4615,7 @@ print(HETI_compliance_table)</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZXhwb3J0X3RhYmxlcyA8LSBmdW5jdGlvbihhc3NpZ25tZW50X3RhYmxlLCBldmFsdWF0aW9uX3RhYmxlLCBkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQsIEhFVElfY29tcGxpYW5jZV90YWJsZSwgcHJlZmVyZW5jZV9tYXRyaXgsIHVuYXNzaWduZWRfZGYsIGZpbGVuYW1lKSB7XG4gIFxuICAjIENvbnZlcnQgZ3QgdGFibGVzIGJhY2sgdG8gZGF0YS5mcmFtZSBpZiBuZWNlc3NhcnlcbiAgaWYgKGluaGVyaXRzKGFzc2lnbm1lbnRfdGFibGUsIFwiZ3RfdGJsXCIpKSB7XG4gICAgYXNzaWdubWVudF90YWJsZSA8LSBhcy5kYXRhLmZyYW1lKGFzc2lnbm1lbnRfdGFibGUpXG4gIH1cbiAgaWYgKGluaGVyaXRzKGV2YWx1YXRpb25fdGFibGUsIFwiZ3RfdGJsXCIpKSB7XG4gICAgZXZhbHVhdGlvbl90YWJsZSA8LSBhcy5kYXRhLmZyYW1lKGV2YWx1YXRpb25fdGFibGUpXG4gIH1cbiAgaWYgKGluaGVyaXRzKGRvY3Rvcl9wcmVmZXJlbmNlX3JlcG9ydCwgXCJndF90YmxcIikpIHtcbiAgICBkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQgPC0gYXMuZGF0YS5mcmFtZShkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQpXG4gIH1cbiAgaWYgKGluaGVyaXRzKEhFVElfY29tcGxpYW5jZV90YWJsZSwgXCJndF90YmxcIikpIHtcbiAgICBIRVRJX2NvbXBsaWFuY2VfdGFibGUgPC0gYXMuZGF0YS5mcmFtZShIRVRJX2NvbXBsaWFuY2VfdGFibGUpXG4gIH1cbiAgXG4gICMgQ29udmVydCB0aGUgcHJlZmVyZW5jZV9tYXRyaXggdG8gYSBkYXRhIGZyYW1lIGFuZCBhZGQgRG9jdG9yIG5hbWVzIGlmIGl0J3MgYSBtYXRyaXhcbiAgaWYgKGlzLm1hdHJpeChwcmVmZXJlbmNlX21hdHJpeCkpIHtcbiAgICBwcmVmZXJlbmNlX21hdHJpeF9kZiA8LSBhcy5kYXRhLmZyYW1lKHByZWZlcmVuY2VfbWF0cml4KVxuICAgICMgQWRkIGRvY3RvciBuYW1lcyBmcm9tIHRoZSByb3duYW1lcyBvZiB0aGUgbWF0cml4IGlmIHRoZXkgZXhpc3RcbiAgICBpZiAoIWlzLm51bGwocm93bmFtZXMocHJlZmVyZW5jZV9tYXRyaXgpKSkge1xuICAgICAgcHJlZmVyZW5jZV9tYXRyaXhfZGYgPC0gY2JpbmQoRG9jdG9yID0gcm93bmFtZXMocHJlZmVyZW5jZV9tYXRyaXgpLCBwcmVmZXJlbmNlX21hdHJpeF9kZilcbiAgICB9XG4gIH0gZWxzZSB7XG4gICAgcHJlZmVyZW5jZV9tYXRyaXhfZGYgPC0gcHJlZmVyZW5jZV9tYXRyaXhcbiAgfVxuICBcbiAgIyBKb2luIHRoZSBzdXJ2ZXlfZGF0YSBhbmQgYXNzaWdubWVudF90YWJsZSBvbiB0aGUgXCJEb2N0b3JcIiBjb2x1bW5cbiAgYXNzaWdubWVudF90YWJsZV93aXRoX3N1cnZleSA8LSBsZWZ0X2pvaW4oc3VydmV5X2RhdGEsIGFzc2lnbm1lbnRfdGFibGUsIGJ5ID0gXCJEb2N0b3JcIilcbiAgXG4gICMgUHJlcGFyZSB0aGUgbGlzdCBvZiB0YWJsZXMgdG8gYmUgZXhwb3J0ZWRcbiAgdGFibGVzX2xpc3QgPC0gbGlzdChcbiAgICBBc3NpZ25tZW50VGFibGUgPSBhc3NpZ25tZW50X3RhYmxlX3dpdGhfc3VydmV5LFxuICAgIEV2YWx1YXRpb25UYWJsZSA9IGV2YWx1YXRpb25fdGFibGUsXG4gICAgRG9jdG9yUHJlZmVyZW5jZVJlcG9ydCA9IGRvY3Rvcl9wcmVmZXJlbmNlX3JlcG9ydCxcbiAgICBIRVRJQ29tcGxpYW5jZVRhYmxlID0gSEVUSV9jb21wbGlhbmNlX3RhYmxlLFxuICAgIFByZWZlcmVuY2VNYXRyaXggPSBwcmVmZXJlbmNlX21hdHJpeF9kZixcbiAgICBVbmFzc2lnbmVkVGVybXMgPSB1bmFzc2lnbmVkX2RmXG4gIClcbiAgXG4gICMgRXhwb3J0IHRvIC54bHN4IGZpbGVcbiAgd3JpdGV4bDo6d3JpdGVfeGxzeCh0YWJsZXNfbGlzdCwgcGF0aCA9IGZpbGVuYW1lKVxufVxuXG4jIENhbGwgdGhlIGZ1bmN0aW9uIHdpdGggYWxsIHRoZSBuZWNlc3NhcnkgZGF0YSBmcmFtZXMgYW5kIHRoZSBmaWxlbmFtZVxuZXhwb3J0X3RhYmxlcyhcbiAgYXNzaWdubWVudF90YWJsZSA9IGFzc2lnbm1lbnRfdGFibGUsXG4gIGV2YWx1YXRpb25fdGFibGUgPSBldmFsdWF0aW9uX3RhYmxlLFxuICBkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQgPSBkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQsXG4gIEhFVElfY29tcGxpYW5jZV90YWJsZSA9IEhFVElfY29tcGxpYW5jZV90YWJsZSxcbiAgcHJlZmVyZW5jZV9tYXRyaXggPSBwcmVmZXJlbmNlX21hdHJpeCxcbiAgdW5hc3NpZ25lZF9kZiA9IHVuYXNzaWduZWRfZGYsIFxuICBmaWxlbmFtZSA9IFwiUEdZMl9leHBvcnRlZF90YWJsZXMueGxzeFwiXG4pXG5cbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZXhwb3J0X3RhYmxlcyA8LSBmdW5jdGlvbihhc3NpZ25tZW50X3RhYmxlLCBldmFsdWF0aW9uX3RhYmxlLCBkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQsIEhFVElfY29tcGxpYW5jZV90YWJsZSwgcHJlZmVyZW5jZV9tYXRyaXgsIHVuYXNzaWduZWRfZGYsIGZpbGVuYW1lKSB7XG4gIFxuICAjIENvbnZlcnQgZ3QgdGFibGVzIGJhY2sgdG8gZGF0YS5mcmFtZSBpZiBuZWNlc3NhcnlcbiAgaWYgKGluaGVyaXRzKGFzc2lnbm1lbnRfdGFibGUsIFwiZ3RfdGJsXCIpKSB7XG4gICAgYXNzaWdubWVudF90YWJsZSA8LSBhcy5kYXRhLmZyYW1lKGFzc2lnbm1lbnRfdGFibGUpXG4gIH1cbiAgaWYgKGluaGVyaXRzKGV2YWx1YXRpb25fdGFibGUsIFwiZ3RfdGJsXCIpKSB7XG4gICAgZXZhbHVhdGlvbl90YWJsZSA8LSBhcy5kYXRhLmZyYW1lKGV2YWx1YXRpb25fdGFibGUpXG4gIH1cbiAgaWYgKGluaGVyaXRzKGRvY3Rvcl9wcmVmZXJlbmNlX3JlcG9ydCwgXCJndF90YmxcIikpIHtcbiAgICBkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQgPC0gYXMuZGF0YS5mcmFtZShkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQpXG4gIH1cbiAgaWYgKGluaGVyaXRzKEhFVElfY29tcGxpYW5jZV90YWJsZSwgXCJndF90YmxcIikpIHtcbiAgICBIRVRJX2NvbXBsaWFuY2VfdGFibGUgPC0gYXMuZGF0YS5mcmFtZShIRVRJX2NvbXBsaWFuY2VfdGFibGUpXG4gIH1cbiAgXG4gICMgQ29udmVydCB0aGUgcHJlZmVyZW5jZV9tYXRyaXggdG8gYSBkYXRhIGZyYW1lIGFuZCBhZGQgRG9jdG9yIG5hbWVzIGlmIGl0J3MgYSBtYXRyaXhcbiAgaWYgKGlzLm1hdHJpeChwcmVmZXJlbmNlX21hdHJpeCkpIHtcbiAgICBwcmVmZXJlbmNlX21hdHJpeF9kZiA8LSBhcy5kYXRhLmZyYW1lKHByZWZlcmVuY2VfbWF0cml4KVxuICAgICMgQWRkIGRvY3RvciBuYW1lcyBmcm9tIHRoZSByb3duYW1lcyBvZiB0aGUgbWF0cml4IGlmIHRoZXkgZXhpc3RcbiAgICBpZiAoIWlzLm51bGwocm93bmFtZXMocHJlZmVyZW5jZV9tYXRyaXgpKSkge1xuICAgICAgcHJlZmVyZW5jZV9tYXRyaXhfZGYgPC0gY2JpbmQoRG9jdG9yID0gcm93bmFtZXMocHJlZmVyZW5jZV9tYXRyaXgpLCBwcmVmZXJlbmNlX21hdHJpeF9kZilcbiAgICB9XG4gIH0gZWxzZSB7XG4gICAgcHJlZmVyZW5jZV9tYXRyaXhfZGYgPC0gcHJlZmVyZW5jZV9tYXRyaXhcbiAgfVxuICBcbiAgIyBKb2luIHRoZSBzdXJ2ZXlfZGF0YSBhbmQgYXNzaWdubWVudF90YWJsZSBvbiB0aGUgXCJEb2N0b3JcIiBjb2x1bW5cbiAgYXNzaWdubWVudF90YWJsZV93aXRoX3N1cnZleSA8LSBsZWZ0X2pvaW4oc3VydmV5X2RhdGEsIGFzc2lnbm1lbnRfdGFibGUsIGJ5ID0gXCJEb2N0b3JcIilcbiAgXG4gICMgUHJlcGFyZSB0aGUgbGlzdCBvZiB0YWJsZXMgdG8gYmUgZXhwb3J0ZWRcbiAgdGFibGVzX2xpc3QgPC0gbGlzdChcbiAgICBBc3NpZ25tZW50VGFibGUgPSBhc3NpZ25tZW50X3RhYmxlX3dpdGhfc3VydmV5LFxuICAgIEV2YWx1YXRpb25UYWJsZSA9IGV2YWx1YXRpb25fdGFibGUsXG4gICAgRG9jdG9yUHJlZmVyZW5jZVJlcG9ydCA9IGRvY3Rvcl9wcmVmZXJlbmNlX3JlcG9ydCxcbiAgICBIRVRJQ29tcGxpYW5jZVRhYmxlID0gSEVUSV9jb21wbGlhbmNlX3RhYmxlLFxuICAgIFByZWZlcmVuY2VNYXRyaXggPSBwcmVmZXJlbmNlX21hdHJpeF9kZixcbiAgICBVbmFzc2lnbmVkVGVybXMgPSB1bmFzc2lnbmVkX2RmXG4gIClcbiAgXG4gICMgRXhwb3J0IHRvIC54bHN4IGZpbGVcbiAgd3JpdGV4bDo6d3JpdGVfeGxzeCh0YWJsZXNfbGlzdCwgcGF0aCA9IGZpbGVuYW1lKVxufVxuXG4jIENhbGwgdGhlIGZ1bmN0aW9uIHdpdGggYWxsIHRoZSBuZWNlc3NhcnkgZGF0YSBmcmFtZXMgYW5kIHRoZSBmaWxlbmFtZVxuZXhwb3J0X3RhYmxlcyhcbiAgYXNzaWdubWVudF90YWJsZSA9IGFzc2lnbm1lbnRfdGFibGUsXG4gIHVuYXNzaWduZWRfZGYgPSB1bmFzc2lnbmVkX2RmLFxuICBkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQgPSBkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQsXG4gIEhFVElfY29tcGxpYW5jZV90YWJsZSA9IEhFVElfY29tcGxpYW5jZV90YWJsZSxcbiAgcHJlZmVyZW5jZV9tYXRyaXggPSBwcmVmZXJlbmNlX21hdHJpeCxcbiAgZXZhbHVhdGlvbl90YWJsZSA9IGV2YWx1YXRpb25fdGFibGUsXG4gIFxuICBmaWxlbmFtZSA9IFwiUEdZMV9BbGxvY2F0aW9uc19leHBvcnQueGxzeFwiXG4pXG5cbmBgYCJ9 -->
 <pre class="r"><code>export_tables &lt;- function(assignment_table, evaluation_table, doctor_preference_report, HETI_compliance_table, preference_matrix, unassigned_df, filename) {
   
   # Convert gt tables back to data.frame if necessary
@@ -4639,12 +4663,13 @@ print(HETI_compliance_table)</code></pre>
 # Call the function with all the necessary data frames and the filename
 export_tables(
   assignment_table = assignment_table,
-  evaluation_table = evaluation_table,
+  unassigned_df = unassigned_df,
   doctor_preference_report = doctor_preference_report,
   HETI_compliance_table = HETI_compliance_table,
   preference_matrix = preference_matrix,
-  unassigned_df = unassigned_df, 
-  filename = &quot;PGY2_exported_tables.xlsx&quot;
+  evaluation_table = evaluation_table,
+  
+  filename = &quot;PGY1_Allocations_export.xlsx&quot;
 )
 </code></pre>
 <!-- rnb-source-end -->
@@ -4655,7 +4680,7 @@ export_tables(
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlBHWTEgLSBBbGxvY2F0aW9ucyAyMDI0Ig0KYXV0aG9yOiAiRHIgU2NvdHQgSm9obnNvbiBHZWx6aW5uaXMiDQpkYXRlOiAiYHIgU3lzLkRhdGUoKWAiDQpvdXRwdXQ6DQogIGh0bWxfbm90ZWJvb2s6DQogICAgdGhlbWU6IGpvdXJuYWwNCiAgICBkZl9wcmludDogcGFnZWQNCiAgaHRtbF9kb2N1bWVudDoNCiAgICB0aGVtZTogam91cm5hbA0KICAgIGRmX3ByaW50OiBwYWdlZA0KICBwZGZfZG9jdW1lbnQ6IGRlZmF1bHQNCi0tLQ0KDQoqQ29weXJpZ2h0IERyIFNjb3R0IEpvaG5zb24gR2VsemlubmlzICgyMDIzKSAtIFN0YXRlbWVudCBiZWxvdyoNCg0KDQogIA0KIyBTZXR0aW5nIHVwIHRoZSBFbnZpcm9ubWVudCAgDQoNCg0KYGBge3IgaW5jbHVkZT1UUlVFLCBlY2hvPVRSVUUsIHJlc3VsdHM9J2hpZGUnfQ0KDQpsaWJyYXJ5KGhlcmUoKSkNCmlfYW0oIlBHWTJfU29sdmVfVFJJQUwuUm1kIikNCg0KIyBMaXN0IG9mIHJlcXVpcmVkIHBhY2thZ2VzDQpyZXF1aXJlZF9wYWNrYWdlcyA8LSBjKCJyYW5kb21OYW1lcyIsICJscFNvbHZlIiwgImxwU29sdmVBUEkiLCAiUk9JIiwgImd0IiwgInJlYWRyIiwgInRpZHl2ZXJzZSIsICJnb29nbGVzaGVldHM0IiwgInN0cmluZ3IiLCAia25pdHIiLCAid3JpdGV4bCIpDQoNCiMgQ2hlY2sgaWYgcGFja2FnZXMgYXJlIGluc3RhbGxlZCBhbmQgaW5zdGFsbCB0aGVtIGlmIHRoZXkgYXJlIG5vdA0KbmV3X3BhY2thZ2VzIDwtIHJlcXVpcmVkX3BhY2thZ2VzWyEocmVxdWlyZWRfcGFja2FnZXMgJWluJSBpbnN0YWxsZWQucGFja2FnZXMoKVssIlBhY2thZ2UiXSldDQppZihsZW5ndGgobmV3X3BhY2thZ2VzKSkgaW5zdGFsbC5wYWNrYWdlcyhuZXdfcGFja2FnZXMpDQoNCiMgTG9hZCB0aGUgcGFja2FnZXMNCmxhcHBseShyZXF1aXJlZF9wYWNrYWdlcywgcmVxdWlyZSwgY2hhcmFjdGVyLm9ubHkgPSBUUlVFKQ0KDQojIFJhbmRvbSBzZWVkDQpzZXQuc2VlZCg2OSkNCg0KYGBgDQoNCg0KDQojIExvYWRpbmcgaW4gdGhlIFByZWZlcmVuY2UgTWF0cml4IA0KDQpgYGB7ciBpbmNsdWRlPVRSVUUsIGVjaG89VFJVRSwgcmVzdWx0cz0naGlkZSd9DQoNCiMjIFJlYWQgaW4gR29vZ2xlIFNoZWV0DQpyYXdfcHJlZmVyZW5jZV9kYXRhIDwtIHJlYWRfc2hlZXQoImh0dHBzOi8vZG9jcy5nb29nbGUuY29tL3NwcmVhZHNoZWV0cy9kLzE5eE11bERNSUs2RmdtZk1ham1JMUJubGFTc1Z1dF9pZHpzSU4xay1YLUF3L2VkaXQ/dXNwPXNoYXJpbmciKQ0KDQojIENvbnZlcnQgdGhlIHRpYmJsZSB0byBhIGRhdGEuZnJhbWUNCnJhd19wcmVmZXJlbmNlX2RhdGEgPC0gYXMuZGF0YS5mcmFtZShyYXdfcHJlZmVyZW5jZV9kYXRhKQ0KDQojIyBEZWZpbmUgcHJlZmVyZW5jZSBtYXRyaXggICMjDQoNCiMgQ29tYmluZSBjb2x1bW5zIDEzIGFuZCAxNCB0byBjcmVhdGUgdGhlICJEb2N0b3IiIGNvbHVtbg0KcmF3X3ByZWZlcmVuY2VfZGF0YSREb2N0b3IgPC0gcGFzdGUocmF3X3ByZWZlcmVuY2VfZGF0YVtbMTNdXSwgcmF3X3ByZWZlcmVuY2VfZGF0YVtbMTRdXSwgc2VwID0gIiwgIikNCg0KIyBTb3J0IHRoZSByYXdfcHJlZmVyZW5jZV9kYXRhIGJ5IERvY3RvciBjb2x1bW4NCnJhd19wcmVmZXJlbmNlX2RhdGEgPC0gcmF3X3ByZWZlcmVuY2VfZGF0YSAlPiUNCiAgYXJyYW5nZShEb2N0b3IpDQoNCiMgRXh0cmFjdCBjb2x1bW4gbmFtZXMgdGhhdCBoYXZlIHRoZSBwYXR0ZXJuICd8ICcNCnRlcm1fY29sdW1ucyA8LSBncmVwKCJcXHwgIiwgbmFtZXMocmF3X3ByZWZlcmVuY2VfZGF0YSksIHZhbHVlID0gVFJVRSkNCg0KIyBTZWxlY3QgdGhlIHJlbGV2YW50IGNvbHVtbnMNCnNlbGVjdGVkX2RhdGEgPC0gcmF3X3ByZWZlcmVuY2VfZGF0YVssIHRlcm1fY29sdW1uc10NCg0KIyBTZWxlY3Qgc3VydmV5IGRhdGEgYW5kIGxvYWQgYXMgYSBkYXRhIGZyYW1lDQojIFJlYWQgaW4gYW5kIHJlbmFtZSBjb2x1bW5zIG9mIHN1cnZleV9kYXRhDQpzdXJ2ZXlfZGF0YSA8LSByYXdfcHJlZmVyZW5jZV9kYXRhICU+JQ0KICBzZWxlY3QoDQogICAgRG9jdG9yLCANCiAgICBgRGVzaXJlZCBDYXJlZXIgUGF0aHdheSAoR1AsIE1lZGljaW5lLCBTdXJnZXJ5LCBDcml0aWNhbCBDYXJlLCBQc3ljaClgLCANCiAgICBgRG8geW91IGhhdmUgcGxhbnMgcmVxdWlyaW5nIGxlYXZlIG9mIG1vcmUgdGhhbiAyIHdlZWtzIGluIHRoZSAyMDI0IGNsaW5pY2FsIHllYXI/IChJZiBwb3NzaWJsZSB5b3VyIHJlcXVlc3Qgd2lsbCBiZSBhY2NvbW1vZGF0ZWQpYA0KICApICU+JQ0KICByZW5hbWUoDQogICAgYERlc2lyZWQgQ2FyZWVyIFBhdGh3YXlgID0gYERlc2lyZWQgQ2FyZWVyIFBhdGh3YXkgKEdQLCBNZWRpY2luZSwgU3VyZ2VyeSwgQ3JpdGljYWwgQ2FyZSwgUHN5Y2gpYCwNCiAgICBgTGVhdmUgUmVxdWVzdCBUZXJtYCA9IGBEbyB5b3UgaGF2ZSBwbGFucyByZXF1aXJpbmcgbGVhdmUgb2YgbW9yZSB0aGFuIDIgd2Vla3MgaW4gdGhlIDIwMjQgY2xpbmljYWwgeWVhcj8gKElmIHBvc3NpYmxlIHlvdXIgcmVxdWVzdCB3aWxsIGJlIGFjY29tbW9kYXRlZClgDQogICkNCg0KIyBTZXQgIkRvY3RvciIgY29sdW1uIGFzIHJvdyBuYW1lcw0Kcm93bmFtZXMoc2VsZWN0ZWRfZGF0YSkgPC0gcmF3X3ByZWZlcmVuY2VfZGF0YSREb2N0b3INCg0KIyBDbGVhbiB0aGUgY29sdW1uIG5hbWVzIGJ5IHJlbW92aW5nIGV2ZXJ5dGhpbmcgYmVmb3JlICd8ICcgKGkuZS4sIHBpcGUgZm9sbG93ZWQgYnkgYSBzcGFjZSkNCmNvbG5hbWVzKHNlbGVjdGVkX2RhdGEpIDwtIGdzdWIoIi4qXFx8ICIsICIiLCBjb2xuYW1lcyhzZWxlY3RlZF9kYXRhKSkNCg0KIyBDb252ZXJ0IHNlbGVjdGVkIGRhdGEgdG8gYSBtYXRyaXggYW5kIGV4Y2x1ZGUgdGhlICJEb2N0b3IiIGNvbHVtbg0KcHJlZmVyZW5jZV9tYXRyaXggPC0gYXMubWF0cml4KHNlbGVjdGVkX2RhdGEpDQoNCiMgRGVmaW5lIGRpbWVuc2lvbnMgYmFzZWQgb24gcHJlZmVyZW5jZV9tYXRyaXgNCm51bV9jb2x1bW5zIDwtIG5jb2wocHJlZmVyZW5jZV9tYXRyaXgpDQpudW1fZG9jdG9ycyA8LSBucm93KHByZWZlcmVuY2VfbWF0cml4KQ0KbnVtX3Rlcm1zIDwtIG51bV9jb2x1bW5zICANCg0KIyBBc3N1bWluZyB0aGUgbnVtYmVyIG9mIHRlcm1zIGlzIGVxdWFsIHRvIHRoZSBudW1iZXIgb2YgY29sdW1ucyBpbiB0aGUgbWF0cml4DQpyb3dfbmFtZXMgPC0gcm93bmFtZXMoc2VsZWN0ZWRfZGF0YSkNCmNvbHVtbl9uYW1lcyA8LSBjb2xuYW1lcyhzZWxlY3RlZF9kYXRhKQ0KDQpgYGANCg0KDQojIERlZmluaXRpb25zDQoNCmBgYHtyIGluY2x1ZGU9VFJVRSwgZWNobz1UUlVFLCByZXN1bHRzPSdoaWRlJ30NCiAgICAgICAgICAgICAgIA0KICAgICAgICAgICAgICAgICAgICAgICAgICMjIExpbmVhciBPcHRpbWl6YXRpb24gLSBEZWZpbmluZyB0aGUgcHJvYmxlbSAjIw0KDQp0ZXJtX21hc3Rlcl9kZiA8LSByZWFkX2NzdigiUEdZMSAyMDI0IERhdGFmcmFtZS5jc3YiKQ0KDQojIERpcmVjdGx5IGluZmVyIHRoZSBudW1iZXIgb2YgZG9jdG9ycyBhbmQgdGVybXMgZnJvbSB0aGUgcHJlZmVyZW5jZSBtYXRyaXgNCm51bV9kb2N0b3JzIDwtIG5yb3cocHJlZmVyZW5jZV9tYXRyaXgpDQpudW1fdGVybXMgPC0gbmNvbChwcmVmZXJlbmNlX21hdHJpeCkNCg0KIyBEZWZpbmUgdGhlIG9iamVjdGl2ZSBmdW5jdGlvbiBjb2VmZmljaWVudHMgKHByZWZlcmVuY2VzKQ0Kb2JqZWN0aXZlX2NvZWZmcyA8LSBhcy52ZWN0b3IocHJlZmVyZW5jZV9tYXRyaXgpDQoNCiMgRXh0cmFjdCB0aGUgbWF4aW11bSBudW1iZXIgb2YgZG9jdG9ycyBhbGxvd2VkIGZvciBlYWNoIHRlcm0gdXNpbmcgdGhlIGNvbHVtbiBuYW1lcw0KbWF4X2RvY3RvcnNfcGVyX3Rlcm0xIDwtIGFzLnZlY3Rvcih0ZXJtX21hc3Rlcl9kZiRgUEdZMSBUZXJtIDEgQWxsb2NhdGlvbmApDQptYXhfZG9jdG9yc19wZXJfdGVybTIgPC0gYXMudmVjdG9yKHRlcm1fbWFzdGVyX2RmJGBQR1kxIFRlcm0gMiBBbGxvY2F0aW9uYCkNCm1heF9kb2N0b3JzX3Blcl90ZXJtMyA8LSBhcy52ZWN0b3IodGVybV9tYXN0ZXJfZGYkYFBHWTEgVGVybSAzIEFsbG9jYXRpb25gKQ0KbWF4X2RvY3RvcnNfcGVyX3Rlcm00IDwtIGFzLnZlY3Rvcih0ZXJtX21hc3Rlcl9kZiRgUEdZMSBUZXJtIDQgQWxsb2NhdGlvbmApDQptYXhfZG9jdG9yc19wZXJfdGVybTUgPC0gYXMudmVjdG9yKHRlcm1fbWFzdGVyX2RmJGBQR1kxIFRlcm0gNSBBbGxvY2F0aW9uYCkNCg0KIyBIZWxwZXIgZnVuY3Rpb24gZm9yIHRpZHkgY29udmVyc2lvbnMNCmNvbnZlcnRfYW5kX25hbWUgPC0gZnVuY3Rpb24oY29sdW1uX25hbWUpIHsNCiAgdGVybV9tYXN0ZXJfZGYgJT4lDQogICAgcHVsbChjb2x1bW5fbmFtZSkgJT4lDQogICAgYXMuZmFjdG9yKCkgJT4lDQogICAgc2V0X25hbWVzKHRlcm1fbWFzdGVyX2RmJGBUZXJtIE5hbWVgKQ0KfQ0KDQojIFVzaW5nIHRoZSBoZWxwZXIgZnVuY3Rpb24gdG8gZGVmaW5lIHRoZSB2ZWN0b3JzDQpjbGluaWNhbF9zdHJ1Y3R1cmVfdGVybSA8LSBjb252ZXJ0X2FuZF9uYW1lKCdDbGluaWNhbCBUZWFtIFN0cnVjdHVyZScpDQpzcGVjaWFsdHlfc3RhdHVzX3Blcl90ZXJtIDwtIGNvbnZlcnRfYW5kX25hbWUoJ1NwZWNpYWx0eSBTdGF0dXMnKQ0Kc3ViX3NwZWNpYWx0eV9zdGF0dXNfcGVyX3Rlcm0gPC0gY29udmVydF9hbmRfbmFtZSgnU3Vic3BlY2lhbHR5IFN0YXR1cycpDQpydXJhbF9zdGF0dXNfdGVybSA8LSBjb252ZXJ0X2FuZF9uYW1lKCdSdXJhbGl0eScpDQp0ZXJtX2NsYXNzaWZpY2F0aW9uMSA8LSBjb252ZXJ0X2FuZF9uYW1lKCdUZXJtIENsYXNzaWZpY2F0aW9uJykNCnRlcm1fY2xhc3NpZmljYXRpb24yIDwtIGNvbnZlcnRfYW5kX25hbWUoJ1Rlcm0gQ2xhc3NpZmljYXRpb24gMicpDQoNCmBgYA0KDQoNCg0KIyBMaW5lYXIgT3B0aW1pemF0aW9uIE1vZGVsIHdpdGggTWluaW1pemVkIERpc3NhdGlzZmFjdGlvbg0KDQojIyMgV2l0aCBhbGxvd2FibGUgY29uc3RyYWludHMgdG8gcHJvdmlkZSB2aWFibGUgc29sdXRpb24gKGkuZSBpZiB1bmFibGUgdG8gc29sdmUsIHJvbGwgYmFjayBjb25zdHJhaW50IG9uZSBhdCBhIHRpbWUpDQoNCmBgYHtyIGluY2x1ZGU9VFJVRSwgZWNobz1UUlVFLCByZXN1bHRzPSdoaWRlJ30NCg0KDQojIyBMaW5lYXIgT3B0aW1pemF0aW9uIHdpdGggV2VpZ2h0ZWQgRGlzc2F0aXNmYWN0aW9uIFZhbHVlcyAjIw0KDQojIFVzZSB0aGUgcHJlZmVyZW5jZV9tYXRyaXggZGlyZWN0bHkgYXMgdGhlIGRpc3NhdGlzZmFjdGlvbl92YWx1ZXMNCmRpc3NhdGlzZmFjdGlvbl92YWx1ZXMgPC0gcHJlZmVyZW5jZV9tYXRyaXgNCg0KDQojIENvbnZlcnQgZGlzc2F0aXNmYWN0aW9uIHZhbHVlcyB0byBhIHZlY3RvciBmb3IgdGhlIG9iamVjdGl2ZSBmdW5jdGlvbg0Kb2JqZWN0aXZlX2NvZWZmc19kaXNzYXRpc2ZhY3Rpb24gPC0gYXMudmVjdG9yKGRpc3NhdGlzZmFjdGlvbl92YWx1ZXMpDQoNCg0KIyBFeHRlbmQgTFAgbW9kZWwgdG8gaW5jbHVkZSBzbGFjayB2YXJpYWJsZXMNCmxwX21vZGVsX2Rpc3NhdGlzZmFjdGlvbiA8LSBtYWtlLmxwKDAsIG51bV9kb2N0b3JzICogbnVtX3Rlcm1zICsgbnVtX2RvY3RvcnMpDQoNCiMgU0xBQ0sgVkFSSUFCTEUgVFJJQUwNCnNsYWNrX3BlbmFsdHkgPC0gbWF4KGRpc3NhdGlzZmFjdGlvbl92YWx1ZXMpICsgMTAwDQpzbGFja19jb2VmZmljaWVudHMgPC0gcmVwKHNsYWNrX3BlbmFsdHksIG51bV9kb2N0b3JzKQ0Kb2JqZWN0aXZlX2NvZWZmc19leHRlbmRlZCA8LSBjKG9iamVjdGl2ZV9jb2VmZnNfZGlzc2F0aXNmYWN0aW9uLCBzbGFja19jb2VmZmljaWVudHMpDQoNCiMgU2V0IGJpbmFyeSBkZWNpc2lvbiB2YXJpYWJsZXMgKDAgb3IgMSkNCnNldC50eXBlKGxwX21vZGVsX2Rpc3NhdGlzZmFjdGlvbiwgY29sdW1ucyA9IDE6KG51bV9kb2N0b3JzICogbnVtX3Rlcm1zKSwgdHlwZSA9ICJiaW5hcnkiKQ0KDQojIFNldCB0aGUgb2JqZWN0aXZlIGZ1bmN0aW9uIGNvZWZmaWNpZW50cyBmb3IgbWluaW1pemluZyBkaXNzYXRpc2ZhY3Rpb24NCnNldC5vYmpmbihscF9tb2RlbF9kaXNzYXRpc2ZhY3Rpb24sIG9iamVjdGl2ZV9jb2VmZnNfZXh0ZW5kZWQpDQoNCg0KDQojIyBORVhUIFNURVAgVE8gUlVOIEEgTE9PUCBUTyBBU1NJR04gNSBURVJNUyBBQ1JPU1MgVEhFIFlFQVIgQkFTRUQgT04gUFJFRkVSRU5DRVMgIyMNCg0KIyBOdW1iZXIgb2YgdGltZXMgdG8gcnVuIHRoZSBhc3NpZ25tZW50DQpudW1fYXNzaWdubWVudHMgPC0gNQ0KDQojIEluaXRpYWxpemUgYSBsaXN0IHRvIHN0b3JlIHRoZSByZXN1bHRzIG9mIGVhY2ggYXNzaWdubWVudA0KYXNzaWdubWVudF9yZXN1bHRzIDwtIGxpc3QoKQ0KDQojIENyZWF0ZSBhIGxpc3QgdG8gc3RvcmUgdW5hc3NpZ25lZCB0ZXJtcyBmb3IgZWFjaCBhc3NpZ25tZW50IGl0ZXJhdGlvbg0KdW5hc3NpZ25lZF90ZXJtc19saXN0IDwtIGxpc3QoKQ0KDQojIFRoaXMgbWF0cml4IHdpbGwgaGF2ZSByb3dzIGNvcnJlc3BvbmRpbmcgdG8gZG9jdG9ycyBhbmQgY29sdW1ucyBjb3JyZXNwb25kaW5nIHRvIHRlcm1zLg0KIyBBbiBlbnRyeSBvZiAxIGluIHRoZSBtYXRyaXggaW5kaWNhdGVzIHRoYXQgdGhlIGRvY3RvciAocm93KSBoYXMgYmVlbiBhc3NpZ25lZCB0aGUgdGVybSAoY29sdW1uKS4NCmFzc2lnbmVkX3Rlcm1zX21hdHJpeCA8LSBtYXRyaXgoMCwgbnJvdyA9IG51bV9kb2N0b3JzLCBuY29sID0gbnVtX3Rlcm1zKQ0KDQojIExvb3AgdGhyb3VnaCB0aGUgYXNzaWdubWVudHMNCmZvciAoYXNzaWdubWVudF9udW0gaW4gMTpudW1fYXNzaWdubWVudHMpIHsNCiAgIyBDcmVhdGUgYW4gZW1wdHkgTFAgbW9kZWwgZm9yIG1pbmltaXppbmcgZGlzc2F0aXNmYWN0aW9uDQpscF9tb2RlbF9kaXNzYXRpc2ZhY3Rpb24gPC0gbWFrZS5scCgwLCBudW1fZG9jdG9ycyAqIG51bV90ZXJtcyArIG51bV9kb2N0b3JzKQ0KICANCiAgIyBTZXQgYmluYXJ5IGRlY2lzaW9uIHZhcmlhYmxlcyAoMCBvciAxKQ0KICBzZXQudHlwZShscF9tb2RlbF9kaXNzYXRpc2ZhY3Rpb24sIGNvbHVtbnMgPSAxOihudW1fZG9jdG9ycyAqIG51bV90ZXJtcyksIHR5cGUgPSAiYmluYXJ5IikNCiAgDQogICMgU2V0IHRoZSBvYmplY3RpdmUgZnVuY3Rpb24gY29lZmZpY2llbnRzIGZvciBtaW5pbWl6aW5nIGRpc3NhdGlzZmFjdGlvbg0KICBzZXQub2JqZm4obHBfbW9kZWxfZGlzc2F0aXNmYWN0aW9uLCBvYmplY3RpdmVfY29lZmZzX2V4dGVuZGVkKQ0KICANCiAgIyBBZGQgY29uc3RyYWludHMgdG8gZW5zdXJlIG9uZSBhc3NpZ25tZW50IHBlciBkb2N0b3INCmZvciAoaSBpbiAxOm51bV9kb2N0b3JzKSB7DQogICAgY29uc3RyX29uZV9hc3NpZ25tZW50IDwtIHJlcCgwLCBudW1fZG9jdG9ycyAqIG51bV90ZXJtcyArIG51bV9kb2N0b3JzKQ0KICAgIGNvbnN0cl9vbmVfYXNzaWdubWVudFsoKGkgLSAxKSAqIG51bV90ZXJtcyArIDEpOihpICogbnVtX3Rlcm1zKV0gPC0gMQ0KICAgIGFkZC5jb25zdHJhaW50KGxwX21vZGVsX2Rpc3NhdGlzZmFjdGlvbiwgY29uc3RyX29uZV9hc3NpZ25tZW50LCB0eXBlID0gIj0iLCByaHMgPSAxKQ0KfQ0KDQogICMgQWRkIGNvbnN0cmFpbnQgZm9yIHRvcCAxMCB0ZXJtcyBmb3IgZWFjaCBkb2N0b3IgKE1PRElGSUVEIFRPIEFERCBTTEFDSykNCm1hcmdpbiA9IC01DQpmb3IgKGkgaW4gMTpudW1fZG9jdG9ycykgew0KICAgIHRvcF8xMF90ZXJtc19mb3JfZG9jdG9yIDwtIG9yZGVyKHByZWZlcmVuY2VfbWF0cml4W2ksXSlbMTooMTArbWFyZ2luKV0NCiAgICBjb25zdHJfdG9wXzEwIDwtIHJlcCgwLCBudW1fZG9jdG9ycyAqIG51bV90ZXJtcyArIG51bV9kb2N0b3JzKQ0KICAgIGZvciAoaiBpbiB0b3BfMTBfdGVybXNfZm9yX2RvY3Rvcikgew0KICAgICAgICBjb25zdHJfdG9wXzEwWyhpIC0gMSkgKiBudW1fdGVybXMgKyBqXSA8LSAxDQogICAgfQ0KICAgIGNvbnN0cl90b3BfMTBbbnVtX2RvY3RvcnMgKiBudW1fdGVybXMgKyBpXSA8LSAtbWFyZ2luDQogICAgYWRkLmNvbnN0cmFpbnQobHBfbW9kZWxfZGlzc2F0aXNmYWN0aW9uLCBjb25zdHJfdG9wXzEwLCB0eXBlID0gIj49IiwgcmhzID0gMSkNCn0NCiAgICANCiMgMS4gTWF4IGRvY3RvcnMgcGVyIHRlcm0gY29uc3RyYWludDoNCg0KIyBIZWxwZXIgZnVuY3Rpb24gdG8gcmV0cmlldmUgdGhlIGNvcnJlY3QgJ21heCBkb2N0b3JzJyB2ZWN0b3IgZm9yIGEgZ2l2ZW4gdGVybQ0KICAgZ2V0X21heF9kb2N0b3JzX2Zvcl90ZXJtIDwtIGZ1bmN0aW9uKHRlcm0pIHsNCiAgICAgc3dpdGNoKHRlcm0sDQogICAgICAgICAgICAiMSIgPSBtYXhfZG9jdG9yc19wZXJfdGVybTEsDQogICAgICAgICAgICAiMiIgPSBtYXhfZG9jdG9yc19wZXJfdGVybTIsDQogICAgICAgICAgICAiMyIgPSBtYXhfZG9jdG9yc19wZXJfdGVybTMsDQogICAgICAgICAgICAiNCIgPSBtYXhfZG9jdG9yc19wZXJfdGVybTQsDQogICAgICAgICAgICAiNSIgPSBtYXhfZG9jdG9yc19wZXJfdGVybTUpDQogICB9DQoNCg0KZm9yIChqIGluIDE6bnVtX3Rlcm1zKSB7DQogIGNvbnN0cl9tYXhfZG9jdG9yc19wZXJfdGVybSA8LSByZXAoMCwgbnVtX2RvY3RvcnMgKiBudW1fdGVybXMgKyBudW1fZG9jdG9ycykNCiAgDQogIGluZGljZXMgPC0gaiArIHNlcSgwLCAobnVtX2RvY3RvcnMgLSAxKSAqIG51bV90ZXJtcywgYnkgPSBudW1fdGVybXMpDQogIGNvbnN0cl9tYXhfZG9jdG9yc19wZXJfdGVybVtpbmRpY2VzXSA8LSAxDQogIA0KICBtYXhfZG9jdG9yc19mb3JfdGhpc190ZXJtIDwtIGdldF9tYXhfZG9jdG9yc19mb3JfdGVybShhc3NpZ25tZW50X251bSkNCiAgYWRkLmNvbnN0cmFpbnQobHBfbW9kZWxfZGlzc2F0aXNmYWN0aW9uLCBjb25zdHJfbWF4X2RvY3RvcnNfcGVyX3Rlcm0sIHR5cGUgPSAiPD0iLCByaHMgPSBtYXhfZG9jdG9yc19mb3JfdGhpc190ZXJtW2pdKQ0KfQ0KDQojIDIuIENvbnN0cmFpbnQgdG8gcHJldmVudCByZWFzc2lnbm1lbnQgdG8gc2FtZSB0ZXJtOg0KZm9yIChpIGluIDE6bnVtX2RvY3RvcnMpIHsNCiAgZm9yIChqIGluIDE6bnVtX3Rlcm1zKSB7DQogICAgaWYgKGFzc2lnbmVkX3Rlcm1zX21hdHJpeFtpLCBqXSA9PSAxKSB7DQogICAgICBjb25zdHJhaW50X2FscmVhZHlfYXNzaWduZWQgPC0gcmVwKDAsIG51bV9kb2N0b3JzICogbnVtX3Rlcm1zICsgbnVtX2RvY3RvcnMpDQogICAgICBjb25zdHJhaW50X2FscmVhZHlfYXNzaWduZWRbKGkgLSAxKSAqIG51bV90ZXJtcyArIGpdIDwtIDENCiAgICAgIGFkZC5jb25zdHJhaW50KGxwX21vZGVsX2Rpc3NhdGlzZmFjdGlvbiwgY29uc3RyYWludF9hbHJlYWR5X2Fzc2lnbmVkLCB0eXBlID0gIj0iLCByaHMgPSAwKQ0KICAgIH0NCiAgfQ0KfQ0KDQojICMgMy4gU3BlY2lhbHR5IFN0YXR1cyBDb25zdHJhaW50Og0KIyB1bmlxdWVfc3BlY2lhbHR5X3N0YXR1c2VzIDwtIHVuaXF1ZShzcGVjaWFsdHlfc3RhdHVzX3Blcl90ZXJtWyFpcy5uYShzcGVjaWFsdHlfc3RhdHVzX3Blcl90ZXJtKV0pDQojIGZvciAoc3BlY2lhbHR5IGluIHVuaXF1ZV9zcGVjaWFsdHlfc3RhdHVzZXMpIHsNCiMgICAgZm9yIChpIGluIDE6bnVtX2RvY3RvcnMpIHsNCiMgICAgICBjb25zdHJfc3BlY2lhbHR5IDwtIHJlcCgwLCBudW1fZG9jdG9ycyAqIG51bV90ZXJtcyArIG51bV9kb2N0b3JzKQ0KIyAgICAgIGZvciAoaiBpbiB3aGljaChzcGVjaWFsdHlfc3RhdHVzX3Blcl90ZXJtID09IHNwZWNpYWx0eSkpIHsNCiMgICAgICAgIGNvbnN0cl9zcGVjaWFsdHlbKGkgLSAxKSAqIG51bV90ZXJtcyArIGpdIDwtIDENCiMgICAgICB9DQojICAgICAgYWRkLmNvbnN0cmFpbnQobHBfbW9kZWxfZGlzc2F0aXNmYWN0aW9uLCBjb25zdHJfc3BlY2lhbHR5LCB0eXBlID0gIjw9IiwgcmhzID0gMikNCiMgICAgfQ0KIyB9DQojIA0KIyAjIDQuIFN1Yi1TcGVjaWFsdHkgU3RhdHVzIENvbnN0cmFpbnQ6DQojIHVuaXF1ZV9zdWJfc3BlY2lhbHRpZXMgPC0gdW5pcXVlKHN1Yl9zcGVjaWFsdHlfc3RhdHVzX3Blcl90ZXJtWyFpcy5uYShzdWJfc3BlY2lhbHR5X3N0YXR1c19wZXJfdGVybSldKQ0KIyBmb3IgKHN1Yl9zcGVjaWFsdHkgaW4gdW5pcXVlX3N1Yl9zcGVjaWFsdGllcykgew0KIyAgIGZvciAoaSBpbiAxOm51bV9kb2N0b3JzKSB7DQojICAgICBjb25zdHJfc3ViX3NwZWNpYWx0eSA8LSByZXAoMCwgbnVtX2RvY3RvcnMgKiBudW1fdGVybXMgKyBudW1fZG9jdG9ycykNCiMgICAgIGZvciAoaiBpbiB3aGljaChzdWJfc3BlY2lhbHR5X3N0YXR1c19wZXJfdGVybSA9PSBzdWJfc3BlY2lhbHR5KSkgew0KIyAgICAgICBjb25zdHJfc3ViX3NwZWNpYWx0eVsoaSAtIDEpICogbnVtX3Rlcm1zICsgal0gPC0gMQ0KIyAgICAgfQ0KIyAgICAgYWRkLmNvbnN0cmFpbnQobHBfbW9kZWxfZGlzc2F0aXNmYWN0aW9uLCBjb25zdHJfc3ViX3NwZWNpYWx0eSwgdHlwZSA9ICI8PSIsIHJocyA9IDEpDQojICAgfQ0KIyB9DQogIA0KIyAgIyBDb25zdHJhaW50IGZvciA+NTAlIGluIHRlYW0gYmFzZWQgDQogIA0KICANCiAgIyBTb2x2ZSB0aGUgbGluZWFyIHByb2dyYW1taW5nIHByb2JsZW0gdG8gbWluaW1pemUgZGlzc2F0aXNmYWN0aW9uDQogIGxwX3Jlc3VsdF9kaXNzYXRpc2ZhY3Rpb24gPC0gc29sdmUobHBfbW9kZWxfZGlzc2F0aXNmYWN0aW9uKQ0KICANCiAgIyBDaGVjayBpZiB0aGUgTFAgcHJvYmxlbSB3YXMgc29sdmVkIHN1Y2Nlc3NmdWxseQ0KICBpZiAobHBfcmVzdWx0X2Rpc3NhdGlzZmFjdGlvbiA9PSAwKSB7DQogICAgb3B0aW1hbF9zb2x1dGlvbl9kaXNzYXRpc2ZhY3Rpb24gPC0gZ2V0LnZhcmlhYmxlcyhscF9tb2RlbF9kaXNzYXRpc2ZhY3Rpb24pDQogICAgYXNzaWdubWVudF9yZXN1bHRzW1thc3NpZ25tZW50X251bV1dIDwtIG9wdGltYWxfc29sdXRpb25fZGlzc2F0aXNmYWN0aW9uDQogICAgDQogICAgIyBVcGRhdGUgdGhlIGFzc2lnbmVkX3Rlcm1zX21hdHJpeCBiYXNlZCBvbiB0aGlzIHNvbHV0aW9uDQogICAgZm9yIChpIGluIDE6bnVtX2RvY3RvcnMpIHsNCiAgICAgIGZvciAoaiBpbiAxOm51bV90ZXJtcykgew0KICAgICAgICBpZiAob3B0aW1hbF9zb2x1dGlvbl9kaXNzYXRpc2ZhY3Rpb25bKGkgLSAxKSAqIG51bV90ZXJtcyArIGpdID09IDEpIHsNCiAgICAgICAgICBhc3NpZ25lZF90ZXJtc19tYXRyaXhbaSwgal0gPC0gMQ0KICAgICAgICB9DQogICAgICB9DQogICAgfQ0KICB9IGVsc2Ugew0KICAgIGNhdCgiTFAgcHJvYmxlbSBjb3VsZCBub3QgYmUgc29sdmVkIGZvciBhc3NpZ25tZW50IiwgYXNzaWdubWVudF9udW0sICJSZXN1bHQ6IiwgbHBfcmVzdWx0X2Rpc3NhdGlzZmFjdGlvbiwgIlxuIikNCiAgfQ0KfQ0KDQoNCiMgUHJpbnQgdGhlIHJlc3VsdHMgb2YgZWFjaCBhc3NpZ25tZW50DQpmb3IgKGFzc2lnbm1lbnRfbnVtIGluIDE6bnVtX2Fzc2lnbm1lbnRzKSB7DQogIGNhdCgiQXNzaWdubWVudCIsIGFzc2lnbm1lbnRfbnVtLCAicmVzdWx0czpcbiIpDQogIG9wdGltYWxfc29sdXRpb25fZGlzc2F0aXNmYWN0aW9uIDwtIGFzc2lnbm1lbnRfcmVzdWx0c1tbYXNzaWdubWVudF9udW1dXQ0KICBmb3IgKGkgaW4gMTpudW1fZG9jdG9ycykgew0KICAgIGZvciAoaiBpbiAxOm51bV90ZXJtcykgew0KICAgICAgaWYgKG9wdGltYWxfc29sdXRpb25fZGlzc2F0aXNmYWN0aW9uWyhpIC0gMSkgKiBudW1fdGVybXMgKyBqXSA9PSAxKSB7DQogICAgICAgIGRvY3Rvcl9uYW1lIDwtIHJvd19uYW1lc1tpXQ0KICAgICAgICB0ZXJtX25hbWUgPC0gY29sdW1uX25hbWVzW2pdDQogICAgICAgIGNhdCgiRG9jdG9yIiwgZG9jdG9yX25hbWUsICJpcyBhc3NpZ25lZCB0byBUZXJtIiwgdGVybV9uYW1lLCAiXG4iKQ0KICAgICAgfQ0KICAgIH0NCiAgfQ0KICBjYXQoIlxuIikNCn0NCiMgSW5pdGlhbGl6ZSBhIGRhdGEgZnJhbWUgdG8gc3RvcmUgdGhlIHJlc3VsdHMNCmFzc2lnbm1lbnRfdGFibGUgPC0gZGF0YS5mcmFtZShEb2N0b3IgPSByb3dfbmFtZXMsIA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFzc2lnbm1lbnQxID0gY2hhcmFjdGVyKG51bV9kb2N0b3JzKSwgDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQXNzaWdubWVudDIgPSBjaGFyYWN0ZXIobnVtX2RvY3RvcnMpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFzc2lnbm1lbnQzID0gY2hhcmFjdGVyKG51bV9kb2N0b3JzKSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBc3NpZ25tZW50NCA9IGNoYXJhY3RlcihudW1fZG9jdG9ycyksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQXNzaWdubWVudDUgPSBjaGFyYWN0ZXIobnVtX2RvY3RvcnMpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cmluZ3NBc0ZhY3RvcnMgPSBGQUxTRSkNCg0KIyBQb3B1bGF0ZSB0aGUgZGF0YSBmcmFtZSB3aXRoIHRoZSBhc3NpZ25tZW50IHJlc3VsdHMNCmZvciAoYXNzaWdubWVudF9udW0gaW4gMTpudW1fYXNzaWdubWVudHMpIHsNCiAgb3B0aW1hbF9zb2x1dGlvbl9kaXNzYXRpc2ZhY3Rpb24gPC0gYXNzaWdubWVudF9yZXN1bHRzW1thc3NpZ25tZW50X251bV1dDQogIGZvciAoaSBpbiAxOm51bV9kb2N0b3JzKSB7DQogICAgZm9yIChqIGluIDE6bnVtX3Rlcm1zKSB7DQogICAgICBpZiAob3B0aW1hbF9zb2x1dGlvbl9kaXNzYXRpc2ZhY3Rpb25bKGkgLSAxKSAqIG51bV90ZXJtcyArIGpdID09IDEpIHsNCiAgICAgICAgdGVybV9uYW1lIDwtIGNvbHVtbl9uYW1lc1tqXQ0KICAgICAgICBhc3NpZ25tZW50X2NvbHVtbiA8LSBwYXN0ZTAoIkFzc2lnbm1lbnQiLCBhc3NpZ25tZW50X251bSkNCiAgICAgICAgYXNzaWdubWVudF90YWJsZVtpLCBhc3NpZ25tZW50X2NvbHVtbl0gPC0gdGVybV9uYW1lDQogICAgICB9DQogICAgfQ0KICB9DQp9DQoNCg0KIyBQcmludCB0aGUgdGFibGUgdXNpbmcgZ3QNCmd0KGFzc2lnbm1lbnRfdGFibGUpDQoNCg0KYGBgDQoNCg0KDQojIFBHWTIgVW5hc3NpZ25lZCB0ZXJtcyBEYXRhIEZyYW1lIGFuZCBUZXJtcyBMaXN0DQpgYGB7cn0NCg0KIyBJbml0aWFsaXplIGEgZGF0YSBmcmFtZSB0byBzdG9yZSB0aGUgdW5hc3NpZ25lZCBzbG90cyBmb3IgZWFjaCB0ZXJtDQp1bmFzc2lnbmVkX3Rlcm1zX3RhYmxlIDwtIGRhdGEuZnJhbWUoVGVybSA9IGNvbHVtbl9uYW1lcywgDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQXNzaWdubWVudDEgPSBpbnRlZ2VyKGxlbmd0aChjb2x1bW5fbmFtZXMpKSwgDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQXNzaWdubWVudDIgPSBpbnRlZ2VyKGxlbmd0aChjb2x1bW5fbmFtZXMpKSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBc3NpZ25tZW50MyA9IGludGVnZXIobGVuZ3RoKGNvbHVtbl9uYW1lcykpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFzc2lnbm1lbnQ0ID0gaW50ZWdlcihsZW5ndGgoY29sdW1uX25hbWVzKSksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQXNzaWdubWVudDUgPSBpbnRlZ2VyKGxlbmd0aChjb2x1bW5fbmFtZXMpKSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJpbmdzQXNGYWN0b3JzID0gRkFMU0UpDQoNCiMgSGVscGVyIGZ1bmN0aW9uIHRvIGdldCB0b3RhbCBhc3NpZ25tZW50cyBmb3IgYSB0ZXJtIGZvciBhIGdpdmVuIGFzc2lnbm1lbnQgbnVtYmVyDQpnZXRfdG90YWxfYXNzaWdubWVudHNfZm9yX3Rlcm0gPC0gZnVuY3Rpb24odGVybV9pbmRleCwgYXNzaWdubWVudF9udW0pIHsNCiAgb3B0aW1hbF9zb2x1dGlvbl9kaXNzYXRpc2ZhY3Rpb24gPC0gYXNzaWdubWVudF9yZXN1bHRzW1thc3NpZ25tZW50X251bV1dDQogIHJldHVybihzdW0ob3B0aW1hbF9zb2x1dGlvbl9kaXNzYXRpc2ZhY3Rpb25bc2VxKHRlcm1faW5kZXgsIG51bV9kb2N0b3JzICogbnVtX3Rlcm1zLCBieSA9IG51bV90ZXJtcyldKSkNCn0NCg0KIyBDb21wdXRlIHRoZSB1bmFzc2lnbmVkIHNsb3RzIGZvciBlYWNoIHRlcm0gYW5kIGFzc2lnbm1lbnQNCmZvciAodGVybV9pbmRleCBpbiAxOmxlbmd0aChjb2x1bW5fbmFtZXMpKSB7DQogIGZvciAoYXNzaWdubWVudF9udW0gaW4gMTpudW1fYXNzaWdubWVudHMpIHsNCiAgICBtYXhfZG9jdG9yc19mb3JfdGhpc190ZXJtIDwtIGdldF9tYXhfZG9jdG9yc19mb3JfdGVybShhc3NpZ25tZW50X251bSkNCiAgICB0b3RhbF9hc3NpZ25tZW50cyA8LSBnZXRfdG90YWxfYXNzaWdubWVudHNfZm9yX3Rlcm0odGVybV9pbmRleCwgYXNzaWdubWVudF9udW0pDQogICAgDQogICAgdW5hc3NpZ25lZF9zbG90cyA8LSBtYXhfZG9jdG9yc19mb3JfdGhpc190ZXJtW3Rlcm1faW5kZXhdIC0gdG90YWxfYXNzaWdubWVudHMNCiAgICANCiAgICBhc3NpZ25tZW50X2NvbHVtbiA8LSBwYXN0ZTAoIkFzc2lnbm1lbnQiLCBhc3NpZ25tZW50X251bSkNCiAgICB1bmFzc2lnbmVkX3Rlcm1zX3RhYmxlW3Rlcm1faW5kZXgsIGFzc2lnbm1lbnRfY29sdW1uXSA8LSB1bmFzc2lnbmVkX3Nsb3RzDQogIH0NCn0NCg0KIyBWaWV3IHRoZSB1bmFzc2lnbmVkX3Rlcm1zX3RhYmxlDQpndCh1bmFzc2lnbmVkX3Rlcm1zX3RhYmxlKQ0KDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICMgR2VuZXJhdGUgdGhpcyBkYXRhIGZyYW1lIGFzIGEgdGVybSBsaXN0DQoNCiMgSW5pdGlhbGl6ZSBhIG5ldyBkYXRhZnJhbWUgZm9yIHVuYXNzaWduZWQgdGVybXMNCiMgRHJvcCB0aGUgZmlyc3QgY29sdW1uIGZvciBjYWxjdWxhdGlvbiBwdXJwb3Nlcw0KbnVtZXJpY191bmFzc2lnbmVkX3Rlcm1zIDwtIHVuYXNzaWduZWRfdGVybXNfdGFibGVbLC0xXQ0KDQojIENvbXB1dGUgdGhlIG1heGltdW0gdW5hc3NpZ25lZCB0ZXJtcyBhY3Jvc3MgYWxsIGFzc2lnbm1lbnRzDQptYXhfdW5hc3NpZ25lZCA8LSBtYXgoYXMubWF0cml4KG51bWVyaWNfdW5hc3NpZ25lZF90ZXJtcykpDQoNCiMgQ3JlYXRlIGEgbGlzdCB0byBzdG9yZSB0ZXJtIHJlcGV0aXRpb25zIGZvciBlYWNoIGFzc2lnbm1lbnQNCnVuYXNzaWduZWRfbGlzdCA8LSBsaXN0KCkNCg0KZm9yIChhc3NpZ25tZW50X251bSBpbiAxOm51bV9hc3NpZ25tZW50cykgew0KICBhc3NpZ25tZW50X2NvbHVtbiA8LSBwYXN0ZTAoIkFzc2lnbm1lbnQiLCBhc3NpZ25tZW50X251bSkNCiAgdGVybXNfcmVwIDwtIHJlcCh1bmFzc2lnbmVkX3Rlcm1zX3RhYmxlJFRlcm0sIG51bWVyaWNfdW5hc3NpZ25lZF90ZXJtc1tbYXNzaWdubWVudF9jb2x1bW5dXSkNCiAgdW5hc3NpZ25lZF9saXN0W1thc3NpZ25tZW50X251bV1dIDwtIHRlcm1zX3JlcA0KfQ0KDQojIE1ha2UgYWxsIGxpc3RzIHRoZSBzYW1lIGxlbmd0aCBieSBwYWRkaW5nIHdpdGggTkENCm1heF9sZW5ndGggPC0gbWF4KHNhcHBseSh1bmFzc2lnbmVkX2xpc3QsIGxlbmd0aCkpDQp1bmFzc2lnbmVkX2xpc3QgPC0gbGFwcGx5KHVuYXNzaWduZWRfbGlzdCwgZnVuY3Rpb24oeCkgew0KICBjKHgsIHJlcChOQSwgbWF4X2xlbmd0aCAtIGxlbmd0aCh4KSkpDQp9KQ0KDQojIENvbnZlcnQgdGhlIGxpc3QgdG8gZGF0YWZyYW1lDQp1bmFzc2lnbmVkX2RmIDwtIGFzLmRhdGEuZnJhbWUodW5hc3NpZ25lZF9saXN0KQ0KbmFtZXModW5hc3NpZ25lZF9kZikgPC0gcGFzdGUwKCJUZXJtIiwgMTpudW1fYXNzaWdubWVudHMpDQoNCiMgVmlldyB0aGUgZGF0YWZyYW1lDQpndCh1bmFzc2lnbmVkX2RmKQ0KDQoNCmBgYA0KDQoNCiMgTU9ERUwgRVZBTFVBVElPTg0KDQpgYGB7ciBpbmNsdWRlPVRSVUUsIGVjaG89VFJVRSwgcmVzdWx0cz0nbWFya3VwJ30NCg0KIyBIb3cgbWFueSBEb2N0b3JzIHdpdGggb25lIFRvcCAxMCBwcmVmZXJlbmNlDQoNCiMgQ29udmVydCB0aGUgcHJlZmVyZW5jZSBtYXRyaXggaW50byBhIHRvcCAxMCBib29sZWFuIG1hdHJpeA0KdG9wXzEwX21hdHJpeCA8LSB0KGFwcGx5KHByZWZlcmVuY2VfbWF0cml4LCAxLCBmdW5jdGlvbihyb3cpIHJvdyAlaW4lIHNvcnQocm93LCBkZWNyZWFzaW5nID0gRkFMU0UpWzE6MTBdKSkNCg0KIyBGb3IgZWFjaCBkb2N0b3IsIGRldGVybWluZSBpZiB0aGUgYXNzaWduZWQgdGVybXMgYXJlIGluIHRoZWlyIHRvcCAxMCBwcmVmZXJlbmNlcw0KYXNzaWdubWVudF90b3BfMTBfbWF0cml4IDwtIG1hdHJpeCgwLCBucm93ID0gbnVtX2RvY3RvcnMsIG5jb2wgPSBudW1fYXNzaWdubWVudHMpDQoNCmZvciAoYXNzaWdubWVudF9udW0gaW4gMTpudW1fYXNzaWdubWVudHMpIHsNCiAgYXNzaWdubWVudF9jb2x1bW4gPC0gcGFzdGUwKCJBc3NpZ25tZW50IiwgYXNzaWdubWVudF9udW0pDQogIGFzc2lnbmVkX3Rlcm1zIDwtIGFzc2lnbm1lbnRfdGFibGVbLCBhc3NpZ25tZW50X2NvbHVtbl0NCiAgDQogICMgQ29udmVydCB0aGUgYXNzaWduZWQgdGVybSBuYW1lcyBiYWNrIHRvIHRoZWlyIGNvbHVtbiBpbmRpY2VzDQogIGFzc2lnbmVkX2luZGljZXMgPC0gbWF0Y2goYXNzaWduZWRfdGVybXMsIGNvbG5hbWVzKHNlbGVjdGVkX2RhdGEpKQ0KICANCiAgZm9yIChpIGluIDE6bnVtX2RvY3RvcnMpIHsNCiAgICBhc3NpZ25tZW50X3RvcF8xMF9tYXRyaXhbaSwgYXNzaWdubWVudF9udW1dIDwtIHRvcF8xMF9tYXRyaXhbaSwgYXNzaWduZWRfaW5kaWNlc1tpXV0NCiAgfQ0KfQ0KDQojIENvbnZlcnQgdGhlIHByZWZlcmVuY2UgbWF0cml4IGludG8gYSB0b3AgNSBib29sZWFuIG1hdHJpeA0KdG9wXzVfbWF0cml4IDwtIHQoYXBwbHkocHJlZmVyZW5jZV9tYXRyaXgsIDEsIGZ1bmN0aW9uKHJvdykgcm93ICVpbiUgc29ydChyb3csIGRlY3JlYXNpbmcgPSBGQUxTRSlbMTo1XSkpDQoNCiMgQ3JlYXRlIGEgZnVuY3Rpb24gdG8gY29tcHV0ZSBtZXRyaWNzIGZvciBhIGdpdmVuIHRvcF94IG1hdHJpeA0KZ2V0X21ldHJpY3MgPC0gZnVuY3Rpb24obWF0cml4LCBhc3NpZ25tZW50X3RhYmxlLCBudW1fYXNzaWdubWVudHMpIHsNCiAgYXNzaWdubWVudF9tYXRyaXggPC0gbWF0cml4KDAsIG5yb3cgPSBudW1fZG9jdG9ycywgbmNvbCA9IG51bV9hc3NpZ25tZW50cykNCiAgDQogIGZvciAoYXNzaWdubWVudF9udW0gaW4gMTpudW1fYXNzaWdubWVudHMpIHsNCiAgICBhc3NpZ25tZW50X2NvbHVtbiA8LSBwYXN0ZTAoIkFzc2lnbm1lbnQiLCBhc3NpZ25tZW50X251bSkNCiAgICBhc3NpZ25lZF90ZXJtcyA8LSBhc3NpZ25tZW50X3RhYmxlWywgYXNzaWdubWVudF9jb2x1bW5dDQogICAgDQogICAgIyBDb252ZXJ0IHRoZSBhc3NpZ25lZCB0ZXJtIG5hbWVzIGJhY2sgdG8gdGhlaXIgY29sdW1uIGluZGljZXMNCiAgICBhc3NpZ25lZF9pbmRpY2VzIDwtIG1hdGNoKGFzc2lnbmVkX3Rlcm1zLCBjb2xuYW1lcyhzZWxlY3RlZF9kYXRhKSkNCiAgICANCiAgICBmb3IgKGkgaW4gMTpudW1fZG9jdG9ycykgew0KICAgICAgYXNzaWdubWVudF9tYXRyaXhbaSwgYXNzaWdubWVudF9udW1dIDwtIG1hdHJpeFtpLCBhc3NpZ25lZF9pbmRpY2VzW2ldXQ0KICAgIH0NCiAgfQ0KICANCiAgcmV0dXJuKHJvd1N1bXMoYXNzaWdubWVudF9tYXRyaXgpKQ0KfQ0KDQp0b3BfMTBfY291bnRzX3Blcl9kb2N0b3IgPC0gZ2V0X21ldHJpY3ModG9wXzEwX21hdHJpeCwgYXNzaWdubWVudF90YWJsZSwgbnVtX2Fzc2lnbm1lbnRzKQ0KdG9wXzVfY291bnRzX3Blcl9kb2N0b3IgPC0gZ2V0X21ldHJpY3ModG9wXzVfbWF0cml4LCBhc3NpZ25tZW50X3RhYmxlLCBudW1fYXNzaWdubWVudHMpDQoNCiMgRXh0cmFjdCBhbGwgYXNzaWduZWQgdGVybXMgZm9yIGVhY2ggZG9jdG9yIGFjcm9zcyB0aGUgYXNzaWdubWVudHMNCmFzc2lnbmVkX3Rlcm1zX2FsbCA8LSBhcy52ZWN0b3IodChhc3NpZ25tZW50X3RhYmxlWywgMjoobnVtX2Fzc2lnbm1lbnRzICsgMSldKSkNCg0KIyBDb252ZXJ0IHRoZSBhc3NpZ25lZCB0ZXJtIG5hbWVzIGJhY2sgdG8gdGhlaXIgY29sdW1uIGluZGljZXMNCmFzc2lnbmVkX2luZGljZXNfYWxsIDwtIG1hdGNoKGFzc2lnbmVkX3Rlcm1zX2FsbCwgY29sbmFtZXMoc2VsZWN0ZWRfZGF0YSkpDQoNCiMgUmV0cmlldmUgcHJlZmVyZW5jZSB2YWx1ZXMgdXNpbmcgbWF0cml4IGluZGV4aW5nDQphc3NpZ25lZF9wcmVmZXJlbmNlX3ZhbHVlcyA8LSBtYXRyaXgoMCwgbnJvdyA9IG51bV9kb2N0b3JzLCBuY29sID0gbnVtX2Fzc2lnbm1lbnRzKQ0KZm9yIChhc3NpZ25tZW50X251bSBpbiAxOm51bV9hc3NpZ25tZW50cykgew0KICBhc3NpZ25tZW50X2NvbHVtbiA8LSBwYXN0ZTAoIkFzc2lnbm1lbnQiLCBhc3NpZ25tZW50X251bSkNCiAgYXNzaWduZWRfdGVybXMgPC0gYXNzaWdubWVudF90YWJsZVssIGFzc2lnbm1lbnRfY29sdW1uXQ0KICANCiAgIyBDb252ZXJ0IHRoZSBhc3NpZ25lZCB0ZXJtIG5hbWVzIGJhY2sgdG8gdGhlaXIgY29sdW1uIGluZGljZXMNCiAgYXNzaWduZWRfaW5kaWNlcyA8LSBtYXRjaChhc3NpZ25lZF90ZXJtcywgY29sbmFtZXMoc2VsZWN0ZWRfZGF0YSkpDQogIA0KICBmb3IgKGkgaW4gMTpudW1fZG9jdG9ycykgew0KICAgIGFzc2lnbmVkX3ByZWZlcmVuY2VfdmFsdWVzW2ksIGFzc2lnbm1lbnRfbnVtXSA8LSBwcmVmZXJlbmNlX21hdHJpeFtpLCBhc3NpZ25lZF9pbmRpY2VzW2ldXQ0KICB9DQp9DQoNCmF2ZXJhZ2VfYXNzaWduZWRfcHJlZmVyZW5jZSA8LSBtZWFuKGFzLnZlY3Rvcihhc3NpZ25lZF9wcmVmZXJlbmNlX3ZhbHVlcykpDQoNCiMgQ2FsY3VsYXRlIHRoZSBtZXRyaWNzIG9mIGludGVyZXN0IGZvciBlYWNoIGRvY3Rvcg0KcmFuZ2VfcGVyX2RvY3RvciA8LSBhcHBseShhc3NpZ25lZF9wcmVmZXJlbmNlX3ZhbHVlcywgMSwgcmFuZ2UpDQptYXhfcGVyX2RvY3RvciA8LSByYW5nZV9wZXJfZG9jdG9yWzIsXQ0KbWluX3Blcl9kb2N0b3IgPC0gcmFuZ2VfcGVyX2RvY3RvclsxLF0NCnNkX3Blcl9kb2N0b3IgPC0gYXBwbHkoYXNzaWduZWRfcHJlZmVyZW5jZV92YWx1ZXMsIDEsIHNkKQ0KDQojIENvbXB1dGUgdGhlIGF2ZXJhZ2UgdmFsdWVzIGFjcm9zcyBhbGwgZG9jdG9ycw0KYXZlcmFnZV9tYXggPSBtZWFuKG1heF9wZXJfZG9jdG9yKQ0KYXZlcmFnZV9taW4gPSBtZWFuKG1pbl9wZXJfZG9jdG9yKQ0KYXZlcmFnZV9zZCA9IG1lYW4oc2RfcGVyX2RvY3RvcikNCg0KIyBDcmVhdGUgYSBkYXRhIGZyYW1lIHdpdGggdGhlIGV2YWx1YXRpb24gbWV0cmljcw0KZXZhbHVhdGlvbl9kYXRhIDwtIGRhdGEuZnJhbWUoDQogIE1ldHJpYyA9IGMoIkF0IGxlYXN0IDEgdGVybSBpbiBUb3AgMTAgKCUpIiwgDQogICAgICAgICAgICAgIkF0IGxlYXN0IDIgdGVybXMgaW4gVG9wIDEwICglKSIsIA0KICAgICAgICAgICAgICJBdCBsZWFzdCAzIHRlcm1zIGluIFRvcCAxMCAoJSkiLCANCiAgICAgICAgICAgICAiQXQgbGVhc3QgMSB0ZXJtIGluIFRvcCA1ICglKSIsDQogICAgICAgICAgICAgIkF2ZXJhZ2UgUHJlZmVyZW5jZSBvZiBBc3NpZ25lZCBUZXJtcyIsDQogICAgICAgICAgICAgIkF2ZXJhZ2UgTWF4IG9mIEFzc2lnbmVkIFByZWZlcmVuY2VzIiwNCiAgICAgICAgICAgICAiQXZlcmFnZSBNaW4gb2YgQXNzaWduZWQgUHJlZmVyZW5jZXMiLA0KICAgICAgICAgICAgICJBdmVyYWdlIFNEIG9mIEFzc2lnbmVkIFByZWZlcmVuY2VzIiksDQogIFZhbHVlID0gYyhzdW0odG9wXzEwX2NvdW50c19wZXJfZG9jdG9yID4gMCkgLyBudW1fZG9jdG9ycyAqIDEwMCwgDQogICAgICAgICAgICBzdW0odG9wXzEwX2NvdW50c19wZXJfZG9jdG9yID49IDIpIC8gbnVtX2RvY3RvcnMgKiAxMDAsIA0KICAgICAgICAgICAgc3VtKHRvcF8xMF9jb3VudHNfcGVyX2RvY3RvciA+PSAzKSAvIG51bV9kb2N0b3JzICogMTAwLCANCiAgICAgICAgICAgIHN1bSh0b3BfNV9jb3VudHNfcGVyX2RvY3RvciA+IDApIC8gbnVtX2RvY3RvcnMgKiAxMDAsDQogICAgICAgICAgICBhdmVyYWdlX2Fzc2lnbmVkX3ByZWZlcmVuY2UsDQogICAgICAgICAgICBhdmVyYWdlX21heCwNCiAgICAgICAgICAgIGF2ZXJhZ2VfbWluLA0KICAgICAgICAgICAgYXZlcmFnZV9zZCkNCikNCg0KIyBSb3VuZCB0aGUgdmFsdWVzIHRvIDIgZGVjaW1hbCBwbGFjZXMNCmV2YWx1YXRpb25fZGF0YSRWYWx1ZSA8LSByb3VuZChldmFsdWF0aW9uX2RhdGEkVmFsdWUsIDIpDQoNCiMgR2VuZXJhdGUgdGhlIHRhYmxlIHVzaW5nIGd0DQpldmFsdWF0aW9uX3RhYmxlIDwtIGd0KGV2YWx1YXRpb25fZGF0YSkgJT4lIA0KICB0YWJfaGVhZGVyKA0KICAgIHRpdGxlID0gIk1vZGVsIEV2YWx1YXRpb24iDQogICkgJT4lIA0KICBjb2xzX2xhYmVsKA0KICAgIE1ldHJpYyA9ICJNZXRyaWMiLA0KICAgIFZhbHVlID0gIlZhbHVlIg0KICApDQoNCiMgUHJpbnQgdGhlIHRhYmxlDQpwcmludChldmFsdWF0aW9uX3RhYmxlKQ0KDQoNCmBgYA0KDQoNCiAgICAgICAgICAgICAgICAgICAgICAgICANCiMgUmVwb3J0aW5nIC0gDQoNCiMjIyBUbyBhZGQgdHJhbnNwYXJhbmN5IHRvIGFsbG9jYXRpb25zIHByb2Nlc3MgYW5kIHRvIGFzc2lzdCBpbiBtYW51YWwgYXVkaXRpbmcgb2YgbGluZXMgaW4gb3JkZXIgdG8gcHJlc2VydmUgdGhlIGludGVncml0eSBvZiB0aGUgcHJlZmVyZW5jZXMgb2YgdGhlIGNvaG9ydC4gQXNzaXN0IHdpdGggbWFudWFsIGNoYW5nZXMgdG8gbWFrZSB0ZXJtcyBIRVRJIGNvbXBsaWFudCBvciB1bmRlcnN0YW5kIEdBUFMgaW4gdGhlIGV2ZW50IHRoZWlyIGlzIG5pbCB2aWFibGUgc29sdXRpb24gdG8gd2hvbGUgZ2FtdXQgb2YgY29uc3RyYWludHMuIA0KDQpgYGB7ciBpbmNsdWRlPVRSVUUsIGVjaG89VFJVRSwgcmVzdWx0cz0nbWFya3VwJ30NCiMgMS4gRG9jdG9ycyBQcmVmZXJlbmNlIFJlcG9ydA0KDQojIEluaXRpYWxpemUgYW4gZW1wdHkgZGF0YSBmcmFtZSB0byBzdG9yZSB0aGUgcmVwb3J0DQpkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQgPC0gZGF0YS5mcmFtZSgNCiAgRG9jdG9yID0gY2hhcmFjdGVyKCksDQogIFRlcm0gPSBjaGFyYWN0ZXIoKSwNCiAgUHJlZmVyZW5jZV9TY29yZSA9IG51bWVyaWMoKSwNCiAgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFDQopDQoNCiMgSXRlcmF0ZSB0aHJvdWdoIGVhY2ggZG9jdG9yDQpmb3IgKGkgaW4gMTpudW1fZG9jdG9ycykgew0KICBkb2N0b3JfbmFtZSA8LSByb3dfbmFtZXNbaV0NCiAgDQogICMgSXRlcmF0ZSB0aHJvdWdoIGVhY2ggb2YgdGhlIGFzc2lnbm1lbnRzIHRvIGV4dHJhY3QgdGhlIGFsbG9jYXRlZCB0ZXJtcyBmb3IgZWFjaCBkb2N0b3INCiAgZm9yIChhc3NpZ25tZW50X251bSBpbiAxOm51bV9hc3NpZ25tZW50cykgew0KICAgIG9wdGltYWxfc29sdXRpb25fZGlzc2F0aXNmYWN0aW9uIDwtIGFzc2lnbm1lbnRfcmVzdWx0c1tbYXNzaWdubWVudF9udW1dXQ0KICAgIGZvciAoaiBpbiAxOm51bV90ZXJtcykgew0KICAgICAgaWYgKG9wdGltYWxfc29sdXRpb25fZGlzc2F0aXNmYWN0aW9uWyhpIC0gMSkgKiBudW1fdGVybXMgKyBqXSA9PSAxKSB7DQogICAgICAgIGFzc2lnbmVkX3Rlcm0gPC0gY29sdW1uX25hbWVzW2pdDQogICAgICAgIA0KICAgICAgICAjIEFjY2VzcyB0aGUgZG9jdG9yJ3MgcHJlZmVyZW5jZSByb3cgZnJvbSB0aGUgcHJlZmVyZW5jZSBtYXRyaXgNCiAgICAgICAgZG9jdG9yX3ByZWZlcmVuY2UgPC0gcHJlZmVyZW5jZV9tYXRyaXhbaSwgXQ0KICAgICAgICANCiAgICAgICAgIyBDYWxjdWxhdGUgcHJlZmVyZW5jZSBzY29yZSBmb3IgdGhlIGFzc2lnbmVkIHRlcm0NCiAgICAgICAgcHJlZmVyZW5jZV9zY29yZSA8LSBkb2N0b3JfcHJlZmVyZW5jZVttYXRjaChhc3NpZ25lZF90ZXJtLCBjb2x1bW5fbmFtZXMpXQ0KICAgICAgICANCiAgICAgICAgIyBCdWlsZCBhIGRhdGEgZnJhbWUgd2l0aCB0aGUgcmVzdWx0cyBmb3IgdGhpcyBkb2N0b3IgYW5kIHRlcm0NCiAgICAgICAgZG9jdG9yX3JlcG9ydCA8LSBkYXRhLmZyYW1lKA0KICAgICAgICAgIERvY3RvciA9IHJlcChkb2N0b3JfbmFtZSwgMSksDQogICAgICAgICAgVGVybSA9IGFzc2lnbmVkX3Rlcm0sDQogICAgICAgICAgUHJlZmVyZW5jZV9TY29yZSA9IHByZWZlcmVuY2Vfc2NvcmUNCiAgICAgICAgKQ0KICAgICAgICANCiAgICAgICAgIyBBcHBlbmQgdGhlIGRvY3RvcidzIHJlcG9ydCB0byB0aGUgb3ZlcmFsbCByZXBvcnQgZGF0YSBmcmFtZQ0KICAgICAgICBkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQgPC0gcmJpbmQoZG9jdG9yX3ByZWZlcmVuY2VfcmVwb3J0LCBkb2N0b3JfcmVwb3J0KQ0KICAgICAgfQ0KICAgIH0NCiAgfQ0KfQ0KDQoNCmd0KGRvY3Rvcl9wcmVmZXJlbmNlX3JlcG9ydCkNCmBgYA0KDQoNCmBgYHtyIGluY2x1ZGU9VFJVRSwgZWNobz1UUlVFLCByZXN1bHRzPSdtYXJrdXAnfQ0KIyAyLiBIRVRJIENvbXBsaWFuY2UgUmVwb3J0DQoNCg0KIyBDYWxjdWxhdGUgYXZlcmFnZSBwcmVmZXJlbmNlIGZvciBlYWNoIGRvY3RvciBhY3Jvc3MgYWxsIDUgYXNzaWdubWVudHMNCmF2Z19wcmVmZXJlbmNlIDwtIGRvY3Rvcl9wcmVmZXJlbmNlX3JlcG9ydCAlPiUNCiAgZ3JvdXBfYnkoRG9jdG9yKSAlPiUNCiAgc3VtbWFyaXplKEF2Z19TY29yZSA9IG1lYW4oUHJlZmVyZW5jZV9TY29yZSwgbmEucm0gPSBUUlVFKSkNCg0KIyBDaGVjayBpZiBhIGRvY3RvciBoYXMgYmVlbiBhc3NpZ25lZCB0byBtb3JlIHRoYW4gMSB0ZXJtIGluIGFueSBzdWItc3BlY2lhbHR5DQpzdWJfc3BlY2lhbHR5X2NvbXBsaWFuY2UgPC0gYXBwbHkoYXNzaWdubWVudF90YWJsZVssLTFdLCAxLCBmdW5jdGlvbihhc3NpZ25tZW50cykgew0KICAjIE1hcCB0aGUgYXNzaWdubWVudHMgdG8gdGhlaXIgY29ycmVzcG9uZGluZyBzdWJfc3BlY2lhbHR5X3N0YXR1c19wZXJfdGVybQ0KICBzdWJfc3BlY2lhbHR5X3Rlcm1zIDwtIHN1Yl9zcGVjaWFsdHlfc3RhdHVzX3Blcl90ZXJtW2Fzc2lnbm1lbnRzXQ0KICANCiAgIyBDaGVjayBpZiBhbnkgc3ViLXNwZWNpYWx0eSBpcyBhc3NpZ25lZCBtb3JlIHRoYW4gMSB0aW1lDQogIG1heF9jb3VudCA8LSBtYXgodGFibGUoc3ViX3NwZWNpYWx0eV90ZXJtcyksIG5hLnJtID0gVFJVRSkNCiAgcmV0dXJuKG1heF9jb3VudCA8PSAxKQ0KfSkNCg0KIyBDaGVjayBpZiBhIGRvY3RvciBoYXMgYmVlbiBhc3NpZ25lZCB0byBtb3JlIHRoYW4gMiB0ZXJtcyBpbiBhbnkgc3BlY2lhbHR5DQpzcGVjaWFsdHlfY29tcGxpYW5jZSA8LSBhcHBseShhc3NpZ25tZW50X3RhYmxlWywtMV0sIDEsIGZ1bmN0aW9uKGFzc2lnbm1lbnRzKSB7DQogICMgTWFwIHRoZSBhc3NpZ25tZW50cyB0byB0aGVpciBjb3JyZXNwb25kaW5nIHNwZWNpYWx0eV9zdGF0dXNfcGVyX3Rlcm0NCiAgc3BlY2lhbHR5X3Rlcm1zIDwtIHNwZWNpYWx0eV9zdGF0dXNfcGVyX3Rlcm1bYXNzaWdubWVudHNdDQogIA0KICAjIENoZWNrIGlmIGFueSBzcGVjaWFsdHkgaXMgYXNzaWduZWQgbW9yZSB0aGFuIDIgdGltZXMNCiAgbWF4X2NvdW50IDwtIG1heCh0YWJsZShzcGVjaWFsdHlfdGVybXMpLCBuYS5ybSA9IFRSVUUpDQogIHJldHVybihtYXhfY291bnQgPCAzKQ0KfSkNCg0KIyBDaGVjayBpZiBhIGRvY3RvciBoYXMgYmVlbiBhc3NpZ25lZCB0byBhdCBsZWFzdCAzICJUZWFtIEJhc2VkIiB0ZXJtcw0KdGVhbV9iYXNlZF9jb21wbGlhbmNlIDwtIHNhcHBseSgxOm51bV9kb2N0b3JzLCBmdW5jdGlvbihpKSB7DQogIGRvY3Rvcl9uYW1lIDwtIHJvd19uYW1lc1tpXQ0KICB0ZXJtc19hc3NpZ25lZCA8LSBkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQkVGVybVtkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQkRG9jdG9yID09IGRvY3Rvcl9uYW1lXQ0KICANCiAgIyBEZWJ1Z2dpbmcgcHJpbnQgc3RhdGVtZW50cw0KICBwcmludChwYXN0ZSgiRG9jdG9yOiIsIGRvY3Rvcl9uYW1lKSkNCiAgcHJpbnQocGFzdGUoIkFzc2lnbmVkIHRlcm1zOiIsIHRvU3RyaW5nKHRlcm1zX2Fzc2lnbmVkKSkpDQogIHN0cnVjdHVyZV9pbmRpY2VzIDwtIG1hdGNoKHRlcm1zX2Fzc2lnbmVkLCBuYW1lcyhjbGluaWNhbF9zdHJ1Y3R1cmVfdGVybSkpDQogIHByaW50KHBhc3RlKCJNYXRjaGluZyBpbmRpY2VzOiIsIHRvU3RyaW5nKHN0cnVjdHVyZV9pbmRpY2VzKSkpDQogIHByaW50KHBhc3RlKCJDbGluaWNhbCBzdHJ1Y3R1cmVzOiIsIHRvU3RyaW5nKGNsaW5pY2FsX3N0cnVjdHVyZV90ZXJtW3N0cnVjdHVyZV9pbmRpY2VzXSkpKQ0KICANCiAgdGVhbV9iYXNlZF9jb3VudCA8LSBzdW0oY2xpbmljYWxfc3RydWN0dXJlX3Rlcm1bc3RydWN0dXJlX2luZGljZXNdID09ICJUZWFtIEJhc2VkIikNCiAgDQogIHJldHVybih0ZWFtX2Jhc2VkX2NvdW50ID49IDMpDQp9KQ0KDQojIENoZWNrIGZvciBjb21wbGlhbmNlIHdpdGggdGhlIGRlc2lyZWQgdGVybSBjbGFzc2lmaWNhdGlvbnMNCmNoZWNrX3Rlcm1fY2xhc3NpZmljYXRpb25zIDwtIGZ1bmN0aW9uKHRlcm1zX2Fzc2lnbmVkKSB7DQogIGNsYXNzaWZpY2F0aW9uMSA8LSB0ZXJtX2NsYXNzaWZpY2F0aW9uMVttYXRjaCh0ZXJtc19hc3NpZ25lZCwgY29sdW1uX25hbWVzKV0NCiAgY2xhc3NpZmljYXRpb24yIDwtIHRlcm1fY2xhc3NpZmljYXRpb24yW21hdGNoKHRlcm1zX2Fzc2lnbmVkLCBjb2x1bW5fbmFtZXMpXQ0KICByZXF1aXJlZF90ZXJtcyA8LSBjKCJBLVVuZGlmZmVyZW50aWF0ZWQgaWxsbmVzcyBwYXRpZW50IGNhcmUiLCANCiAgICAgICAgICAgICAgICAgICAgICAiQi1DaHJvbmljIGlsbG5lc3MgcGF0aWVudCBjYXJlIiwgDQogICAgICAgICAgICAgICAgICAgICAgIkMtQWN1dGUgY3JpdGljYWwgaWxsbmVzcyBwYXRpZW50IGNhcmUiLA0KICAgICAgICAgICAgICAgICAgICAgICJELVBlcmktb3BlcmF0aXZlIC8gcHJvY2VkdXJhbCBwYXRpZW50IGNhcmUiKQ0KICANCiAgIyBDaGVjayBmb3IgZWFjaCB0ZXJtIGluZGl2aWR1YWxseSwgd2l0aG91dCBtZXJnaW5nIHRoZSBjbGFzc2lmaWNhdGlvbnMNCiAgaGFzX3JlcXVpcmVkX3Rlcm1zIDwtIHNhcHBseShyZXF1aXJlZF90ZXJtcywgZnVuY3Rpb24odGVybSkgew0KICAgIHRlcm0gJWluJSBjbGFzc2lmaWNhdGlvbjEgfHwgdGVybSAlaW4lIGNsYXNzaWZpY2F0aW9uMg0KICB9KQ0KICANCiAgcmV0dXJuKGFsbChoYXNfcmVxdWlyZWRfdGVybXMpKQ0KfQ0KDQp0ZXJtX2NsYXNzaWZpY2F0aW9uc19jb21wbGlhbmNlIDwtIHNhcHBseSgxOm51bV9kb2N0b3JzLCBmdW5jdGlvbihpKSB7DQogIGRvY3Rvcl9uYW1lIDwtIHJvd19uYW1lc1tpXQ0KICB0ZXJtc19hc3NpZ25lZCA8LSBkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQkVGVybVtkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQkRG9jdG9yID09IGRvY3Rvcl9uYW1lXQ0KICByZXR1cm4oY2hlY2tfdGVybV9jbGFzc2lmaWNhdGlvbnModGVybXNfYXNzaWduZWQpKQ0KfSkNCg0KY29tcGxpYW5jZV9kYXRhIDwtIGRhdGEuZnJhbWUoDQogIERvY3RvciA9IGF2Z19wcmVmZXJlbmNlJERvY3RvciwNCiAgQXZnX1ByZWZlcmVuY2UgPSBhdmdfcHJlZmVyZW5jZSRBdmdfU2NvcmUsDQogIFN1YlNwZWNpYWx0eV9Db21wbGlhbmNlID0gc3ViX3NwZWNpYWx0eV9jb21wbGlhbmNlLA0KICBTcGVjaWFsdHlfQ29tcGxpYW5jZSA9IHNwZWNpYWx0eV9jb21wbGlhbmNlLA0KICBUZWFtX0Jhc2VkX0NvbXBsaWFuY2UgPSB0ZWFtX2Jhc2VkX2NvbXBsaWFuY2UsDQogIFRlcm1fQ2xhc3NpZmljYXRpb25zX0NvbXBsaWFuY2UgPSB0ZXJtX2NsYXNzaWZpY2F0aW9uc19jb21wbGlhbmNlDQopDQoNCiMgRm9ybWF0IHdpdGggZ3QNCg0KSEVUSV9jb21wbGlhbmNlX3RhYmxlIDwtIGNvbXBsaWFuY2VfZGF0YSAlPiUNCiAgZ3QoKSAlPiUNCiAgY29sc19sYWJlbCgNCiAgICBBdmdfUHJlZmVyZW5jZSA9ICJBdmcuIFByZWZlcmVuY2UgKDEtNSkiLA0KICAgIFN1YlNwZWNpYWx0eV9Db21wbGlhbmNlID0gIk1heCAxIFRlcm0gaW4gU3ViLVNwZWNpYWx0eSIsDQogICAgU3BlY2lhbHR5X0NvbXBsaWFuY2UgPSAiTWF4IDIgVGVybXMgaW4gU3BlY2lhbHR5IiwNCiAgICBUZWFtX0Jhc2VkX0NvbXBsaWFuY2UgPSAiQXQgTGVhc3QgMyAnVGVhbSBCYXNlZCcgVGVybXMiLA0KICAgIFRlcm1fQ2xhc3NpZmljYXRpb25zX0NvbXBsaWFuY2UgPSAiRXNzZW50aWFsIENsYXNzaWZpY2F0aW9ucyINCiAgKQ0KDQpwcmludChIRVRJX2NvbXBsaWFuY2VfdGFibGUpDQpgYGANCg0KYGBge3J9DQpleHBvcnRfdGFibGVzIDwtIGZ1bmN0aW9uKGFzc2lnbm1lbnRfdGFibGUsIGV2YWx1YXRpb25fdGFibGUsIGRvY3Rvcl9wcmVmZXJlbmNlX3JlcG9ydCwgSEVUSV9jb21wbGlhbmNlX3RhYmxlLCBwcmVmZXJlbmNlX21hdHJpeCwgdW5hc3NpZ25lZF9kZiwgZmlsZW5hbWUpIHsNCiAgDQogICMgQ29udmVydCBndCB0YWJsZXMgYmFjayB0byBkYXRhLmZyYW1lIGlmIG5lY2Vzc2FyeQ0KICBpZiAoaW5oZXJpdHMoYXNzaWdubWVudF90YWJsZSwgImd0X3RibCIpKSB7DQogICAgYXNzaWdubWVudF90YWJsZSA8LSBhcy5kYXRhLmZyYW1lKGFzc2lnbm1lbnRfdGFibGUpDQogIH0NCiAgaWYgKGluaGVyaXRzKGV2YWx1YXRpb25fdGFibGUsICJndF90YmwiKSkgew0KICAgIGV2YWx1YXRpb25fdGFibGUgPC0gYXMuZGF0YS5mcmFtZShldmFsdWF0aW9uX3RhYmxlKQ0KICB9DQogIGlmIChpbmhlcml0cyhkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQsICJndF90YmwiKSkgew0KICAgIGRvY3Rvcl9wcmVmZXJlbmNlX3JlcG9ydCA8LSBhcy5kYXRhLmZyYW1lKGRvY3Rvcl9wcmVmZXJlbmNlX3JlcG9ydCkNCiAgfQ0KICBpZiAoaW5oZXJpdHMoSEVUSV9jb21wbGlhbmNlX3RhYmxlLCAiZ3RfdGJsIikpIHsNCiAgICBIRVRJX2NvbXBsaWFuY2VfdGFibGUgPC0gYXMuZGF0YS5mcmFtZShIRVRJX2NvbXBsaWFuY2VfdGFibGUpDQogIH0NCiAgDQogICMgQ29udmVydCB0aGUgcHJlZmVyZW5jZV9tYXRyaXggdG8gYSBkYXRhIGZyYW1lIGFuZCBhZGQgRG9jdG9yIG5hbWVzIGlmIGl0J3MgYSBtYXRyaXgNCiAgaWYgKGlzLm1hdHJpeChwcmVmZXJlbmNlX21hdHJpeCkpIHsNCiAgICBwcmVmZXJlbmNlX21hdHJpeF9kZiA8LSBhcy5kYXRhLmZyYW1lKHByZWZlcmVuY2VfbWF0cml4KQ0KICAgICMgQWRkIGRvY3RvciBuYW1lcyBmcm9tIHRoZSByb3duYW1lcyBvZiB0aGUgbWF0cml4IGlmIHRoZXkgZXhpc3QNCiAgICBpZiAoIWlzLm51bGwocm93bmFtZXMocHJlZmVyZW5jZV9tYXRyaXgpKSkgew0KICAgICAgcHJlZmVyZW5jZV9tYXRyaXhfZGYgPC0gY2JpbmQoRG9jdG9yID0gcm93bmFtZXMocHJlZmVyZW5jZV9tYXRyaXgpLCBwcmVmZXJlbmNlX21hdHJpeF9kZikNCiAgICB9DQogIH0gZWxzZSB7DQogICAgcHJlZmVyZW5jZV9tYXRyaXhfZGYgPC0gcHJlZmVyZW5jZV9tYXRyaXgNCiAgfQ0KICANCiAgIyBKb2luIHRoZSBzdXJ2ZXlfZGF0YSBhbmQgYXNzaWdubWVudF90YWJsZSBvbiB0aGUgIkRvY3RvciIgY29sdW1uDQogIGFzc2lnbm1lbnRfdGFibGVfd2l0aF9zdXJ2ZXkgPC0gbGVmdF9qb2luKHN1cnZleV9kYXRhLCBhc3NpZ25tZW50X3RhYmxlLCBieSA9ICJEb2N0b3IiKQ0KICANCiAgIyBQcmVwYXJlIHRoZSBsaXN0IG9mIHRhYmxlcyB0byBiZSBleHBvcnRlZA0KICB0YWJsZXNfbGlzdCA8LSBsaXN0KA0KICAgIEFzc2lnbm1lbnRUYWJsZSA9IGFzc2lnbm1lbnRfdGFibGVfd2l0aF9zdXJ2ZXksDQogICAgRXZhbHVhdGlvblRhYmxlID0gZXZhbHVhdGlvbl90YWJsZSwNCiAgICBEb2N0b3JQcmVmZXJlbmNlUmVwb3J0ID0gZG9jdG9yX3ByZWZlcmVuY2VfcmVwb3J0LA0KICAgIEhFVElDb21wbGlhbmNlVGFibGUgPSBIRVRJX2NvbXBsaWFuY2VfdGFibGUsDQogICAgUHJlZmVyZW5jZU1hdHJpeCA9IHByZWZlcmVuY2VfbWF0cml4X2RmLA0KICAgIFVuYXNzaWduZWRUZXJtcyA9IHVuYXNzaWduZWRfZGYNCiAgKQ0KICANCiAgIyBFeHBvcnQgdG8gLnhsc3ggZmlsZQ0KICB3cml0ZXhsOjp3cml0ZV94bHN4KHRhYmxlc19saXN0LCBwYXRoID0gZmlsZW5hbWUpDQp9DQoNCiMgQ2FsbCB0aGUgZnVuY3Rpb24gd2l0aCBhbGwgdGhlIG5lY2Vzc2FyeSBkYXRhIGZyYW1lcyBhbmQgdGhlIGZpbGVuYW1lDQpleHBvcnRfdGFibGVzKA0KICBhc3NpZ25tZW50X3RhYmxlID0gYXNzaWdubWVudF90YWJsZSwNCiAgdW5hc3NpZ25lZF9kZiA9IHVuYXNzaWduZWRfZGYsDQogIGRvY3Rvcl9wcmVmZXJlbmNlX3JlcG9ydCA9IGRvY3Rvcl9wcmVmZXJlbmNlX3JlcG9ydCwNCiAgSEVUSV9jb21wbGlhbmNlX3RhYmxlID0gSEVUSV9jb21wbGlhbmNlX3RhYmxlLA0KICBwcmVmZXJlbmNlX21hdHJpeCA9IHByZWZlcmVuY2VfbWF0cml4LA0KICBldmFsdWF0aW9uX3RhYmxlID0gZXZhbHVhdGlvbl90YWJsZSwNCiAgDQogIGZpbGVuYW1lID0gIlBHWTJfQWxsb2NhdGlvbnNfZXhwb3J0Lnhsc3giDQopDQoNCmBgYA0KDQoNCipUaGlzIGNvZGUsIGluY2x1c2l2ZSBvZiBhbGwgYXNzb2NpYXRlZCBkb2N1bWVudGF0aW9uIGFuZCByZWxhdGVkIGNvbnRlbnQsIGlzIHRoZSBleGNsdXNpdmUgaW50ZWxsZWN0dWFsIHByb3BlcnR5IG9mIERyLiBTY290dCBKb2huc29uIEdlbHppbm5pcyB1bmRlciB0aGUgQ29weXJpZ2h0IEFjdCAxOTY4IChDdGgpIG9mIEF1c3RyYWxpYS4gQW55IHVuYXV0aG9yaXplZCB1c2UsIHJlcHJvZHVjdGlvbiwgZGlzdHJpYnV0aW9uLCBvciBtb2RpZmljYXRpb24gb2YgdGhpcyBtYXRlcmlhbCwgaW4gZW50aXJldHkgb3IgaW4gcGFydHMsIHdpdGhvdXQgdGhlIHByaW9yIHdyaXR0ZW4gY29uc2VudCBvZiBEci4gU2NvdHQgSm9obnNvbiBHZWx6aW5uaXMsIG1heSBjb25zdGl0dXRlIGEgYnJlYWNoIG9mIEF1c3RyYWxpYW4gY29weXJpZ2h0IGxhd3MgYW5kIGNhbiByZXN1bHQgaW4gbGVnYWwgYWN0aW9uLioNCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlBHWTEgLSBBbGxvY2F0aW9ucyAyMDI0Ig0KYXV0aG9yOiAiRHIgU2NvdHQgSm9obnNvbiBHZWx6aW5uaXMiDQpkYXRlOiAiYHIgU3lzLkRhdGUoKWAiDQpvdXRwdXQ6DQogIGh0bWxfbm90ZWJvb2s6DQogICAgdGhlbWU6IGpvdXJuYWwNCiAgICBkZl9wcmludDogcGFnZWQNCiAgaHRtbF9kb2N1bWVudDoNCiAgICB0aGVtZTogam91cm5hbA0KICAgIGRmX3ByaW50OiBwYWdlZA0KICBwZGZfZG9jdW1lbnQ6IGRlZmF1bHQNCi0tLQ0KDQoqQ29weXJpZ2h0IERyIFNjb3R0IEpvaG5zb24gR2VsemlubmlzICgyMDIzKSAtIFN0YXRlbWVudCBiZWxvdyoNCg0KDQogIA0KIyBTZXR0aW5nIHVwIHRoZSBFbnZpcm9ubWVudCAgDQoNCg0KYGBge3IgaW5jbHVkZT1UUlVFLCBlY2hvPVRSVUUsIHJlc3VsdHM9J2hpZGUnfQ0KDQpsaWJyYXJ5KGhlcmUoKSkNCmlfYW0oIlBHWTJfU29sdmVfVFJJQUwuUm1kIikNCg0KIyBMaXN0IG9mIHJlcXVpcmVkIHBhY2thZ2VzDQpyZXF1aXJlZF9wYWNrYWdlcyA8LSBjKCJyYW5kb21OYW1lcyIsICJscFNvbHZlIiwgImxwU29sdmVBUEkiLCAiUk9JIiwgImd0IiwgInJlYWRyIiwgInRpZHl2ZXJzZSIsICJnb29nbGVzaGVldHM0IiwgInN0cmluZ3IiLCAia25pdHIiLCAid3JpdGV4bCIpDQoNCiMgQ2hlY2sgaWYgcGFja2FnZXMgYXJlIGluc3RhbGxlZCBhbmQgaW5zdGFsbCB0aGVtIGlmIHRoZXkgYXJlIG5vdA0KbmV3X3BhY2thZ2VzIDwtIHJlcXVpcmVkX3BhY2thZ2VzWyEocmVxdWlyZWRfcGFja2FnZXMgJWluJSBpbnN0YWxsZWQucGFja2FnZXMoKVssIlBhY2thZ2UiXSldDQppZihsZW5ndGgobmV3X3BhY2thZ2VzKSkgaW5zdGFsbC5wYWNrYWdlcyhuZXdfcGFja2FnZXMpDQoNCiMgTG9hZCB0aGUgcGFja2FnZXMNCmxhcHBseShyZXF1aXJlZF9wYWNrYWdlcywgcmVxdWlyZSwgY2hhcmFjdGVyLm9ubHkgPSBUUlVFKQ0KDQojIFJhbmRvbSBzZWVkDQpzZXQuc2VlZCg2OSkNCg0KYGBgDQoNCg0KDQojIExvYWRpbmcgaW4gdGhlIFByZWZlcmVuY2UgTWF0cml4IA0KDQpgYGB7ciBpbmNsdWRlPVRSVUUsIGVjaG89VFJVRSwgcmVzdWx0cz0naGlkZSd9DQoNCiMjIFJlYWQgaW4gR29vZ2xlIFNoZWV0DQpyYXdfcHJlZmVyZW5jZV9kYXRhIDwtIHJlYWRfc2hlZXQoImh0dHBzOi8vZG9jcy5nb29nbGUuY29tL3NwcmVhZHNoZWV0cy9kLzE5eE11bERNSUs2RmdtZk1ham1JMUJubGFTc1Z1dF9pZHpzSU4xay1YLUF3L2VkaXQ/dXNwPXNoYXJpbmciKQ0KDQojIENvbnZlcnQgdGhlIHRpYmJsZSB0byBhIGRhdGEuZnJhbWUNCnJhd19wcmVmZXJlbmNlX2RhdGEgPC0gYXMuZGF0YS5mcmFtZShyYXdfcHJlZmVyZW5jZV9kYXRhKQ0KDQojIyBEZWZpbmUgcHJlZmVyZW5jZSBtYXRyaXggICMjDQoNCiMgQ29tYmluZSBjb2x1bW5zIDEzIGFuZCAxNCB0byBjcmVhdGUgdGhlICJEb2N0b3IiIGNvbHVtbg0KcmF3X3ByZWZlcmVuY2VfZGF0YSREb2N0b3IgPC0gcGFzdGUocmF3X3ByZWZlcmVuY2VfZGF0YVtbMTNdXSwgcmF3X3ByZWZlcmVuY2VfZGF0YVtbMTRdXSwgc2VwID0gIiwgIikNCg0KIyBTb3J0IHRoZSByYXdfcHJlZmVyZW5jZV9kYXRhIGJ5IERvY3RvciBjb2x1bW4NCnJhd19wcmVmZXJlbmNlX2RhdGEgPC0gcmF3X3ByZWZlcmVuY2VfZGF0YSAlPiUNCiAgYXJyYW5nZShEb2N0b3IpDQoNCiMgRXh0cmFjdCBjb2x1bW4gbmFtZXMgdGhhdCBoYXZlIHRoZSBwYXR0ZXJuICd8ICcNCnRlcm1fY29sdW1ucyA8LSBncmVwKCJcXHwgIiwgbmFtZXMocmF3X3ByZWZlcmVuY2VfZGF0YSksIHZhbHVlID0gVFJVRSkNCg0KIyBTZWxlY3QgdGhlIHJlbGV2YW50IGNvbHVtbnMNCnNlbGVjdGVkX2RhdGEgPC0gcmF3X3ByZWZlcmVuY2VfZGF0YVssIHRlcm1fY29sdW1uc10NCg0KIyBTZWxlY3Qgc3VydmV5IGRhdGEgYW5kIGxvYWQgYXMgYSBkYXRhIGZyYW1lDQojIFJlYWQgaW4gYW5kIHJlbmFtZSBjb2x1bW5zIG9mIHN1cnZleV9kYXRhDQpzdXJ2ZXlfZGF0YSA8LSByYXdfcHJlZmVyZW5jZV9kYXRhICU+JQ0KICBzZWxlY3QoDQogICAgRG9jdG9yLCANCiAgICBgRGVzaXJlZCBDYXJlZXIgUGF0aHdheSAoR1AsIE1lZGljaW5lLCBTdXJnZXJ5LCBDcml0aWNhbCBDYXJlLCBQc3ljaClgLCANCiAgICBgRG8geW91IGhhdmUgcGxhbnMgcmVxdWlyaW5nIGxlYXZlIG9mIG1vcmUgdGhhbiAyIHdlZWtzIGluIHRoZSAyMDI0IGNsaW5pY2FsIHllYXI/IChJZiBwb3NzaWJsZSB5b3VyIHJlcXVlc3Qgd2lsbCBiZSBhY2NvbW1vZGF0ZWQpYA0KICApICU+JQ0KICByZW5hbWUoDQogICAgYERlc2lyZWQgQ2FyZWVyIFBhdGh3YXlgID0gYERlc2lyZWQgQ2FyZWVyIFBhdGh3YXkgKEdQLCBNZWRpY2luZSwgU3VyZ2VyeSwgQ3JpdGljYWwgQ2FyZSwgUHN5Y2gpYCwNCiAgICBgTGVhdmUgUmVxdWVzdCBUZXJtYCA9IGBEbyB5b3UgaGF2ZSBwbGFucyByZXF1aXJpbmcgbGVhdmUgb2YgbW9yZSB0aGFuIDIgd2Vla3MgaW4gdGhlIDIwMjQgY2xpbmljYWwgeWVhcj8gKElmIHBvc3NpYmxlIHlvdXIgcmVxdWVzdCB3aWxsIGJlIGFjY29tbW9kYXRlZClgDQogICkNCg0KIyBTZXQgIkRvY3RvciIgY29sdW1uIGFzIHJvdyBuYW1lcw0Kcm93bmFtZXMoc2VsZWN0ZWRfZGF0YSkgPC0gcmF3X3ByZWZlcmVuY2VfZGF0YSREb2N0b3INCg0KIyBDbGVhbiB0aGUgY29sdW1uIG5hbWVzIGJ5IHJlbW92aW5nIGV2ZXJ5dGhpbmcgYmVmb3JlICd8ICcgKGkuZS4sIHBpcGUgZm9sbG93ZWQgYnkgYSBzcGFjZSkNCmNvbG5hbWVzKHNlbGVjdGVkX2RhdGEpIDwtIGdzdWIoIi4qXFx8ICIsICIiLCBjb2xuYW1lcyhzZWxlY3RlZF9kYXRhKSkNCg0KIyBDb252ZXJ0IHNlbGVjdGVkIGRhdGEgdG8gYSBtYXRyaXggYW5kIGV4Y2x1ZGUgdGhlICJEb2N0b3IiIGNvbHVtbg0KcHJlZmVyZW5jZV9tYXRyaXggPC0gYXMubWF0cml4KHNlbGVjdGVkX2RhdGEpDQoNCiMgRGVmaW5lIGRpbWVuc2lvbnMgYmFzZWQgb24gcHJlZmVyZW5jZV9tYXRyaXgNCm51bV9jb2x1bW5zIDwtIG5jb2wocHJlZmVyZW5jZV9tYXRyaXgpDQpudW1fZG9jdG9ycyA8LSBucm93KHByZWZlcmVuY2VfbWF0cml4KQ0KbnVtX3Rlcm1zIDwtIG51bV9jb2x1bW5zICANCg0KIyBBc3N1bWluZyB0aGUgbnVtYmVyIG9mIHRlcm1zIGlzIGVxdWFsIHRvIHRoZSBudW1iZXIgb2YgY29sdW1ucyBpbiB0aGUgbWF0cml4DQpyb3dfbmFtZXMgPC0gcm93bmFtZXMoc2VsZWN0ZWRfZGF0YSkNCmNvbHVtbl9uYW1lcyA8LSBjb2xuYW1lcyhzZWxlY3RlZF9kYXRhKQ0KDQpgYGANCg0KDQojIERlZmluaXRpb25zDQoNCmBgYHtyIGluY2x1ZGU9VFJVRSwgZWNobz1UUlVFLCByZXN1bHRzPSdoaWRlJ30NCiAgICAgICAgICAgICAgIA0KICAgICAgICAgICAgICAgICAgICAgICAgICMjIExpbmVhciBPcHRpbWl6YXRpb24gLSBEZWZpbmluZyB0aGUgcHJvYmxlbSAjIw0KDQp0ZXJtX21hc3Rlcl9kZiA8LSByZWFkX2NzdigiUEdZMSAyMDI0IERhdGFmcmFtZS5jc3YiKQ0KDQojIERpcmVjdGx5IGluZmVyIHRoZSBudW1iZXIgb2YgZG9jdG9ycyBhbmQgdGVybXMgZnJvbSB0aGUgcHJlZmVyZW5jZSBtYXRyaXgNCm51bV9kb2N0b3JzIDwtIG5yb3cocHJlZmVyZW5jZV9tYXRyaXgpDQpudW1fdGVybXMgPC0gbmNvbChwcmVmZXJlbmNlX21hdHJpeCkNCg0KIyBEZWZpbmUgdGhlIG9iamVjdGl2ZSBmdW5jdGlvbiBjb2VmZmljaWVudHMgKHByZWZlcmVuY2VzKQ0Kb2JqZWN0aXZlX2NvZWZmcyA8LSBhcy52ZWN0b3IocHJlZmVyZW5jZV9tYXRyaXgpDQoNCiMgRXh0cmFjdCB0aGUgbWF4aW11bSBudW1iZXIgb2YgZG9jdG9ycyBhbGxvd2VkIGZvciBlYWNoIHRlcm0gdXNpbmcgdGhlIGNvbHVtbiBuYW1lcw0KbWF4X2RvY3RvcnNfcGVyX3Rlcm0xIDwtIGFzLnZlY3Rvcih0ZXJtX21hc3Rlcl9kZiRgUEdZMSBUZXJtIDEgQWxsb2NhdGlvbmApDQptYXhfZG9jdG9yc19wZXJfdGVybTIgPC0gYXMudmVjdG9yKHRlcm1fbWFzdGVyX2RmJGBQR1kxIFRlcm0gMiBBbGxvY2F0aW9uYCkNCm1heF9kb2N0b3JzX3Blcl90ZXJtMyA8LSBhcy52ZWN0b3IodGVybV9tYXN0ZXJfZGYkYFBHWTEgVGVybSAzIEFsbG9jYXRpb25gKQ0KbWF4X2RvY3RvcnNfcGVyX3Rlcm00IDwtIGFzLnZlY3Rvcih0ZXJtX21hc3Rlcl9kZiRgUEdZMSBUZXJtIDQgQWxsb2NhdGlvbmApDQptYXhfZG9jdG9yc19wZXJfdGVybTUgPC0gYXMudmVjdG9yKHRlcm1fbWFzdGVyX2RmJGBQR1kxIFRlcm0gNSBBbGxvY2F0aW9uYCkNCg0KIyBIZWxwZXIgZnVuY3Rpb24gZm9yIHRpZHkgY29udmVyc2lvbnMNCmNvbnZlcnRfYW5kX25hbWUgPC0gZnVuY3Rpb24oY29sdW1uX25hbWUpIHsNCiAgdGVybV9tYXN0ZXJfZGYgJT4lDQogICAgcHVsbChjb2x1bW5fbmFtZSkgJT4lDQogICAgYXMuZmFjdG9yKCkgJT4lDQogICAgc2V0X25hbWVzKHRlcm1fbWFzdGVyX2RmJGBUZXJtIE5hbWVgKQ0KfQ0KDQojIFVzaW5nIHRoZSBoZWxwZXIgZnVuY3Rpb24gdG8gZGVmaW5lIHRoZSB2ZWN0b3JzDQpjbGluaWNhbF9zdHJ1Y3R1cmVfdGVybSA8LSBjb252ZXJ0X2FuZF9uYW1lKCdDbGluaWNhbCBUZWFtIFN0cnVjdHVyZScpDQpzcGVjaWFsdHlfc3RhdHVzX3Blcl90ZXJtIDwtIGNvbnZlcnRfYW5kX25hbWUoJ1NwZWNpYWx0eSBTdGF0dXMnKQ0Kc3ViX3NwZWNpYWx0eV9zdGF0dXNfcGVyX3Rlcm0gPC0gY29udmVydF9hbmRfbmFtZSgnU3Vic3BlY2lhbHR5IFN0YXR1cycpDQpydXJhbF9zdGF0dXNfdGVybSA8LSBjb252ZXJ0X2FuZF9uYW1lKCdSdXJhbGl0eScpDQp0ZXJtX2NsYXNzaWZpY2F0aW9uMSA8LSBjb252ZXJ0X2FuZF9uYW1lKCdUZXJtIENsYXNzaWZpY2F0aW9uJykNCnRlcm1fY2xhc3NpZmljYXRpb24yIDwtIGNvbnZlcnRfYW5kX25hbWUoJ1Rlcm0gQ2xhc3NpZmljYXRpb24gMicpDQoNCmBgYA0KDQoNCg0KIyBMaW5lYXIgT3B0aW1pemF0aW9uIE1vZGVsIHdpdGggTWluaW1pemVkIERpc3NhdGlzZmFjdGlvbg0KDQojIyMgV2l0aCBhbGxvd2FibGUgY29uc3RyYWludHMgdG8gcHJvdmlkZSB2aWFibGUgc29sdXRpb24gKGkuZSBpZiB1bmFibGUgdG8gc29sdmUsIHJvbGwgYmFjayBjb25zdHJhaW50IG9uZSBhdCBhIHRpbWUpDQoNCmBgYHtyIGluY2x1ZGU9VFJVRSwgZWNobz1UUlVFLCByZXN1bHRzPSdoaWRlJ30NCg0KDQojIyBMaW5lYXIgT3B0aW1pemF0aW9uIHdpdGggV2VpZ2h0ZWQgRGlzc2F0aXNmYWN0aW9uIFZhbHVlcyAjIw0KDQojIFVzZSB0aGUgcHJlZmVyZW5jZV9tYXRyaXggZGlyZWN0bHkgYXMgdGhlIGRpc3NhdGlzZmFjdGlvbl92YWx1ZXMNCmRpc3NhdGlzZmFjdGlvbl92YWx1ZXMgPC0gcHJlZmVyZW5jZV9tYXRyaXgNCg0KDQojIENvbnZlcnQgZGlzc2F0aXNmYWN0aW9uIHZhbHVlcyB0byBhIHZlY3RvciBmb3IgdGhlIG9iamVjdGl2ZSBmdW5jdGlvbg0Kb2JqZWN0aXZlX2NvZWZmc19kaXNzYXRpc2ZhY3Rpb24gPC0gYXMudmVjdG9yKGRpc3NhdGlzZmFjdGlvbl92YWx1ZXMpDQoNCg0KIyBFeHRlbmQgTFAgbW9kZWwgdG8gaW5jbHVkZSBzbGFjayB2YXJpYWJsZXMNCmxwX21vZGVsX2Rpc3NhdGlzZmFjdGlvbiA8LSBtYWtlLmxwKDAsIG51bV9kb2N0b3JzICogbnVtX3Rlcm1zICsgbnVtX2RvY3RvcnMpDQoNCiMgU0xBQ0sgVkFSSUFCTEUgVFJJQUwNCnNsYWNrX3BlbmFsdHkgPC0gbWF4KGRpc3NhdGlzZmFjdGlvbl92YWx1ZXMpICsgMTAwDQpzbGFja19jb2VmZmljaWVudHMgPC0gcmVwKHNsYWNrX3BlbmFsdHksIG51bV9kb2N0b3JzKQ0Kb2JqZWN0aXZlX2NvZWZmc19leHRlbmRlZCA8LSBjKG9iamVjdGl2ZV9jb2VmZnNfZGlzc2F0aXNmYWN0aW9uLCBzbGFja19jb2VmZmljaWVudHMpDQoNCiMgU2V0IGJpbmFyeSBkZWNpc2lvbiB2YXJpYWJsZXMgKDAgb3IgMSkNCnNldC50eXBlKGxwX21vZGVsX2Rpc3NhdGlzZmFjdGlvbiwgY29sdW1ucyA9IDE6KG51bV9kb2N0b3JzICogbnVtX3Rlcm1zKSwgdHlwZSA9ICJiaW5hcnkiKQ0KDQojIFNldCB0aGUgb2JqZWN0aXZlIGZ1bmN0aW9uIGNvZWZmaWNpZW50cyBmb3IgbWluaW1pemluZyBkaXNzYXRpc2ZhY3Rpb24NCnNldC5vYmpmbihscF9tb2RlbF9kaXNzYXRpc2ZhY3Rpb24sIG9iamVjdGl2ZV9jb2VmZnNfZXh0ZW5kZWQpDQoNCg0KDQojIyBORVhUIFNURVAgVE8gUlVOIEEgTE9PUCBUTyBBU1NJR04gNSBURVJNUyBBQ1JPU1MgVEhFIFlFQVIgQkFTRUQgT04gUFJFRkVSRU5DRVMgIyMNCg0KIyBOdW1iZXIgb2YgdGltZXMgdG8gcnVuIHRoZSBhc3NpZ25tZW50DQpudW1fYXNzaWdubWVudHMgPC0gNQ0KDQojIEluaXRpYWxpemUgYSBsaXN0IHRvIHN0b3JlIHRoZSByZXN1bHRzIG9mIGVhY2ggYXNzaWdubWVudA0KYXNzaWdubWVudF9yZXN1bHRzIDwtIGxpc3QoKQ0KDQojIENyZWF0ZSBhIGxpc3QgdG8gc3RvcmUgdW5hc3NpZ25lZCB0ZXJtcyBmb3IgZWFjaCBhc3NpZ25tZW50IGl0ZXJhdGlvbg0KdW5hc3NpZ25lZF90ZXJtc19saXN0IDwtIGxpc3QoKQ0KDQojIFRoaXMgbWF0cml4IHdpbGwgaGF2ZSByb3dzIGNvcnJlc3BvbmRpbmcgdG8gZG9jdG9ycyBhbmQgY29sdW1ucyBjb3JyZXNwb25kaW5nIHRvIHRlcm1zLg0KIyBBbiBlbnRyeSBvZiAxIGluIHRoZSBtYXRyaXggaW5kaWNhdGVzIHRoYXQgdGhlIGRvY3RvciAocm93KSBoYXMgYmVlbiBhc3NpZ25lZCB0aGUgdGVybSAoY29sdW1uKS4NCmFzc2lnbmVkX3Rlcm1zX21hdHJpeCA8LSBtYXRyaXgoMCwgbnJvdyA9IG51bV9kb2N0b3JzLCBuY29sID0gbnVtX3Rlcm1zKQ0KDQojIExvb3AgdGhyb3VnaCB0aGUgYXNzaWdubWVudHMNCmZvciAoYXNzaWdubWVudF9udW0gaW4gMTpudW1fYXNzaWdubWVudHMpIHsNCiAgIyBDcmVhdGUgYW4gZW1wdHkgTFAgbW9kZWwgZm9yIG1pbmltaXppbmcgZGlzc2F0aXNmYWN0aW9uDQpscF9tb2RlbF9kaXNzYXRpc2ZhY3Rpb24gPC0gbWFrZS5scCgwLCBudW1fZG9jdG9ycyAqIG51bV90ZXJtcyArIG51bV9kb2N0b3JzKQ0KICANCiAgIyBTZXQgYmluYXJ5IGRlY2lzaW9uIHZhcmlhYmxlcyAoMCBvciAxKQ0KICBzZXQudHlwZShscF9tb2RlbF9kaXNzYXRpc2ZhY3Rpb24sIGNvbHVtbnMgPSAxOihudW1fZG9jdG9ycyAqIG51bV90ZXJtcyksIHR5cGUgPSAiYmluYXJ5IikNCiAgDQogICMgU2V0IHRoZSBvYmplY3RpdmUgZnVuY3Rpb24gY29lZmZpY2llbnRzIGZvciBtaW5pbWl6aW5nIGRpc3NhdGlzZmFjdGlvbg0KICBzZXQub2JqZm4obHBfbW9kZWxfZGlzc2F0aXNmYWN0aW9uLCBvYmplY3RpdmVfY29lZmZzX2V4dGVuZGVkKQ0KICANCiAgIyBBZGQgY29uc3RyYWludHMgdG8gZW5zdXJlIG9uZSBhc3NpZ25tZW50IHBlciBkb2N0b3INCmZvciAoaSBpbiAxOm51bV9kb2N0b3JzKSB7DQogICAgY29uc3RyX29uZV9hc3NpZ25tZW50IDwtIHJlcCgwLCBudW1fZG9jdG9ycyAqIG51bV90ZXJtcyArIG51bV9kb2N0b3JzKQ0KICAgIGNvbnN0cl9vbmVfYXNzaWdubWVudFsoKGkgLSAxKSAqIG51bV90ZXJtcyArIDEpOihpICogbnVtX3Rlcm1zKV0gPC0gMQ0KICAgIGFkZC5jb25zdHJhaW50KGxwX21vZGVsX2Rpc3NhdGlzZmFjdGlvbiwgY29uc3RyX29uZV9hc3NpZ25tZW50LCB0eXBlID0gIj0iLCByaHMgPSAxKQ0KfQ0KDQogICMgQWRkIGNvbnN0cmFpbnQgZm9yIHRvcCAxMCB0ZXJtcyBmb3IgZWFjaCBkb2N0b3IgKE1PRElGSUVEIFRPIEFERCBTTEFDSykNCm1hcmdpbiA9IC01DQpmb3IgKGkgaW4gMTpudW1fZG9jdG9ycykgew0KICAgIHRvcF8xMF90ZXJtc19mb3JfZG9jdG9yIDwtIG9yZGVyKHByZWZlcmVuY2VfbWF0cml4W2ksXSlbMTooMTArbWFyZ2luKV0NCiAgICBjb25zdHJfdG9wXzEwIDwtIHJlcCgwLCBudW1fZG9jdG9ycyAqIG51bV90ZXJtcyArIG51bV9kb2N0b3JzKQ0KICAgIGZvciAoaiBpbiB0b3BfMTBfdGVybXNfZm9yX2RvY3Rvcikgew0KICAgICAgICBjb25zdHJfdG9wXzEwWyhpIC0gMSkgKiBudW1fdGVybXMgKyBqXSA8LSAxDQogICAgfQ0KICAgIGNvbnN0cl90b3BfMTBbbnVtX2RvY3RvcnMgKiBudW1fdGVybXMgKyBpXSA8LSAtbWFyZ2luDQogICAgYWRkLmNvbnN0cmFpbnQobHBfbW9kZWxfZGlzc2F0aXNmYWN0aW9uLCBjb25zdHJfdG9wXzEwLCB0eXBlID0gIj49IiwgcmhzID0gMSkNCn0NCiAgICANCiMgMS4gTWF4IGRvY3RvcnMgcGVyIHRlcm0gY29uc3RyYWludDoNCg0KIyBIZWxwZXIgZnVuY3Rpb24gdG8gcmV0cmlldmUgdGhlIGNvcnJlY3QgJ21heCBkb2N0b3JzJyB2ZWN0b3IgZm9yIGEgZ2l2ZW4gdGVybQ0KICAgZ2V0X21heF9kb2N0b3JzX2Zvcl90ZXJtIDwtIGZ1bmN0aW9uKHRlcm0pIHsNCiAgICAgc3dpdGNoKHRlcm0sDQogICAgICAgICAgICAiMSIgPSBtYXhfZG9jdG9yc19wZXJfdGVybTEsDQogICAgICAgICAgICAiMiIgPSBtYXhfZG9jdG9yc19wZXJfdGVybTIsDQogICAgICAgICAgICAiMyIgPSBtYXhfZG9jdG9yc19wZXJfdGVybTMsDQogICAgICAgICAgICAiNCIgPSBtYXhfZG9jdG9yc19wZXJfdGVybTQsDQogICAgICAgICAgICAiNSIgPSBtYXhfZG9jdG9yc19wZXJfdGVybTUpDQogICB9DQoNCg0KZm9yIChqIGluIDE6bnVtX3Rlcm1zKSB7DQogIGNvbnN0cl9tYXhfZG9jdG9yc19wZXJfdGVybSA8LSByZXAoMCwgbnVtX2RvY3RvcnMgKiBudW1fdGVybXMgKyBudW1fZG9jdG9ycykNCiAgDQogIGluZGljZXMgPC0gaiArIHNlcSgwLCAobnVtX2RvY3RvcnMgLSAxKSAqIG51bV90ZXJtcywgYnkgPSBudW1fdGVybXMpDQogIGNvbnN0cl9tYXhfZG9jdG9yc19wZXJfdGVybVtpbmRpY2VzXSA8LSAxDQogIA0KICBtYXhfZG9jdG9yc19mb3JfdGhpc190ZXJtIDwtIGdldF9tYXhfZG9jdG9yc19mb3JfdGVybShhc3NpZ25tZW50X251bSkNCiAgYWRkLmNvbnN0cmFpbnQobHBfbW9kZWxfZGlzc2F0aXNmYWN0aW9uLCBjb25zdHJfbWF4X2RvY3RvcnNfcGVyX3Rlcm0sIHR5cGUgPSAiPD0iLCByaHMgPSBtYXhfZG9jdG9yc19mb3JfdGhpc190ZXJtW2pdKQ0KfQ0KDQojIDIuIENvbnN0cmFpbnQgdG8gcHJldmVudCByZWFzc2lnbm1lbnQgdG8gc2FtZSB0ZXJtOg0KZm9yIChpIGluIDE6bnVtX2RvY3RvcnMpIHsNCiAgZm9yIChqIGluIDE6bnVtX3Rlcm1zKSB7DQogICAgaWYgKGFzc2lnbmVkX3Rlcm1zX21hdHJpeFtpLCBqXSA9PSAxKSB7DQogICAgICBjb25zdHJhaW50X2FscmVhZHlfYXNzaWduZWQgPC0gcmVwKDAsIG51bV9kb2N0b3JzICogbnVtX3Rlcm1zICsgbnVtX2RvY3RvcnMpDQogICAgICBjb25zdHJhaW50X2FscmVhZHlfYXNzaWduZWRbKGkgLSAxKSAqIG51bV90ZXJtcyArIGpdIDwtIDENCiAgICAgIGFkZC5jb25zdHJhaW50KGxwX21vZGVsX2Rpc3NhdGlzZmFjdGlvbiwgY29uc3RyYWludF9hbHJlYWR5X2Fzc2lnbmVkLCB0eXBlID0gIj0iLCByaHMgPSAwKQ0KICAgIH0NCiAgfQ0KfQ0KDQojICMgMy4gU3BlY2lhbHR5IFN0YXR1cyBDb25zdHJhaW50Og0KIyB1bmlxdWVfc3BlY2lhbHR5X3N0YXR1c2VzIDwtIHVuaXF1ZShzcGVjaWFsdHlfc3RhdHVzX3Blcl90ZXJtWyFpcy5uYShzcGVjaWFsdHlfc3RhdHVzX3Blcl90ZXJtKV0pDQojIGZvciAoc3BlY2lhbHR5IGluIHVuaXF1ZV9zcGVjaWFsdHlfc3RhdHVzZXMpIHsNCiMgICAgZm9yIChpIGluIDE6bnVtX2RvY3RvcnMpIHsNCiMgICAgICBjb25zdHJfc3BlY2lhbHR5IDwtIHJlcCgwLCBudW1fZG9jdG9ycyAqIG51bV90ZXJtcyArIG51bV9kb2N0b3JzKQ0KIyAgICAgIGZvciAoaiBpbiB3aGljaChzcGVjaWFsdHlfc3RhdHVzX3Blcl90ZXJtID09IHNwZWNpYWx0eSkpIHsNCiMgICAgICAgIGNvbnN0cl9zcGVjaWFsdHlbKGkgLSAxKSAqIG51bV90ZXJtcyArIGpdIDwtIDENCiMgICAgICB9DQojICAgICAgYWRkLmNvbnN0cmFpbnQobHBfbW9kZWxfZGlzc2F0aXNmYWN0aW9uLCBjb25zdHJfc3BlY2lhbHR5LCB0eXBlID0gIjw9IiwgcmhzID0gMikNCiMgICAgfQ0KIyB9DQojIA0KIyAjIDQuIFN1Yi1TcGVjaWFsdHkgU3RhdHVzIENvbnN0cmFpbnQ6DQojIHVuaXF1ZV9zdWJfc3BlY2lhbHRpZXMgPC0gdW5pcXVlKHN1Yl9zcGVjaWFsdHlfc3RhdHVzX3Blcl90ZXJtWyFpcy5uYShzdWJfc3BlY2lhbHR5X3N0YXR1c19wZXJfdGVybSldKQ0KIyBmb3IgKHN1Yl9zcGVjaWFsdHkgaW4gdW5pcXVlX3N1Yl9zcGVjaWFsdGllcykgew0KIyAgIGZvciAoaSBpbiAxOm51bV9kb2N0b3JzKSB7DQojICAgICBjb25zdHJfc3ViX3NwZWNpYWx0eSA8LSByZXAoMCwgbnVtX2RvY3RvcnMgKiBudW1fdGVybXMgKyBudW1fZG9jdG9ycykNCiMgICAgIGZvciAoaiBpbiB3aGljaChzdWJfc3BlY2lhbHR5X3N0YXR1c19wZXJfdGVybSA9PSBzdWJfc3BlY2lhbHR5KSkgew0KIyAgICAgICBjb25zdHJfc3ViX3NwZWNpYWx0eVsoaSAtIDEpICogbnVtX3Rlcm1zICsgal0gPC0gMQ0KIyAgICAgfQ0KIyAgICAgYWRkLmNvbnN0cmFpbnQobHBfbW9kZWxfZGlzc2F0aXNmYWN0aW9uLCBjb25zdHJfc3ViX3NwZWNpYWx0eSwgdHlwZSA9ICI8PSIsIHJocyA9IDEpDQojICAgfQ0KIyB9DQogIA0KIyAgIyBDb25zdHJhaW50IGZvciA+NTAlIGluIHRlYW0gYmFzZWQgDQogIA0KICANCiAgIyBTb2x2ZSB0aGUgbGluZWFyIHByb2dyYW1taW5nIHByb2JsZW0gdG8gbWluaW1pemUgZGlzc2F0aXNmYWN0aW9uDQogIGxwX3Jlc3VsdF9kaXNzYXRpc2ZhY3Rpb24gPC0gc29sdmUobHBfbW9kZWxfZGlzc2F0aXNmYWN0aW9uKQ0KICANCiAgIyBDaGVjayBpZiB0aGUgTFAgcHJvYmxlbSB3YXMgc29sdmVkIHN1Y2Nlc3NmdWxseQ0KICBpZiAobHBfcmVzdWx0X2Rpc3NhdGlzZmFjdGlvbiA9PSAwKSB7DQogICAgb3B0aW1hbF9zb2x1dGlvbl9kaXNzYXRpc2ZhY3Rpb24gPC0gZ2V0LnZhcmlhYmxlcyhscF9tb2RlbF9kaXNzYXRpc2ZhY3Rpb24pDQogICAgYXNzaWdubWVudF9yZXN1bHRzW1thc3NpZ25tZW50X251bV1dIDwtIG9wdGltYWxfc29sdXRpb25fZGlzc2F0aXNmYWN0aW9uDQogICAgDQogICAgIyBVcGRhdGUgdGhlIGFzc2lnbmVkX3Rlcm1zX21hdHJpeCBiYXNlZCBvbiB0aGlzIHNvbHV0aW9uDQogICAgZm9yIChpIGluIDE6bnVtX2RvY3RvcnMpIHsNCiAgICAgIGZvciAoaiBpbiAxOm51bV90ZXJtcykgew0KICAgICAgICBpZiAob3B0aW1hbF9zb2x1dGlvbl9kaXNzYXRpc2ZhY3Rpb25bKGkgLSAxKSAqIG51bV90ZXJtcyArIGpdID09IDEpIHsNCiAgICAgICAgICBhc3NpZ25lZF90ZXJtc19tYXRyaXhbaSwgal0gPC0gMQ0KICAgICAgICB9DQogICAgICB9DQogICAgfQ0KICB9IGVsc2Ugew0KICAgIGNhdCgiTFAgcHJvYmxlbSBjb3VsZCBub3QgYmUgc29sdmVkIGZvciBhc3NpZ25tZW50IiwgYXNzaWdubWVudF9udW0sICJSZXN1bHQ6IiwgbHBfcmVzdWx0X2Rpc3NhdGlzZmFjdGlvbiwgIlxuIikNCiAgfQ0KfQ0KDQoNCiMgUHJpbnQgdGhlIHJlc3VsdHMgb2YgZWFjaCBhc3NpZ25tZW50DQpmb3IgKGFzc2lnbm1lbnRfbnVtIGluIDE6bnVtX2Fzc2lnbm1lbnRzKSB7DQogIGNhdCgiQXNzaWdubWVudCIsIGFzc2lnbm1lbnRfbnVtLCAicmVzdWx0czpcbiIpDQogIG9wdGltYWxfc29sdXRpb25fZGlzc2F0aXNmYWN0aW9uIDwtIGFzc2lnbm1lbnRfcmVzdWx0c1tbYXNzaWdubWVudF9udW1dXQ0KICBmb3IgKGkgaW4gMTpudW1fZG9jdG9ycykgew0KICAgIGZvciAoaiBpbiAxOm51bV90ZXJtcykgew0KICAgICAgaWYgKG9wdGltYWxfc29sdXRpb25fZGlzc2F0aXNmYWN0aW9uWyhpIC0gMSkgKiBudW1fdGVybXMgKyBqXSA9PSAxKSB7DQogICAgICAgIGRvY3Rvcl9uYW1lIDwtIHJvd19uYW1lc1tpXQ0KICAgICAgICB0ZXJtX25hbWUgPC0gY29sdW1uX25hbWVzW2pdDQogICAgICAgIGNhdCgiRG9jdG9yIiwgZG9jdG9yX25hbWUsICJpcyBhc3NpZ25lZCB0byBUZXJtIiwgdGVybV9uYW1lLCAiXG4iKQ0KICAgICAgfQ0KICAgIH0NCiAgfQ0KICBjYXQoIlxuIikNCn0NCiMgSW5pdGlhbGl6ZSBhIGRhdGEgZnJhbWUgdG8gc3RvcmUgdGhlIHJlc3VsdHMNCmFzc2lnbm1lbnRfdGFibGUgPC0gZGF0YS5mcmFtZShEb2N0b3IgPSByb3dfbmFtZXMsIA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFzc2lnbm1lbnQxID0gY2hhcmFjdGVyKG51bV9kb2N0b3JzKSwgDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQXNzaWdubWVudDIgPSBjaGFyYWN0ZXIobnVtX2RvY3RvcnMpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFzc2lnbm1lbnQzID0gY2hhcmFjdGVyKG51bV9kb2N0b3JzKSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBc3NpZ25tZW50NCA9IGNoYXJhY3RlcihudW1fZG9jdG9ycyksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQXNzaWdubWVudDUgPSBjaGFyYWN0ZXIobnVtX2RvY3RvcnMpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cmluZ3NBc0ZhY3RvcnMgPSBGQUxTRSkNCg0KIyBQb3B1bGF0ZSB0aGUgZGF0YSBmcmFtZSB3aXRoIHRoZSBhc3NpZ25tZW50IHJlc3VsdHMNCmZvciAoYXNzaWdubWVudF9udW0gaW4gMTpudW1fYXNzaWdubWVudHMpIHsNCiAgb3B0aW1hbF9zb2x1dGlvbl9kaXNzYXRpc2ZhY3Rpb24gPC0gYXNzaWdubWVudF9yZXN1bHRzW1thc3NpZ25tZW50X251bV1dDQogIGZvciAoaSBpbiAxOm51bV9kb2N0b3JzKSB7DQogICAgZm9yIChqIGluIDE6bnVtX3Rlcm1zKSB7DQogICAgICBpZiAob3B0aW1hbF9zb2x1dGlvbl9kaXNzYXRpc2ZhY3Rpb25bKGkgLSAxKSAqIG51bV90ZXJtcyArIGpdID09IDEpIHsNCiAgICAgICAgdGVybV9uYW1lIDwtIGNvbHVtbl9uYW1lc1tqXQ0KICAgICAgICBhc3NpZ25tZW50X2NvbHVtbiA8LSBwYXN0ZTAoIkFzc2lnbm1lbnQiLCBhc3NpZ25tZW50X251bSkNCiAgICAgICAgYXNzaWdubWVudF90YWJsZVtpLCBhc3NpZ25tZW50X2NvbHVtbl0gPC0gdGVybV9uYW1lDQogICAgICB9DQogICAgfQ0KICB9DQp9DQoNCg0KIyBQcmludCB0aGUgdGFibGUgdXNpbmcgZ3QNCmd0KGFzc2lnbm1lbnRfdGFibGUpDQoNCg0KYGBgDQoNCg0KDQojIFBHWTIgVW5hc3NpZ25lZCB0ZXJtcyBEYXRhIEZyYW1lIGFuZCBUZXJtcyBMaXN0DQpgYGB7cn0NCg0KIyBJbml0aWFsaXplIGEgZGF0YSBmcmFtZSB0byBzdG9yZSB0aGUgdW5hc3NpZ25lZCBzbG90cyBmb3IgZWFjaCB0ZXJtDQp1bmFzc2lnbmVkX3Rlcm1zX3RhYmxlIDwtIGRhdGEuZnJhbWUoVGVybSA9IGNvbHVtbl9uYW1lcywgDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQXNzaWdubWVudDEgPSBpbnRlZ2VyKGxlbmd0aChjb2x1bW5fbmFtZXMpKSwgDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQXNzaWdubWVudDIgPSBpbnRlZ2VyKGxlbmd0aChjb2x1bW5fbmFtZXMpKSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBc3NpZ25tZW50MyA9IGludGVnZXIobGVuZ3RoKGNvbHVtbl9uYW1lcykpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFzc2lnbm1lbnQ0ID0gaW50ZWdlcihsZW5ndGgoY29sdW1uX25hbWVzKSksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQXNzaWdubWVudDUgPSBpbnRlZ2VyKGxlbmd0aChjb2x1bW5fbmFtZXMpKSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJpbmdzQXNGYWN0b3JzID0gRkFMU0UpDQoNCiMgSGVscGVyIGZ1bmN0aW9uIHRvIGdldCB0b3RhbCBhc3NpZ25tZW50cyBmb3IgYSB0ZXJtIGZvciBhIGdpdmVuIGFzc2lnbm1lbnQgbnVtYmVyDQpnZXRfdG90YWxfYXNzaWdubWVudHNfZm9yX3Rlcm0gPC0gZnVuY3Rpb24odGVybV9pbmRleCwgYXNzaWdubWVudF9udW0pIHsNCiAgb3B0aW1hbF9zb2x1dGlvbl9kaXNzYXRpc2ZhY3Rpb24gPC0gYXNzaWdubWVudF9yZXN1bHRzW1thc3NpZ25tZW50X251bV1dDQogIHJldHVybihzdW0ob3B0aW1hbF9zb2x1dGlvbl9kaXNzYXRpc2ZhY3Rpb25bc2VxKHRlcm1faW5kZXgsIG51bV9kb2N0b3JzICogbnVtX3Rlcm1zLCBieSA9IG51bV90ZXJtcyldKSkNCn0NCg0KIyBDb21wdXRlIHRoZSB1bmFzc2lnbmVkIHNsb3RzIGZvciBlYWNoIHRlcm0gYW5kIGFzc2lnbm1lbnQNCmZvciAodGVybV9pbmRleCBpbiAxOmxlbmd0aChjb2x1bW5fbmFtZXMpKSB7DQogIGZvciAoYXNzaWdubWVudF9udW0gaW4gMTpudW1fYXNzaWdubWVudHMpIHsNCiAgICBtYXhfZG9jdG9yc19mb3JfdGhpc190ZXJtIDwtIGdldF9tYXhfZG9jdG9yc19mb3JfdGVybShhc3NpZ25tZW50X251bSkNCiAgICB0b3RhbF9hc3NpZ25tZW50cyA8LSBnZXRfdG90YWxfYXNzaWdubWVudHNfZm9yX3Rlcm0odGVybV9pbmRleCwgYXNzaWdubWVudF9udW0pDQogICAgDQogICAgdW5hc3NpZ25lZF9zbG90cyA8LSBtYXhfZG9jdG9yc19mb3JfdGhpc190ZXJtW3Rlcm1faW5kZXhdIC0gdG90YWxfYXNzaWdubWVudHMNCiAgICANCiAgICBhc3NpZ25tZW50X2NvbHVtbiA8LSBwYXN0ZTAoIkFzc2lnbm1lbnQiLCBhc3NpZ25tZW50X251bSkNCiAgICB1bmFzc2lnbmVkX3Rlcm1zX3RhYmxlW3Rlcm1faW5kZXgsIGFzc2lnbm1lbnRfY29sdW1uXSA8LSB1bmFzc2lnbmVkX3Nsb3RzDQogIH0NCn0NCg0KIyBWaWV3IHRoZSB1bmFzc2lnbmVkX3Rlcm1zX3RhYmxlDQpndCh1bmFzc2lnbmVkX3Rlcm1zX3RhYmxlKQ0KDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICMgR2VuZXJhdGUgdGhpcyBkYXRhIGZyYW1lIGFzIGEgdGVybSBsaXN0DQoNCiMgSW5pdGlhbGl6ZSBhIG5ldyBkYXRhZnJhbWUgZm9yIHVuYXNzaWduZWQgdGVybXMNCiMgRHJvcCB0aGUgZmlyc3QgY29sdW1uIGZvciBjYWxjdWxhdGlvbiBwdXJwb3Nlcw0KbnVtZXJpY191bmFzc2lnbmVkX3Rlcm1zIDwtIHVuYXNzaWduZWRfdGVybXNfdGFibGVbLC0xXQ0KDQojIENvbXB1dGUgdGhlIG1heGltdW0gdW5hc3NpZ25lZCB0ZXJtcyBhY3Jvc3MgYWxsIGFzc2lnbm1lbnRzDQptYXhfdW5hc3NpZ25lZCA8LSBtYXgoYXMubWF0cml4KG51bWVyaWNfdW5hc3NpZ25lZF90ZXJtcykpDQoNCiMgQ3JlYXRlIGEgbGlzdCB0byBzdG9yZSB0ZXJtIHJlcGV0aXRpb25zIGZvciBlYWNoIGFzc2lnbm1lbnQNCnVuYXNzaWduZWRfbGlzdCA8LSBsaXN0KCkNCg0KZm9yIChhc3NpZ25tZW50X251bSBpbiAxOm51bV9hc3NpZ25tZW50cykgew0KICBhc3NpZ25tZW50X2NvbHVtbiA8LSBwYXN0ZTAoIkFzc2lnbm1lbnQiLCBhc3NpZ25tZW50X251bSkNCiAgdGVybXNfcmVwIDwtIHJlcCh1bmFzc2lnbmVkX3Rlcm1zX3RhYmxlJFRlcm0sIG51bWVyaWNfdW5hc3NpZ25lZF90ZXJtc1tbYXNzaWdubWVudF9jb2x1bW5dXSkNCiAgdW5hc3NpZ25lZF9saXN0W1thc3NpZ25tZW50X251bV1dIDwtIHRlcm1zX3JlcA0KfQ0KDQojIE1ha2UgYWxsIGxpc3RzIHRoZSBzYW1lIGxlbmd0aCBieSBwYWRkaW5nIHdpdGggTkENCm1heF9sZW5ndGggPC0gbWF4KHNhcHBseSh1bmFzc2lnbmVkX2xpc3QsIGxlbmd0aCkpDQp1bmFzc2lnbmVkX2xpc3QgPC0gbGFwcGx5KHVuYXNzaWduZWRfbGlzdCwgZnVuY3Rpb24oeCkgew0KICBjKHgsIHJlcChOQSwgbWF4X2xlbmd0aCAtIGxlbmd0aCh4KSkpDQp9KQ0KDQojIENvbnZlcnQgdGhlIGxpc3QgdG8gZGF0YWZyYW1lDQp1bmFzc2lnbmVkX2RmIDwtIGFzLmRhdGEuZnJhbWUodW5hc3NpZ25lZF9saXN0KQ0KbmFtZXModW5hc3NpZ25lZF9kZikgPC0gcGFzdGUwKCJUZXJtIiwgMTpudW1fYXNzaWdubWVudHMpDQoNCiMgVmlldyB0aGUgZGF0YWZyYW1lDQpndCh1bmFzc2lnbmVkX2RmKQ0KDQoNCmBgYA0KDQoNCiMgTU9ERUwgRVZBTFVBVElPTg0KDQpgYGB7ciBpbmNsdWRlPVRSVUUsIGVjaG89VFJVRSwgcmVzdWx0cz0nbWFya3VwJ30NCg0KIyBIb3cgbWFueSBEb2N0b3JzIHdpdGggb25lIFRvcCAxMCBwcmVmZXJlbmNlDQoNCiMgQ29udmVydCB0aGUgcHJlZmVyZW5jZSBtYXRyaXggaW50byBhIHRvcCAxMCBib29sZWFuIG1hdHJpeA0KdG9wXzEwX21hdHJpeCA8LSB0KGFwcGx5KHByZWZlcmVuY2VfbWF0cml4LCAxLCBmdW5jdGlvbihyb3cpIHJvdyAlaW4lIHNvcnQocm93LCBkZWNyZWFzaW5nID0gRkFMU0UpWzE6MTBdKSkNCg0KIyBGb3IgZWFjaCBkb2N0b3IsIGRldGVybWluZSBpZiB0aGUgYXNzaWduZWQgdGVybXMgYXJlIGluIHRoZWlyIHRvcCAxMCBwcmVmZXJlbmNlcw0KYXNzaWdubWVudF90b3BfMTBfbWF0cml4IDwtIG1hdHJpeCgwLCBucm93ID0gbnVtX2RvY3RvcnMsIG5jb2wgPSBudW1fYXNzaWdubWVudHMpDQoNCmZvciAoYXNzaWdubWVudF9udW0gaW4gMTpudW1fYXNzaWdubWVudHMpIHsNCiAgYXNzaWdubWVudF9jb2x1bW4gPC0gcGFzdGUwKCJBc3NpZ25tZW50IiwgYXNzaWdubWVudF9udW0pDQogIGFzc2lnbmVkX3Rlcm1zIDwtIGFzc2lnbm1lbnRfdGFibGVbLCBhc3NpZ25tZW50X2NvbHVtbl0NCiAgDQogICMgQ29udmVydCB0aGUgYXNzaWduZWQgdGVybSBuYW1lcyBiYWNrIHRvIHRoZWlyIGNvbHVtbiBpbmRpY2VzDQogIGFzc2lnbmVkX2luZGljZXMgPC0gbWF0Y2goYXNzaWduZWRfdGVybXMsIGNvbG5hbWVzKHNlbGVjdGVkX2RhdGEpKQ0KICANCiAgZm9yIChpIGluIDE6bnVtX2RvY3RvcnMpIHsNCiAgICBhc3NpZ25tZW50X3RvcF8xMF9tYXRyaXhbaSwgYXNzaWdubWVudF9udW1dIDwtIHRvcF8xMF9tYXRyaXhbaSwgYXNzaWduZWRfaW5kaWNlc1tpXV0NCiAgfQ0KfQ0KDQojIENvbnZlcnQgdGhlIHByZWZlcmVuY2UgbWF0cml4IGludG8gYSB0b3AgNSBib29sZWFuIG1hdHJpeA0KdG9wXzVfbWF0cml4IDwtIHQoYXBwbHkocHJlZmVyZW5jZV9tYXRyaXgsIDEsIGZ1bmN0aW9uKHJvdykgcm93ICVpbiUgc29ydChyb3csIGRlY3JlYXNpbmcgPSBGQUxTRSlbMTo1XSkpDQoNCiMgQ3JlYXRlIGEgZnVuY3Rpb24gdG8gY29tcHV0ZSBtZXRyaWNzIGZvciBhIGdpdmVuIHRvcF94IG1hdHJpeA0KZ2V0X21ldHJpY3MgPC0gZnVuY3Rpb24obWF0cml4LCBhc3NpZ25tZW50X3RhYmxlLCBudW1fYXNzaWdubWVudHMpIHsNCiAgYXNzaWdubWVudF9tYXRyaXggPC0gbWF0cml4KDAsIG5yb3cgPSBudW1fZG9jdG9ycywgbmNvbCA9IG51bV9hc3NpZ25tZW50cykNCiAgDQogIGZvciAoYXNzaWdubWVudF9udW0gaW4gMTpudW1fYXNzaWdubWVudHMpIHsNCiAgICBhc3NpZ25tZW50X2NvbHVtbiA8LSBwYXN0ZTAoIkFzc2lnbm1lbnQiLCBhc3NpZ25tZW50X251bSkNCiAgICBhc3NpZ25lZF90ZXJtcyA8LSBhc3NpZ25tZW50X3RhYmxlWywgYXNzaWdubWVudF9jb2x1bW5dDQogICAgDQogICAgIyBDb252ZXJ0IHRoZSBhc3NpZ25lZCB0ZXJtIG5hbWVzIGJhY2sgdG8gdGhlaXIgY29sdW1uIGluZGljZXMNCiAgICBhc3NpZ25lZF9pbmRpY2VzIDwtIG1hdGNoKGFzc2lnbmVkX3Rlcm1zLCBjb2xuYW1lcyhzZWxlY3RlZF9kYXRhKSkNCiAgICANCiAgICBmb3IgKGkgaW4gMTpudW1fZG9jdG9ycykgew0KICAgICAgYXNzaWdubWVudF9tYXRyaXhbaSwgYXNzaWdubWVudF9udW1dIDwtIG1hdHJpeFtpLCBhc3NpZ25lZF9pbmRpY2VzW2ldXQ0KICAgIH0NCiAgfQ0KICANCiAgcmV0dXJuKHJvd1N1bXMoYXNzaWdubWVudF9tYXRyaXgpKQ0KfQ0KDQp0b3BfMTBfY291bnRzX3Blcl9kb2N0b3IgPC0gZ2V0X21ldHJpY3ModG9wXzEwX21hdHJpeCwgYXNzaWdubWVudF90YWJsZSwgbnVtX2Fzc2lnbm1lbnRzKQ0KdG9wXzVfY291bnRzX3Blcl9kb2N0b3IgPC0gZ2V0X21ldHJpY3ModG9wXzVfbWF0cml4LCBhc3NpZ25tZW50X3RhYmxlLCBudW1fYXNzaWdubWVudHMpDQoNCiMgRXh0cmFjdCBhbGwgYXNzaWduZWQgdGVybXMgZm9yIGVhY2ggZG9jdG9yIGFjcm9zcyB0aGUgYXNzaWdubWVudHMNCmFzc2lnbmVkX3Rlcm1zX2FsbCA8LSBhcy52ZWN0b3IodChhc3NpZ25tZW50X3RhYmxlWywgMjoobnVtX2Fzc2lnbm1lbnRzICsgMSldKSkNCg0KIyBDb252ZXJ0IHRoZSBhc3NpZ25lZCB0ZXJtIG5hbWVzIGJhY2sgdG8gdGhlaXIgY29sdW1uIGluZGljZXMNCmFzc2lnbmVkX2luZGljZXNfYWxsIDwtIG1hdGNoKGFzc2lnbmVkX3Rlcm1zX2FsbCwgY29sbmFtZXMoc2VsZWN0ZWRfZGF0YSkpDQoNCiMgUmV0cmlldmUgcHJlZmVyZW5jZSB2YWx1ZXMgdXNpbmcgbWF0cml4IGluZGV4aW5nDQphc3NpZ25lZF9wcmVmZXJlbmNlX3ZhbHVlcyA8LSBtYXRyaXgoMCwgbnJvdyA9IG51bV9kb2N0b3JzLCBuY29sID0gbnVtX2Fzc2lnbm1lbnRzKQ0KZm9yIChhc3NpZ25tZW50X251bSBpbiAxOm51bV9hc3NpZ25tZW50cykgew0KICBhc3NpZ25tZW50X2NvbHVtbiA8LSBwYXN0ZTAoIkFzc2lnbm1lbnQiLCBhc3NpZ25tZW50X251bSkNCiAgYXNzaWduZWRfdGVybXMgPC0gYXNzaWdubWVudF90YWJsZVssIGFzc2lnbm1lbnRfY29sdW1uXQ0KICANCiAgIyBDb252ZXJ0IHRoZSBhc3NpZ25lZCB0ZXJtIG5hbWVzIGJhY2sgdG8gdGhlaXIgY29sdW1uIGluZGljZXMNCiAgYXNzaWduZWRfaW5kaWNlcyA8LSBtYXRjaChhc3NpZ25lZF90ZXJtcywgY29sbmFtZXMoc2VsZWN0ZWRfZGF0YSkpDQogIA0KICBmb3IgKGkgaW4gMTpudW1fZG9jdG9ycykgew0KICAgIGFzc2lnbmVkX3ByZWZlcmVuY2VfdmFsdWVzW2ksIGFzc2lnbm1lbnRfbnVtXSA8LSBwcmVmZXJlbmNlX21hdHJpeFtpLCBhc3NpZ25lZF9pbmRpY2VzW2ldXQ0KICB9DQp9DQoNCmF2ZXJhZ2VfYXNzaWduZWRfcHJlZmVyZW5jZSA8LSBtZWFuKGFzLnZlY3Rvcihhc3NpZ25lZF9wcmVmZXJlbmNlX3ZhbHVlcykpDQoNCiMgQ2FsY3VsYXRlIHRoZSBtZXRyaWNzIG9mIGludGVyZXN0IGZvciBlYWNoIGRvY3Rvcg0KcmFuZ2VfcGVyX2RvY3RvciA8LSBhcHBseShhc3NpZ25lZF9wcmVmZXJlbmNlX3ZhbHVlcywgMSwgcmFuZ2UpDQptYXhfcGVyX2RvY3RvciA8LSByYW5nZV9wZXJfZG9jdG9yWzIsXQ0KbWluX3Blcl9kb2N0b3IgPC0gcmFuZ2VfcGVyX2RvY3RvclsxLF0NCnNkX3Blcl9kb2N0b3IgPC0gYXBwbHkoYXNzaWduZWRfcHJlZmVyZW5jZV92YWx1ZXMsIDEsIHNkKQ0KDQojIENvbXB1dGUgdGhlIGF2ZXJhZ2UgdmFsdWVzIGFjcm9zcyBhbGwgZG9jdG9ycw0KYXZlcmFnZV9tYXggPSBtZWFuKG1heF9wZXJfZG9jdG9yKQ0KYXZlcmFnZV9taW4gPSBtZWFuKG1pbl9wZXJfZG9jdG9yKQ0KYXZlcmFnZV9zZCA9IG1lYW4oc2RfcGVyX2RvY3RvcikNCg0KIyBDcmVhdGUgYSBkYXRhIGZyYW1lIHdpdGggdGhlIGV2YWx1YXRpb24gbWV0cmljcw0KZXZhbHVhdGlvbl9kYXRhIDwtIGRhdGEuZnJhbWUoDQogIE1ldHJpYyA9IGMoIkF0IGxlYXN0IDEgdGVybSBpbiBUb3AgMTAgKCUpIiwgDQogICAgICAgICAgICAgIkF0IGxlYXN0IDIgdGVybXMgaW4gVG9wIDEwICglKSIsIA0KICAgICAgICAgICAgICJBdCBsZWFzdCAzIHRlcm1zIGluIFRvcCAxMCAoJSkiLCANCiAgICAgICAgICAgICAiQXQgbGVhc3QgMSB0ZXJtIGluIFRvcCA1ICglKSIsDQogICAgICAgICAgICAgIkF2ZXJhZ2UgUHJlZmVyZW5jZSBvZiBBc3NpZ25lZCBUZXJtcyIsDQogICAgICAgICAgICAgIkF2ZXJhZ2UgTWF4IG9mIEFzc2lnbmVkIFByZWZlcmVuY2VzIiwNCiAgICAgICAgICAgICAiQXZlcmFnZSBNaW4gb2YgQXNzaWduZWQgUHJlZmVyZW5jZXMiLA0KICAgICAgICAgICAgICJBdmVyYWdlIFNEIG9mIEFzc2lnbmVkIFByZWZlcmVuY2VzIiksDQogIFZhbHVlID0gYyhzdW0odG9wXzEwX2NvdW50c19wZXJfZG9jdG9yID4gMCkgLyBudW1fZG9jdG9ycyAqIDEwMCwgDQogICAgICAgICAgICBzdW0odG9wXzEwX2NvdW50c19wZXJfZG9jdG9yID49IDIpIC8gbnVtX2RvY3RvcnMgKiAxMDAsIA0KICAgICAgICAgICAgc3VtKHRvcF8xMF9jb3VudHNfcGVyX2RvY3RvciA+PSAzKSAvIG51bV9kb2N0b3JzICogMTAwLCANCiAgICAgICAgICAgIHN1bSh0b3BfNV9jb3VudHNfcGVyX2RvY3RvciA+IDApIC8gbnVtX2RvY3RvcnMgKiAxMDAsDQogICAgICAgICAgICBhdmVyYWdlX2Fzc2lnbmVkX3ByZWZlcmVuY2UsDQogICAgICAgICAgICBhdmVyYWdlX21heCwNCiAgICAgICAgICAgIGF2ZXJhZ2VfbWluLA0KICAgICAgICAgICAgYXZlcmFnZV9zZCkNCikNCg0KIyBSb3VuZCB0aGUgdmFsdWVzIHRvIDIgZGVjaW1hbCBwbGFjZXMNCmV2YWx1YXRpb25fZGF0YSRWYWx1ZSA8LSByb3VuZChldmFsdWF0aW9uX2RhdGEkVmFsdWUsIDIpDQoNCiMgR2VuZXJhdGUgdGhlIHRhYmxlIHVzaW5nIGd0DQpldmFsdWF0aW9uX3RhYmxlIDwtIGd0KGV2YWx1YXRpb25fZGF0YSkgJT4lIA0KICB0YWJfaGVhZGVyKA0KICAgIHRpdGxlID0gIk1vZGVsIEV2YWx1YXRpb24iDQogICkgJT4lIA0KICBjb2xzX2xhYmVsKA0KICAgIE1ldHJpYyA9ICJNZXRyaWMiLA0KICAgIFZhbHVlID0gIlZhbHVlIg0KICApDQoNCiMgUHJpbnQgdGhlIHRhYmxlDQpwcmludChldmFsdWF0aW9uX3RhYmxlKQ0KDQoNCmBgYA0KDQoNCiAgICAgICAgICAgICAgICAgICAgICAgICANCiMgUmVwb3J0aW5nIC0gDQoNCiMjIyBUbyBhZGQgdHJhbnNwYXJhbmN5IHRvIGFsbG9jYXRpb25zIHByb2Nlc3MgYW5kIHRvIGFzc2lzdCBpbiBtYW51YWwgYXVkaXRpbmcgb2YgbGluZXMgaW4gb3JkZXIgdG8gcHJlc2VydmUgdGhlIGludGVncml0eSBvZiB0aGUgcHJlZmVyZW5jZXMgb2YgdGhlIGNvaG9ydC4gQXNzaXN0IHdpdGggbWFudWFsIGNoYW5nZXMgdG8gbWFrZSB0ZXJtcyBIRVRJIGNvbXBsaWFudCBvciB1bmRlcnN0YW5kIEdBUFMgaW4gdGhlIGV2ZW50IHRoZWlyIGlzIG5pbCB2aWFibGUgc29sdXRpb24gdG8gd2hvbGUgZ2FtdXQgb2YgY29uc3RyYWludHMuIA0KDQpgYGB7ciBpbmNsdWRlPVRSVUUsIGVjaG89VFJVRSwgcmVzdWx0cz0nbWFya3VwJ30NCiMgMS4gRG9jdG9ycyBQcmVmZXJlbmNlIFJlcG9ydA0KDQojIEluaXRpYWxpemUgYW4gZW1wdHkgZGF0YSBmcmFtZSB0byBzdG9yZSB0aGUgcmVwb3J0DQpkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQgPC0gZGF0YS5mcmFtZSgNCiAgRG9jdG9yID0gY2hhcmFjdGVyKCksDQogIFRlcm0gPSBjaGFyYWN0ZXIoKSwNCiAgUHJlZmVyZW5jZV9TY29yZSA9IG51bWVyaWMoKSwNCiAgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFDQopDQoNCiMgSXRlcmF0ZSB0aHJvdWdoIGVhY2ggZG9jdG9yDQpmb3IgKGkgaW4gMTpudW1fZG9jdG9ycykgew0KICBkb2N0b3JfbmFtZSA8LSByb3dfbmFtZXNbaV0NCiAgDQogICMgSXRlcmF0ZSB0aHJvdWdoIGVhY2ggb2YgdGhlIGFzc2lnbm1lbnRzIHRvIGV4dHJhY3QgdGhlIGFsbG9jYXRlZCB0ZXJtcyBmb3IgZWFjaCBkb2N0b3INCiAgZm9yIChhc3NpZ25tZW50X251bSBpbiAxOm51bV9hc3NpZ25tZW50cykgew0KICAgIG9wdGltYWxfc29sdXRpb25fZGlzc2F0aXNmYWN0aW9uIDwtIGFzc2lnbm1lbnRfcmVzdWx0c1tbYXNzaWdubWVudF9udW1dXQ0KICAgIGZvciAoaiBpbiAxOm51bV90ZXJtcykgew0KICAgICAgaWYgKG9wdGltYWxfc29sdXRpb25fZGlzc2F0aXNmYWN0aW9uWyhpIC0gMSkgKiBudW1fdGVybXMgKyBqXSA9PSAxKSB7DQogICAgICAgIGFzc2lnbmVkX3Rlcm0gPC0gY29sdW1uX25hbWVzW2pdDQogICAgICAgIA0KICAgICAgICAjIEFjY2VzcyB0aGUgZG9jdG9yJ3MgcHJlZmVyZW5jZSByb3cgZnJvbSB0aGUgcHJlZmVyZW5jZSBtYXRyaXgNCiAgICAgICAgZG9jdG9yX3ByZWZlcmVuY2UgPC0gcHJlZmVyZW5jZV9tYXRyaXhbaSwgXQ0KICAgICAgICANCiAgICAgICAgIyBDYWxjdWxhdGUgcHJlZmVyZW5jZSBzY29yZSBmb3IgdGhlIGFzc2lnbmVkIHRlcm0NCiAgICAgICAgcHJlZmVyZW5jZV9zY29yZSA8LSBkb2N0b3JfcHJlZmVyZW5jZVttYXRjaChhc3NpZ25lZF90ZXJtLCBjb2x1bW5fbmFtZXMpXQ0KICAgICAgICANCiAgICAgICAgIyBCdWlsZCBhIGRhdGEgZnJhbWUgd2l0aCB0aGUgcmVzdWx0cyBmb3IgdGhpcyBkb2N0b3IgYW5kIHRlcm0NCiAgICAgICAgZG9jdG9yX3JlcG9ydCA8LSBkYXRhLmZyYW1lKA0KICAgICAgICAgIERvY3RvciA9IHJlcChkb2N0b3JfbmFtZSwgMSksDQogICAgICAgICAgVGVybSA9IGFzc2lnbmVkX3Rlcm0sDQogICAgICAgICAgUHJlZmVyZW5jZV9TY29yZSA9IHByZWZlcmVuY2Vfc2NvcmUNCiAgICAgICAgKQ0KICAgICAgICANCiAgICAgICAgIyBBcHBlbmQgdGhlIGRvY3RvcidzIHJlcG9ydCB0byB0aGUgb3ZlcmFsbCByZXBvcnQgZGF0YSBmcmFtZQ0KICAgICAgICBkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQgPC0gcmJpbmQoZG9jdG9yX3ByZWZlcmVuY2VfcmVwb3J0LCBkb2N0b3JfcmVwb3J0KQ0KICAgICAgfQ0KICAgIH0NCiAgfQ0KfQ0KDQoNCmd0KGRvY3Rvcl9wcmVmZXJlbmNlX3JlcG9ydCkNCmBgYA0KDQoNCmBgYHtyIGluY2x1ZGU9VFJVRSwgZWNobz1UUlVFLCByZXN1bHRzPSdtYXJrdXAnfQ0KIyAyLiBIRVRJIENvbXBsaWFuY2UgUmVwb3J0DQoNCg0KIyBDYWxjdWxhdGUgYXZlcmFnZSBwcmVmZXJlbmNlIGZvciBlYWNoIGRvY3RvciBhY3Jvc3MgYWxsIDUgYXNzaWdubWVudHMNCmF2Z19wcmVmZXJlbmNlIDwtIGRvY3Rvcl9wcmVmZXJlbmNlX3JlcG9ydCAlPiUNCiAgZ3JvdXBfYnkoRG9jdG9yKSAlPiUNCiAgc3VtbWFyaXplKEF2Z19TY29yZSA9IG1lYW4oUHJlZmVyZW5jZV9TY29yZSwgbmEucm0gPSBUUlVFKSkNCg0KIyBDaGVjayBpZiBhIGRvY3RvciBoYXMgYmVlbiBhc3NpZ25lZCB0byBtb3JlIHRoYW4gMSB0ZXJtIGluIGFueSBzdWItc3BlY2lhbHR5DQpzdWJfc3BlY2lhbHR5X2NvbXBsaWFuY2UgPC0gYXBwbHkoYXNzaWdubWVudF90YWJsZVssLTFdLCAxLCBmdW5jdGlvbihhc3NpZ25tZW50cykgew0KICAjIE1hcCB0aGUgYXNzaWdubWVudHMgdG8gdGhlaXIgY29ycmVzcG9uZGluZyBzdWJfc3BlY2lhbHR5X3N0YXR1c19wZXJfdGVybQ0KICBzdWJfc3BlY2lhbHR5X3Rlcm1zIDwtIHN1Yl9zcGVjaWFsdHlfc3RhdHVzX3Blcl90ZXJtW2Fzc2lnbm1lbnRzXQ0KICANCiAgIyBDaGVjayBpZiBhbnkgc3ViLXNwZWNpYWx0eSBpcyBhc3NpZ25lZCBtb3JlIHRoYW4gMSB0aW1lDQogIG1heF9jb3VudCA8LSBtYXgodGFibGUoc3ViX3NwZWNpYWx0eV90ZXJtcyksIG5hLnJtID0gVFJVRSkNCiAgcmV0dXJuKG1heF9jb3VudCA8PSAxKQ0KfSkNCg0KIyBDaGVjayBpZiBhIGRvY3RvciBoYXMgYmVlbiBhc3NpZ25lZCB0byBtb3JlIHRoYW4gMiB0ZXJtcyBpbiBhbnkgc3BlY2lhbHR5DQpzcGVjaWFsdHlfY29tcGxpYW5jZSA8LSBhcHBseShhc3NpZ25tZW50X3RhYmxlWywtMV0sIDEsIGZ1bmN0aW9uKGFzc2lnbm1lbnRzKSB7DQogICMgTWFwIHRoZSBhc3NpZ25tZW50cyB0byB0aGVpciBjb3JyZXNwb25kaW5nIHNwZWNpYWx0eV9zdGF0dXNfcGVyX3Rlcm0NCiAgc3BlY2lhbHR5X3Rlcm1zIDwtIHNwZWNpYWx0eV9zdGF0dXNfcGVyX3Rlcm1bYXNzaWdubWVudHNdDQogIA0KICAjIENoZWNrIGlmIGFueSBzcGVjaWFsdHkgaXMgYXNzaWduZWQgbW9yZSB0aGFuIDIgdGltZXMNCiAgbWF4X2NvdW50IDwtIG1heCh0YWJsZShzcGVjaWFsdHlfdGVybXMpLCBuYS5ybSA9IFRSVUUpDQogIHJldHVybihtYXhfY291bnQgPCAzKQ0KfSkNCg0KIyBDaGVjayBpZiBhIGRvY3RvciBoYXMgYmVlbiBhc3NpZ25lZCB0byBhdCBsZWFzdCAzICJUZWFtIEJhc2VkIiB0ZXJtcw0KdGVhbV9iYXNlZF9jb21wbGlhbmNlIDwtIHNhcHBseSgxOm51bV9kb2N0b3JzLCBmdW5jdGlvbihpKSB7DQogIGRvY3Rvcl9uYW1lIDwtIHJvd19uYW1lc1tpXQ0KICB0ZXJtc19hc3NpZ25lZCA8LSBkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQkVGVybVtkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQkRG9jdG9yID09IGRvY3Rvcl9uYW1lXQ0KICANCiAgIyBEZWJ1Z2dpbmcgcHJpbnQgc3RhdGVtZW50cw0KICBwcmludChwYXN0ZSgiRG9jdG9yOiIsIGRvY3Rvcl9uYW1lKSkNCiAgcHJpbnQocGFzdGUoIkFzc2lnbmVkIHRlcm1zOiIsIHRvU3RyaW5nKHRlcm1zX2Fzc2lnbmVkKSkpDQogIHN0cnVjdHVyZV9pbmRpY2VzIDwtIG1hdGNoKHRlcm1zX2Fzc2lnbmVkLCBuYW1lcyhjbGluaWNhbF9zdHJ1Y3R1cmVfdGVybSkpDQogIHByaW50KHBhc3RlKCJNYXRjaGluZyBpbmRpY2VzOiIsIHRvU3RyaW5nKHN0cnVjdHVyZV9pbmRpY2VzKSkpDQogIHByaW50KHBhc3RlKCJDbGluaWNhbCBzdHJ1Y3R1cmVzOiIsIHRvU3RyaW5nKGNsaW5pY2FsX3N0cnVjdHVyZV90ZXJtW3N0cnVjdHVyZV9pbmRpY2VzXSkpKQ0KICANCiAgdGVhbV9iYXNlZF9jb3VudCA8LSBzdW0oY2xpbmljYWxfc3RydWN0dXJlX3Rlcm1bc3RydWN0dXJlX2luZGljZXNdID09ICJUZWFtIEJhc2VkIikNCiAgDQogIHJldHVybih0ZWFtX2Jhc2VkX2NvdW50ID49IDMpDQp9KQ0KDQojIENoZWNrIGZvciBjb21wbGlhbmNlIHdpdGggdGhlIGRlc2lyZWQgdGVybSBjbGFzc2lmaWNhdGlvbnMNCmNoZWNrX3Rlcm1fY2xhc3NpZmljYXRpb25zIDwtIGZ1bmN0aW9uKHRlcm1zX2Fzc2lnbmVkKSB7DQogIGNsYXNzaWZpY2F0aW9uMSA8LSB0ZXJtX2NsYXNzaWZpY2F0aW9uMVttYXRjaCh0ZXJtc19hc3NpZ25lZCwgY29sdW1uX25hbWVzKV0NCiAgY2xhc3NpZmljYXRpb24yIDwtIHRlcm1fY2xhc3NpZmljYXRpb24yW21hdGNoKHRlcm1zX2Fzc2lnbmVkLCBjb2x1bW5fbmFtZXMpXQ0KICByZXF1aXJlZF90ZXJtcyA8LSBjKCJBLVVuZGlmZmVyZW50aWF0ZWQgaWxsbmVzcyBwYXRpZW50IGNhcmUiLCANCiAgICAgICAgICAgICAgICAgICAgICAiQi1DaHJvbmljIGlsbG5lc3MgcGF0aWVudCBjYXJlIiwgDQogICAgICAgICAgICAgICAgICAgICAgIkMtQWN1dGUgY3JpdGljYWwgaWxsbmVzcyBwYXRpZW50IGNhcmUiLA0KICAgICAgICAgICAgICAgICAgICAgICJELVBlcmktb3BlcmF0aXZlIC8gcHJvY2VkdXJhbCBwYXRpZW50IGNhcmUiKQ0KICANCiAgIyBDaGVjayBmb3IgZWFjaCB0ZXJtIGluZGl2aWR1YWxseSwgd2l0aG91dCBtZXJnaW5nIHRoZSBjbGFzc2lmaWNhdGlvbnMNCiAgaGFzX3JlcXVpcmVkX3Rlcm1zIDwtIHNhcHBseShyZXF1aXJlZF90ZXJtcywgZnVuY3Rpb24odGVybSkgew0KICAgIHRlcm0gJWluJSBjbGFzc2lmaWNhdGlvbjEgfHwgdGVybSAlaW4lIGNsYXNzaWZpY2F0aW9uMg0KICB9KQ0KICANCiAgcmV0dXJuKGFsbChoYXNfcmVxdWlyZWRfdGVybXMpKQ0KfQ0KDQp0ZXJtX2NsYXNzaWZpY2F0aW9uc19jb21wbGlhbmNlIDwtIHNhcHBseSgxOm51bV9kb2N0b3JzLCBmdW5jdGlvbihpKSB7DQogIGRvY3Rvcl9uYW1lIDwtIHJvd19uYW1lc1tpXQ0KICB0ZXJtc19hc3NpZ25lZCA8LSBkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQkVGVybVtkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQkRG9jdG9yID09IGRvY3Rvcl9uYW1lXQ0KICByZXR1cm4oY2hlY2tfdGVybV9jbGFzc2lmaWNhdGlvbnModGVybXNfYXNzaWduZWQpKQ0KfSkNCg0KY29tcGxpYW5jZV9kYXRhIDwtIGRhdGEuZnJhbWUoDQogIERvY3RvciA9IGF2Z19wcmVmZXJlbmNlJERvY3RvciwNCiAgQXZnX1ByZWZlcmVuY2UgPSBhdmdfcHJlZmVyZW5jZSRBdmdfU2NvcmUsDQogIFN1YlNwZWNpYWx0eV9Db21wbGlhbmNlID0gc3ViX3NwZWNpYWx0eV9jb21wbGlhbmNlLA0KICBTcGVjaWFsdHlfQ29tcGxpYW5jZSA9IHNwZWNpYWx0eV9jb21wbGlhbmNlLA0KICBUZWFtX0Jhc2VkX0NvbXBsaWFuY2UgPSB0ZWFtX2Jhc2VkX2NvbXBsaWFuY2UsDQogIFRlcm1fQ2xhc3NpZmljYXRpb25zX0NvbXBsaWFuY2UgPSB0ZXJtX2NsYXNzaWZpY2F0aW9uc19jb21wbGlhbmNlDQopDQoNCiMgRm9ybWF0IHdpdGggZ3QNCg0KSEVUSV9jb21wbGlhbmNlX3RhYmxlIDwtIGNvbXBsaWFuY2VfZGF0YSAlPiUNCiAgZ3QoKSAlPiUNCiAgY29sc19sYWJlbCgNCiAgICBBdmdfUHJlZmVyZW5jZSA9ICJBdmcuIFByZWZlcmVuY2UgKDEtNSkiLA0KICAgIFN1YlNwZWNpYWx0eV9Db21wbGlhbmNlID0gIk1heCAxIFRlcm0gaW4gU3ViLVNwZWNpYWx0eSIsDQogICAgU3BlY2lhbHR5X0NvbXBsaWFuY2UgPSAiTWF4IDIgVGVybXMgaW4gU3BlY2lhbHR5IiwNCiAgICBUZWFtX0Jhc2VkX0NvbXBsaWFuY2UgPSAiQXQgTGVhc3QgMyAnVGVhbSBCYXNlZCcgVGVybXMiLA0KICAgIFRlcm1fQ2xhc3NpZmljYXRpb25zX0NvbXBsaWFuY2UgPSAiRXNzZW50aWFsIENsYXNzaWZpY2F0aW9ucyINCiAgKQ0KDQpwcmludChIRVRJX2NvbXBsaWFuY2VfdGFibGUpDQpgYGANCg0KYGBge3J9DQpleHBvcnRfdGFibGVzIDwtIGZ1bmN0aW9uKGFzc2lnbm1lbnRfdGFibGUsIGV2YWx1YXRpb25fdGFibGUsIGRvY3Rvcl9wcmVmZXJlbmNlX3JlcG9ydCwgSEVUSV9jb21wbGlhbmNlX3RhYmxlLCBwcmVmZXJlbmNlX21hdHJpeCwgdW5hc3NpZ25lZF9kZiwgZmlsZW5hbWUpIHsNCiAgDQogICMgQ29udmVydCBndCB0YWJsZXMgYmFjayB0byBkYXRhLmZyYW1lIGlmIG5lY2Vzc2FyeQ0KICBpZiAoaW5oZXJpdHMoYXNzaWdubWVudF90YWJsZSwgImd0X3RibCIpKSB7DQogICAgYXNzaWdubWVudF90YWJsZSA8LSBhcy5kYXRhLmZyYW1lKGFzc2lnbm1lbnRfdGFibGUpDQogIH0NCiAgaWYgKGluaGVyaXRzKGV2YWx1YXRpb25fdGFibGUsICJndF90YmwiKSkgew0KICAgIGV2YWx1YXRpb25fdGFibGUgPC0gYXMuZGF0YS5mcmFtZShldmFsdWF0aW9uX3RhYmxlKQ0KICB9DQogIGlmIChpbmhlcml0cyhkb2N0b3JfcHJlZmVyZW5jZV9yZXBvcnQsICJndF90YmwiKSkgew0KICAgIGRvY3Rvcl9wcmVmZXJlbmNlX3JlcG9ydCA8LSBhcy5kYXRhLmZyYW1lKGRvY3Rvcl9wcmVmZXJlbmNlX3JlcG9ydCkNCiAgfQ0KICBpZiAoaW5oZXJpdHMoSEVUSV9jb21wbGlhbmNlX3RhYmxlLCAiZ3RfdGJsIikpIHsNCiAgICBIRVRJX2NvbXBsaWFuY2VfdGFibGUgPC0gYXMuZGF0YS5mcmFtZShIRVRJX2NvbXBsaWFuY2VfdGFibGUpDQogIH0NCiAgDQogICMgQ29udmVydCB0aGUgcHJlZmVyZW5jZV9tYXRyaXggdG8gYSBkYXRhIGZyYW1lIGFuZCBhZGQgRG9jdG9yIG5hbWVzIGlmIGl0J3MgYSBtYXRyaXgNCiAgaWYgKGlzLm1hdHJpeChwcmVmZXJlbmNlX21hdHJpeCkpIHsNCiAgICBwcmVmZXJlbmNlX21hdHJpeF9kZiA8LSBhcy5kYXRhLmZyYW1lKHByZWZlcmVuY2VfbWF0cml4KQ0KICAgICMgQWRkIGRvY3RvciBuYW1lcyBmcm9tIHRoZSByb3duYW1lcyBvZiB0aGUgbWF0cml4IGlmIHRoZXkgZXhpc3QNCiAgICBpZiAoIWlzLm51bGwocm93bmFtZXMocHJlZmVyZW5jZV9tYXRyaXgpKSkgew0KICAgICAgcHJlZmVyZW5jZV9tYXRyaXhfZGYgPC0gY2JpbmQoRG9jdG9yID0gcm93bmFtZXMocHJlZmVyZW5jZV9tYXRyaXgpLCBwcmVmZXJlbmNlX21hdHJpeF9kZikNCiAgICB9DQogIH0gZWxzZSB7DQogICAgcHJlZmVyZW5jZV9tYXRyaXhfZGYgPC0gcHJlZmVyZW5jZV9tYXRyaXgNCiAgfQ0KICANCiAgIyBKb2luIHRoZSBzdXJ2ZXlfZGF0YSBhbmQgYXNzaWdubWVudF90YWJsZSBvbiB0aGUgIkRvY3RvciIgY29sdW1uDQogIGFzc2lnbm1lbnRfdGFibGVfd2l0aF9zdXJ2ZXkgPC0gbGVmdF9qb2luKHN1cnZleV9kYXRhLCBhc3NpZ25tZW50X3RhYmxlLCBieSA9ICJEb2N0b3IiKQ0KICANCiAgIyBQcmVwYXJlIHRoZSBsaXN0IG9mIHRhYmxlcyB0byBiZSBleHBvcnRlZA0KICB0YWJsZXNfbGlzdCA8LSBsaXN0KA0KICAgIEFzc2lnbm1lbnRUYWJsZSA9IGFzc2lnbm1lbnRfdGFibGVfd2l0aF9zdXJ2ZXksDQogICAgRXZhbHVhdGlvblRhYmxlID0gZXZhbHVhdGlvbl90YWJsZSwNCiAgICBEb2N0b3JQcmVmZXJlbmNlUmVwb3J0ID0gZG9jdG9yX3ByZWZlcmVuY2VfcmVwb3J0LA0KICAgIEhFVElDb21wbGlhbmNlVGFibGUgPSBIRVRJX2NvbXBsaWFuY2VfdGFibGUsDQogICAgUHJlZmVyZW5jZU1hdHJpeCA9IHByZWZlcmVuY2VfbWF0cml4X2RmLA0KICAgIFVuYXNzaWduZWRUZXJtcyA9IHVuYXNzaWduZWRfZGYNCiAgKQ0KICANCiAgIyBFeHBvcnQgdG8gLnhsc3ggZmlsZQ0KICB3cml0ZXhsOjp3cml0ZV94bHN4KHRhYmxlc19saXN0LCBwYXRoID0gZmlsZW5hbWUpDQp9DQoNCiMgQ2FsbCB0aGUgZnVuY3Rpb24gd2l0aCBhbGwgdGhlIG5lY2Vzc2FyeSBkYXRhIGZyYW1lcyBhbmQgdGhlIGZpbGVuYW1lDQpleHBvcnRfdGFibGVzKA0KICBhc3NpZ25tZW50X3RhYmxlID0gYXNzaWdubWVudF90YWJsZSwNCiAgdW5hc3NpZ25lZF9kZiA9IHVuYXNzaWduZWRfZGYsDQogIGRvY3Rvcl9wcmVmZXJlbmNlX3JlcG9ydCA9IGRvY3Rvcl9wcmVmZXJlbmNlX3JlcG9ydCwNCiAgSEVUSV9jb21wbGlhbmNlX3RhYmxlID0gSEVUSV9jb21wbGlhbmNlX3RhYmxlLA0KICBwcmVmZXJlbmNlX21hdHJpeCA9IHByZWZlcmVuY2VfbWF0cml4LA0KICBldmFsdWF0aW9uX3RhYmxlID0gZXZhbHVhdGlvbl90YWJsZSwNCiAgDQogIGZpbGVuYW1lID0gIlBHWTFfQWxsb2NhdGlvbnNfZXhwb3J0Lnhsc3giDQopDQoNCmBgYA0KDQoNCipUaGlzIGNvZGUsIGluY2x1c2l2ZSBvZiBhbGwgYXNzb2NpYXRlZCBkb2N1bWVudGF0aW9uIGFuZCByZWxhdGVkIGNvbnRlbnQsIGlzIHRoZSBleGNsdXNpdmUgaW50ZWxsZWN0dWFsIHByb3BlcnR5IG9mIERyLiBTY290dCBKb2huc29uIEdlbHppbm5pcyB1bmRlciB0aGUgQ29weXJpZ2h0IEFjdCAxOTY4IChDdGgpIG9mIEF1c3RyYWxpYS4gQW55IHVuYXV0aG9yaXplZCB1c2UsIHJlcHJvZHVjdGlvbiwgZGlzdHJpYnV0aW9uLCBvciBtb2RpZmljYXRpb24gb2YgdGhpcyBtYXRlcmlhbCwgaW4gZW50aXJldHkgb3IgaW4gcGFydHMsIHdpdGhvdXQgdGhlIHByaW9yIHdyaXR0ZW4gY29uc2VudCBvZiBEci4gU2NvdHQgSm9obnNvbiBHZWx6aW5uaXMsIG1heSBjb25zdGl0dXRlIGEgYnJlYWNoIG9mIEF1c3RyYWxpYW4gY29weXJpZ2h0IGxhd3MgYW5kIGNhbiByZXN1bHQgaW4gbGVnYWwgYWN0aW9uLioNCg==</div>
 
 
 
