@@ -49,7 +49,7 @@ set.seed(69)
 ```{r include=TRUE, echo=TRUE, results='hide'}
 
 ## Read in Google Sheet
-raw_preference_data <- read_sheet("https://docs.google.com/spreadsheets/d/1JW_KriVymSe9NNVi1QjKnshoWrkAhZ8FkKzpqXy1bf8/edit?usp=sharing")
+raw_preference_data <- read_sheet("https://docs.google.com/spreadsheets/d/1mRHV5Sf6I8suZoXBC3nBv3GEHLdHnve1Vt3KLG_fSbU/edit?usp=sharing")
 
 # Convert the tibble to a data.frame
 raw_preference_data <- as.data.frame(raw_preference_data)
@@ -109,7 +109,7 @@ column_names <- colnames(selected_data)
                
                          ## Linear Optimization - Defining the problem ##
 
-term_master_df <- read_csv("TRIAL PGY2 2024.csv")
+term_master_df <- read_csv("PGY2 2024 Dataframe.csv")
 
 # Directly infer the number of doctors and terms from the preference matrix
 num_doctors <- nrow(preference_matrix)
@@ -212,7 +212,7 @@ for (i in 1:num_doctors) {
 }
 
   # Add constraint for top 10 terms for each doctor (MODIFIED TO ADD SLACK)
-margin = 46
+margin = -5
 for (i in 1:num_doctors) {
     top_10_terms_for_doctor <- order(preference_matrix[i,])[1:(10+margin)]
     constr_top_10 <- rep(0, num_doctors * num_terms + num_doctors)
@@ -257,31 +257,31 @@ for (i in 1:num_doctors) {
   }
 }
 
-# 3. Specialty Status Constraint:
-unique_specialty_statuses <- unique(specialty_status_per_term[!is.na(specialty_status_per_term)])
-for (specialty in unique_specialty_statuses) {
-   for (i in 1:num_doctors) {
-     constr_specialty <- rep(0, num_doctors * num_terms + num_doctors)
-     for (j in which(specialty_status_per_term == specialty)) {
-       constr_specialty[(i - 1) * num_terms + j] <- 1
-     }
-     add.constraint(lp_model_dissatisfaction, constr_specialty, type = "<=", rhs = 2)
-   }
-}
-
-# 4. Sub-Specialty Status Constraint:
-unique_sub_specialties <- unique(sub_specialty_status_per_term[!is.na(sub_specialty_status_per_term)])
-for (sub_specialty in unique_sub_specialties) {
-  for (i in 1:num_doctors) {
-    constr_sub_specialty <- rep(0, num_doctors * num_terms + num_doctors)
-    for (j in which(sub_specialty_status_per_term == sub_specialty)) {
-      constr_sub_specialty[(i - 1) * num_terms + j] <- 1
-    }
-    add.constraint(lp_model_dissatisfaction, constr_sub_specialty, type = "<=", rhs = 1)
-  }
-}
+# # 3. Specialty Status Constraint:
+# unique_specialty_statuses <- unique(specialty_status_per_term[!is.na(specialty_status_per_term)])
+# for (specialty in unique_specialty_statuses) {
+#    for (i in 1:num_doctors) {
+#      constr_specialty <- rep(0, num_doctors * num_terms + num_doctors)
+#      for (j in which(specialty_status_per_term == specialty)) {
+#        constr_specialty[(i - 1) * num_terms + j] <- 1
+#      }
+#      add.constraint(lp_model_dissatisfaction, constr_specialty, type = "<=", rhs = 2)
+#    }
+# }
+# 
+# # 4. Sub-Specialty Status Constraint:
+# unique_sub_specialties <- unique(sub_specialty_status_per_term[!is.na(sub_specialty_status_per_term)])
+# for (sub_specialty in unique_sub_specialties) {
+#   for (i in 1:num_doctors) {
+#     constr_sub_specialty <- rep(0, num_doctors * num_terms + num_doctors)
+#     for (j in which(sub_specialty_status_per_term == sub_specialty)) {
+#       constr_sub_specialty[(i - 1) * num_terms + j] <- 1
+#     }
+#     add.constraint(lp_model_dissatisfaction, constr_sub_specialty, type = "<=", rhs = 1)
+#   }
+# }
   
-  # Constraint for >50% in team based 
+#  # Constraint for >50% in team based 
   
   
   # Solve the linear programming problem to minimize dissatisfaction
@@ -736,12 +736,13 @@ export_tables <- function(assignment_table, evaluation_table, doctor_preference_
 # Call the function with all the necessary data frames and the filename
 export_tables(
   assignment_table = assignment_table,
-  evaluation_table = evaluation_table,
+  unassigned_df = unassigned_df,
   doctor_preference_report = doctor_preference_report,
   HETI_compliance_table = HETI_compliance_table,
   preference_matrix = preference_matrix,
-  unassigned_df = unassigned_df, 
-  filename = "PGY2_exported_tables_TRIAL.xlsx"
+  evaluation_table = evaluation_table,
+  
+  filename = "PGY2_Allocations_export.xlsx"
 )
 
 ```
