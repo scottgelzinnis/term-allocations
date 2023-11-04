@@ -188,6 +188,8 @@ assignment_results <- list()
 unassigned_terms_list <- list()
 
 # Matrix to track number of specialty terms assigned to each doctor
+# Get unique specialty statuses from the 'specialty_status_per_term' vector
+unique_specialty_statuses <- unique(specialty_status_per_term)
 # Rows correspond to doctors, columns correspond to specialties
 specialty_assignments_tracker <- matrix(0, nrow = num_doctors, ncol = length(unique_specialty_statuses))
 # The columns should correspond to the unique specialties
@@ -263,7 +265,10 @@ for (i in 1:num_doctors) {
 }
 
 # 3. Specialty Status Constraint
-  for (specialty in unique_specialty_statuses) {
+
+strict_limit <- 2
+   
+for (specialty in unique_specialty_statuses) {
   for (i in 1:num_doctors) {
     constr_specialty <- rep(0, num_doctors * num_terms + num_doctors)
     specialty_indices <- which(specialty_status_per_term == specialty)
@@ -272,14 +277,16 @@ for (i in 1:num_doctors) {
     constr_specialty[(i - 1) * num_terms + specialty_indices] <- 1
     
     # Calculate the remaining number of assignments allowed for this specialty for the doctor
-    # Ensure that a doctor does not get assigned more than 2 terms from the same specialty across all iterations
+    # Ensure that a doctor does not get assigned more than a strict limit from the same specialty across all iterations
     terms_already_assigned <- specialty_assignments_tracker[i, specialty]
-    remaining_assignments_allowed <- max(0, 2 - terms_already_assigned)
+    remaining_assignments_allowed <- max(0, strict_limit - terms_already_assigned)
     
     # Update the right-hand side of the constraint for the current iteration
     add.constraint(lp_model_dissatisfaction, constr_specialty, type = "<=", rhs = remaining_assignments_allowed)
   }
 }
+
+
 # 
 # # 4. Sub-Specialty Status Constraint:
 # unique_sub_specialties <- unique(sub_specialty_status_per_term[!is.na(sub_specialty_status_per_term)])
@@ -404,7 +411,7 @@ for (term_index in 1:length(column_names)) {
 # View the unassigned_terms_table
 gt(unassigned_terms_table)
 
-                                            # Generate this data frame as a term list
+                    # Generate this data frame as a term list
 
 # Initialize a new dataframe for unassigned terms
 # Drop the first column for calculation purposes
@@ -613,6 +620,7 @@ gt(doctor_preference_report)
 ```
 
 
+
 ```{r include=TRUE, echo=TRUE, results='markup'}
 # 2. HETI Compliance Report
 
@@ -663,13 +671,22 @@ team_based_compliance <- sapply(1:num_doctors, function(i) {
 check_term_classifications <- function(terms_assigned) {
   classification1 <- term_classification1[match(terms_assigned, column_names)]
   classification2 <- term_classification2[match(terms_assigned, column_names)]
+  
+  # Combine both classifications into one vector for each term
+  combined_classifications <- mapply(FUN = function(x, y) {
+    unique(c(x, y))
+  }, classification1, classification2)
+
+  # Flatten the list to a vector
+  combined_classifications <- unlist(combined_classifications)
+  
   required_terms <- c("A-Undifferentiated illness patient care", 
                       "B-Chronic illness patient care", 
                       "C-Acute critical illness patient care")
-  
-  # Check for each term individually, without merging the classifications
+
+  # Check that each required term is present at least once in the combined classifications
   has_required_terms <- sapply(required_terms, function(term) {
-    term %in% classification1 || term %in% classification2
+    term %in% combined_classifications
   })
   
   return(all(has_required_terms))
@@ -704,6 +721,7 @@ HETI_compliance_table <- compliance_data %>%
 
 print(HETI_compliance_table)
 ```
+
 
 ```{r}
 export_tables <- function(assignment_table, evaluation_table, doctor_preference_report, HETI_compliance_table, preference_matrix, unassigned_df, filename) {
