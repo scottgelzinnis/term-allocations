@@ -157,10 +157,8 @@ term_classification2 <- convert_and_name('Term Classification 2')
 # Use the preference_matrix directly as the dissatisfaction_values
 dissatisfaction_values <- preference_matrix
 
-
 # Convert dissatisfaction values to a vector for the objective function
 objective_coeffs_dissatisfaction <- as.vector(dissatisfaction_values)
-
 
 # Extend LP model to include slack variables
 lp_model_dissatisfaction <- make.lp(0, num_doctors * num_terms + num_doctors)
@@ -188,6 +186,13 @@ assignment_results <- list()
 
 # Create a list to store unassigned terms for each assignment iteration
 unassigned_terms_list <- list()
+
+# Matrix to track number of specialty terms assigned to each doctor
+# Rows correspond to doctors, columns correspond to specialties
+specialty_assignments_tracker <- matrix(0, nrow = num_doctors, ncol = length(unique_specialty_statuses))
+# The columns should correspond to the unique specialties
+colnames(specialty_assignments_tracker) <- unique_specialty_statuses
+
 
 # This matrix will have rows corresponding to doctors and columns corresponding to terms.
 # An entry of 1 in the matrix indicates that the doctor (row) has been assigned the term (column).
@@ -257,17 +262,24 @@ for (i in 1:num_doctors) {
   }
 }
 
-# # 3. Specialty Status Constraint:
-# unique_specialty_statuses <- unique(specialty_status_per_term[!is.na(specialty_status_per_term)])
-# for (specialty in unique_specialty_statuses) {
-#    for (i in 1:num_doctors) {
-#      constr_specialty <- rep(0, num_doctors * num_terms + num_doctors)
-#      for (j in which(specialty_status_per_term == specialty)) {
-#        constr_specialty[(i - 1) * num_terms + j] <- 1
-#      }
-#      add.constraint(lp_model_dissatisfaction, constr_specialty, type = "<=", rhs = 2)
-#    }
-# }
+# 3. Specialty Status Constraint
+  for (specialty in unique_specialty_statuses) {
+  for (i in 1:num_doctors) {
+    constr_specialty <- rep(0, num_doctors * num_terms + num_doctors)
+    specialty_indices <- which(specialty_status_per_term == specialty)
+    
+    # Assign 1 to the constraint vector for indices related to the current specialty
+    constr_specialty[(i - 1) * num_terms + specialty_indices] <- 1
+    
+    # Calculate the remaining number of assignments allowed for this specialty for the doctor
+    # Ensure that a doctor does not get assigned more than 2 terms from the same specialty across all iterations
+    terms_already_assigned <- specialty_assignments_tracker[i, specialty]
+    remaining_assignments_allowed <- max(0, 2 - terms_already_assigned)
+    
+    # Update the right-hand side of the constraint for the current iteration
+    add.constraint(lp_model_dissatisfaction, constr_specialty, type = "<=", rhs = remaining_assignments_allowed)
+  }
+}
 # 
 # # 4. Sub-Specialty Status Constraint:
 # unique_sub_specialties <- unique(sub_specialty_status_per_term[!is.na(sub_specialty_status_per_term)])
@@ -289,22 +301,27 @@ for (i in 1:num_doctors) {
   
   # Check if the LP problem was solved successfully
   if (lp_result_dissatisfaction == 0) {
-    optimal_solution_dissatisfaction <- get.variables(lp_model_dissatisfaction)
-    assignment_results[[assignment_num]] <- optimal_solution_dissatisfaction
-    
-    # Update the assigned_terms_matrix based on this solution
-    for (i in 1:num_doctors) {
-      for (j in 1:num_terms) {
-        if (optimal_solution_dissatisfaction[(i - 1) * num_terms + j] == 1) {
-          assigned_terms_matrix[i, j] <- 1
-        }
+  optimal_solution_dissatisfaction <- get.variables(lp_model_dissatisfaction)
+  assignment_results[[assignment_num]] <- optimal_solution_dissatisfaction
+
+  # Update the assigned_terms_matrix based on this solution
+  for (i in 1:num_doctors) {
+    for (j in 1:num_terms) {
+      if (optimal_solution_dissatisfaction[(i - 1) * num_terms + j] == 1) {
+        assigned_terms_matrix[i, j] <- 1
+        # Assuming that you have a vector/matrix that links terms to specialties
+        term_specialty <- specialty_status_per_term[j]  # specialty_status_per_term needs to be defined earlier in your code
+
+        # Assuming that your specialty_assignments_tracker has row names as doctors and column names as specialties
+        # Here we increment the count for the specialty corresponding to the term assigned in this iteration
+        specialty_assignments_tracker[i, term_specialty] <- specialty_assignments_tracker[i, term_specialty] + 1
       }
     }
-  } else {
-    cat("LP problem could not be solved for assignment", assignment_num, "Result:", lp_result_dissatisfaction, "\n")
   }
+} else {
+  cat("LP problem could not be solved for assignment", assignment_num, "Result:", lp_result_dissatisfaction, "\n")
+ }
 }
-
 
 # Print the results of each assignment
 for (assignment_num in 1:num_assignments) {
