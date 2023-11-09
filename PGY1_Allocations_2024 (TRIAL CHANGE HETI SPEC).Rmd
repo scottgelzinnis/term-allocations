@@ -1,5 +1,5 @@
 ---
-title: "PGY2 - Allocations 2024"
+title: "PGY1 - Allocations 2024"
 author: "Dr Scott Johnson Gelzinnis"
 date: "`r Sys.Date()`"
 output:
@@ -24,9 +24,6 @@ output:
 library(here())
 i_am("PGY2_Solve_TRIAL.Rmd")
 
-#Set WD
-# setwd("D:/My Documents/GitHub/term-allocations")
-
 # List of required packages
 required_packages <- c("randomNames", "lpSolve", "lpSolveAPI", "ROI", "gt", "readr", "tidyverse", "googlesheets4", "stringr", "knitr", "writexl")
 
@@ -49,7 +46,7 @@ set.seed(69)
 ```{r include=TRUE, echo=TRUE, results='hide'}
 
 ## Read in Google Sheet
-raw_preference_data <- read_sheet("https://docs.google.com/spreadsheets/d/1mRHV5Sf6I8suZoXBC3nBv3GEHLdHnve1Vt3KLG_fSbU/edit?usp=sharing")
+raw_preference_data <- read_sheet("https://docs.google.com/spreadsheets/d/19xMulDMIK6FgmfMajmI1BnlaSsVut_idzsIN1k-X-Aw/edit?usp=sharing")
 
 # Convert the tibble to a data.frame
 raw_preference_data <- as.data.frame(raw_preference_data)
@@ -109,7 +106,7 @@ column_names <- colnames(selected_data)
                
                          ## Linear Optimization - Defining the problem ##
 
-term_master_df <- read_csv("PGY2 2024 Dataframe.csv")
+term_master_df <- read_csv("PGY1 2024 Dataframe.csv")
 
 # Directly infer the number of doctors and terms from the preference matrix
 num_doctors <- nrow(preference_matrix)
@@ -119,11 +116,11 @@ num_terms <- ncol(preference_matrix)
 objective_coeffs <- as.vector(preference_matrix)
 
 # Extract the maximum number of doctors allowed for each term using the column names
-max_doctors_per_term1 <- as.vector(term_master_df$`PGY2 Term 1 Allocation`)
-max_doctors_per_term2 <- as.vector(term_master_df$`PGY2 Term 2 Allocation`)
-max_doctors_per_term3 <- as.vector(term_master_df$`PGY2 Term 3 Allocation`)
-max_doctors_per_term4 <- as.vector(term_master_df$`PGY2 Term 4 Allocation`)
-max_doctors_per_term5 <- as.vector(term_master_df$`PGY2 Term 5 Allocation`)
+max_doctors_per_term1 <- as.vector(term_master_df$`PGY1 Term 1 Allocation`)
+max_doctors_per_term2 <- as.vector(term_master_df$`PGY1 Term 2 Allocation`)
+max_doctors_per_term3 <- as.vector(term_master_df$`PGY1 Term 3 Allocation`)
+max_doctors_per_term4 <- as.vector(term_master_df$`PGY1 Term 4 Allocation`)
+max_doctors_per_term5 <- as.vector(term_master_df$`PGY1 Term 5 Allocation`)
 
 # Helper function for tidy conversions
 convert_and_name <- function(column_name) {
@@ -219,7 +216,7 @@ for (i in 1:num_doctors) {
 }
 
   # Add constraint for top 10 terms for each doctor (MODIFIED TO ADD SLACK)
-margin = 41
+margin = -5
 for (i in 1:num_doctors) {
     top_10_terms_for_doctor <- order(preference_matrix[i,])[1:(10+margin)]
     constr_top_10 <- rep(0, num_doctors * num_terms + num_doctors)
@@ -411,7 +408,7 @@ for (term_index in 1:length(column_names)) {
 # View the unassigned_terms_table
 gt(unassigned_terms_table)
 
-                    # Generate this data frame as a term list
+                                            # Generate this data frame as a term list
 
 # Initialize a new dataframe for unassigned terms
 # Drop the first column for calculation purposes
@@ -620,7 +617,6 @@ gt(doctor_preference_report)
 ```
 
 
-
 ```{r include=TRUE, echo=TRUE, results='markup'}
 # 2. HETI Compliance Report
 
@@ -671,22 +667,14 @@ team_based_compliance <- sapply(1:num_doctors, function(i) {
 check_term_classifications <- function(terms_assigned) {
   classification1 <- term_classification1[match(terms_assigned, column_names)]
   classification2 <- term_classification2[match(terms_assigned, column_names)]
-  
-  # Combine both classifications into one vector for each term
-  combined_classifications <- mapply(FUN = function(x, y) {
-    unique(c(x, y))
-  }, classification1, classification2)
-
-  # Flatten the list to a vector
-  combined_classifications <- unlist(combined_classifications)
-  
   required_terms <- c("A-Undifferentiated illness patient care", 
                       "B-Chronic illness patient care", 
-                      "C-Acute critical illness patient care")
-
-  # Check that each required term is present at least once in the combined classifications
+                      "C-Acute critical illness patient care",
+                      "D-Peri-operative / procedural patient care")
+  
+  # Check for each term individually, without merging the classifications
   has_required_terms <- sapply(required_terms, function(term) {
-    term %in% combined_classifications
+    term %in% classification1 || term %in% classification2
   })
   
   return(all(has_required_terms))
@@ -721,7 +709,6 @@ HETI_compliance_table <- compliance_data %>%
 
 print(HETI_compliance_table)
 ```
-
 
 ```{r}
 export_tables <- function(assignment_table, evaluation_table, doctor_preference_report, HETI_compliance_table, preference_matrix, unassigned_df, filename) {
@@ -777,7 +764,7 @@ export_tables(
   preference_matrix = preference_matrix,
   evaluation_table = evaluation_table,
   
-  filename = "PGY2_Allocations_export.xlsx"
+  filename = "PGY1_Allocations_export.xlsx"
 )
 
 ```
