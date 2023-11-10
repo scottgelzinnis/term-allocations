@@ -619,7 +619,7 @@ specialty_compliance <- apply(assignment_table[,-1], 1, function(assignments) {
   
   # Check if any specialty is assigned more than 2 times
   max_count <- max(table(specialty_terms), na.rm = TRUE)
-  return(max_count < 3)
+  return(max_count <= 2)
 })
 
 # Check if a doctor has been assigned to at least 3 "Team Based" terms
