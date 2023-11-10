@@ -596,89 +596,88 @@ gt(doctor_preference_report)
 ```{r include=TRUE, echo=TRUE, results='markup'}
 # 2. HETI Compliance Report
 
-
 # Calculate average preference for each doctor across all 5 assignments
 avg_preference <- doctor_preference_report %>%
   group_by(Doctor) %>%
   summarize(Avg_Score = mean(Preference_Score, na.rm = TRUE))
 
-# Check if a doctor has been assigned to more than 1 term in any sub-specialty
-sub_specialty_compliance <- apply(assignment_table[,-1], 1, function(assignments) {
-  # Map the assignments to their corresponding sub_specialty_status_per_term
-  sub_specialty_terms <- sub_specialty_status_per_term[assignments]
-  
-  # Check if any sub-specialty is assigned more than 1 time
-  max_count <- max(table(sub_specialty_terms), na.rm = TRUE)
-  return(max_count <= 1)
-})
+# Transform the assignment_table into a long format
+assignment_long <- assignment_table %>%
+  pivot_longer(cols = -Doctor, names_to = "Assignment", values_to = "Term") %>%
+  filter(!is.na(Term)) # Remove NA values
 
-# Check if a doctor has been assigned to more than 2 terms in any specialty
-specialty_compliance <- apply(assignment_table[,-1], 1, function(assignments) {
-  # Map the assignments to their corresponding specialty_status_per_term
-  specialty_terms <- specialty_status_per_term[assignments]
-  
-  # Check if any specialty is assigned more than 2 times
-  max_count <- max(table(specialty_terms), na.rm = TRUE)
-  return(max_count <= 2)
-})
+# Calculate specialty compliance
+specialty_compliance <- assignment_long %>%
+  mutate(Specialty = specialty_status_per_term[Term]) %>%
+  group_by(Doctor) %>%
+  count(Specialty) %>%
+  summarize(Max_Specialty_Count = max(n, na.rm = TRUE)) %>%
+  mutate(Specialty_Compliance = Max_Specialty_Count <= 2) %>%
+  select(Doctor, Specialty_Compliance)
 
-# Check if a doctor has been assigned to at least 3 "Team Based" terms
-team_based_compliance <- sapply(1:num_doctors, function(i) {
-  doctor_name <- row_names[i]
-  terms_assigned <- doctor_preference_report$Term[doctor_preference_report$Doctor == doctor_name]
-  
-  # Debugging print statements
-  print(paste("Doctor:", doctor_name))
-  print(paste("Assigned terms:", toString(terms_assigned)))
-  structure_indices <- match(terms_assigned, names(clinical_structure_term))
-  print(paste("Matching indices:", toString(structure_indices)))
-  print(paste("Clinical structures:", toString(clinical_structure_term[structure_indices])))
-  
-  team_based_count <- sum(clinical_structure_term[structure_indices] == "Team Based")
-  
-  return(team_based_count >= 3)
-})
+# Calculate subspecialty compliance
+sub_specialty_compliance <- assignment_long %>%
+  mutate(Subspecialty = as.character(sub_specialty_status_per_term[Term])) %>%
+  group_by(Doctor) %>%
+  # Count occurrences of each subspecialty, keeping NA
+  count(Subspecialty, sort = TRUE, name = "Subspecialty_Count") %>%
+  # Replace NA in Subspecialty with a placeholder (e.g., "None") to differentiate from valid subspecialties
+  mutate(Subspecialty = ifelse(is.na(Subspecialty), "None", Subspecialty)) %>%
+  group_by(Doctor, Subspecialty) %>%
+  summarize(Max_Subspecialty_Count = max(Subspecialty_Count)) %>%
+  ungroup() %>%
+  # Group by Doctor and determine if any subspecialty (excluding "None") exceeds 1
+  group_by(Doctor) %>%
+  summarize(Subspecialty_Compliance = all(Max_Subspecialty_Count[Subspecialty != "None"] <= 1)) %>%
+  ungroup()
 
-# Check for compliance with the desired term classifications
-check_term_classifications <- function(terms_assigned) {
-  classification1 <- term_classification1[match(terms_assigned, column_names)]
-  classification2 <- term_classification2[match(terms_assigned, column_names)]
-  required_terms <- c("A-Undifferentiated illness patient care", 
-                      "B-Chronic illness patient care", 
-                      "C-Acute critical illness patient care",
-                      "D-Peri-operative / procedural patient care")
-  
-  # Check for each term individually, without merging the classifications
-  has_required_terms <- sapply(required_terms, function(term) {
-    term %in% classification1 || term %in% classification2
-  })
-  
-  return(all(has_required_terms))
-}
+# Calculate team-based compliance
+team_based_compliance <- assignment_long %>%
+  mutate(Team_Based = clinical_structure_term[Term] == "Team Based") %>%
+  group_by(Doctor) %>%
+  summarize(Team_Based_Count = sum(Team_Based, na.rm = TRUE)) %>%
+  mutate(Team_Based_Compliance = Team_Based_Count >= 3) %>%
+  select(Doctor, Team_Based_Compliance)
 
-term_classifications_compliance <- sapply(1:num_doctors, function(i) {
-  doctor_name <- row_names[i]
-  terms_assigned <- doctor_preference_report$Term[doctor_preference_report$Doctor == doctor_name]
-  return(check_term_classifications(terms_assigned))
-})
+# Calculate term classifications compliance
+term_classifications_compliance <- assignment_long %>%
+  mutate(
+    Classification1 = term_classification1[Term],
+    Classification2 = term_classification2[Term]
+  ) %>%
+  group_by(Doctor) %>%
+  summarize(
+    Combined_Classifications = list(unique(na.omit(c(Classification1, Classification2))))
+  ) %>%
+  mutate(
+    Term_Classifications_Compliance = map_lgl(
+      Combined_Classifications, 
+      ~all(
+        c(
+          "A-Undifferentiated illness patient care", 
+          "B-Chronic illness patient care", 
+          "C-Acute critical illness patient care",
+          "D-Peri-operative / procedural patient care"
+        ) %in% .x
+      )
+    )
+  ) %>%
+  select(Doctor, Term_Classifications_Compliance)
 
-compliance_data <- data.frame(
-  Doctor = avg_preference$Doctor,
-  Avg_Preference = avg_preference$Avg_Score,
-  SubSpecialty_Compliance = sub_specialty_compliance,
-  Specialty_Compliance = specialty_compliance,
-  Team_Based_Compliance = team_based_compliance,
-  Term_Classifications_Compliance = term_classifications_compliance
-)
+# Merge compliance data with the average preference data
+compliance_data <- avg_preference %>%
+  left_join(specialty_compliance, by = "Doctor") %>%
+  left_join(sub_specialty_compliance, by = "Doctor") %>%
+  left_join(team_based_compliance, by = "Doctor") %>%
+  left_join(term_classifications_compliance, by = "Doctor")
 
 # Format with gt
-
 HETI_compliance_table <- compliance_data %>%
   gt() %>%
   cols_label(
-    Avg_Preference = "Avg. Preference (1-5)",
-    SubSpecialty_Compliance = "Max 1 Term in Sub-Specialty",
+    Avg_Score = "Avg. Preference (1-5)",
     Specialty_Compliance = "Max 2 Terms in Specialty",
+    Subspecialty_Compliance = "Max 1 Term in Sub-Specialty",
     Team_Based_Compliance = "At Least 3 'Team Based' Terms",
     Term_Classifications_Compliance = "Essential Classifications"
   )
