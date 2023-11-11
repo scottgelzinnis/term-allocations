@@ -6,7 +6,7 @@ ARRH Surgery - Orthopaedic Surgery  (PGY1/2),1,1,1,1,0,D-Peri-operative / proced
 BDH Acute General Medicine & Cardiology (PGY1/2),0,1,0,1,0,A-Undifferentiated illness patient care,C-Acute critical illness patient care,General Medicine,,Team Based,Urban,No,2
 BDH Acute General Medicine & Rehabilitation (PGY1/2),1,0,1,0,1,A-Undifferentiated illness patient care,C-Acute critical illness patient care,Rehabilitation,Rehabilitation,Team Based,Urban,No,3
 BDH Acute General Medicine (PGY1/2),1,1,1,1,1,A-Undifferentiated illness patient care,C-Acute critical illness patient care,General Medicine,,Team Based,Urban,No,5
-BDH Anaesthetics / Emergency (PGY2),1,1,1,1,1,A-Undifferentiated illness patient care,D-Peri-operative / procedural patient care,Anaesthesia,Anaesthesia,Team Based,Urban,Yes,5
+BDH Anaesthetics / Emergency (PGY2),1,1,1,1,1,A-Undifferentiated illness patient care,D-Peri-operative / procedural patient care,Anaesthesia,Anaesthesia/ICU,Team Based,Urban,Yes,5
 BDH Drug and Alcohol Clinical Services (PGY1/2),1,0,1,0,1,B-Chronic illness patient care,C-Acute critical illness patient care,Addiction Medicine,,Team Based,Urban,No,3
 BDH Emergency (PGY1/2),1,2,1,2,1,C-Acute critical illness patient care,A-Undifferentiated illness patient care,Emergency Medicine,,Team Based,Urban,No,7
 BDH Sub-Acute General Medicine (Team 5) (PGY1/2),1,0,1,0,1,B-Chronic illness patient care,C-Acute critical illness patient care,General Medicine,Geriatric,Team Based,Urban,No,3
@@ -30,7 +30,7 @@ HNE Mental Health Newcastle Inpatient Unit - Mater Hospital (PGY1/2),1,1,1,1,1,C
 HNE Mental Health Older People's Service - Mater Hospital (PGY1/2),1,1,1,1,1,C-Acute critical illness patient care,,Psychiatry,,Team Based,Urban,No,5
 JHH HNELHD Clinical Governance & Indigenous Health Term (PGY2),1,1,1,1,1,E-Non-direct clinical experience (PGY2 Only),,Medical Administration,,Other,Urban,Yes,5
 JHH Acute General Surgery Unit (PGY1/2),1,1,1,1,1,A-Undifferentiated illness patient care,D-Peri-operative / procedural patient care,General Surgery,,Team Based,Urban,No,5
-JHH Anaesthetics / Emergency (PGY2),1,1,1,1,1,A-Undifferentiated illness patient care,D-Peri-operative / procedural patient care,Anaesthesia,Anaesthesia,Team Based,Urban,Yes,5
+JHH Anaesthetics / Emergency (PGY2),1,1,1,1,1,A-Undifferentiated illness patient care,D-Peri-operative / procedural patient care,Anaesthesia,Anaesthesia/ICU,Team Based,Urban,Yes,5
 JHH Community Acute Post Acute Care Service (PGY2),1,1,1,1,1,B-Chronic illness patient care,A-Undifferentiated illness patient care,Public Health Medicine,,Other,Urban,Yes,5
 JHH Emergency (PGY1/2),7,7,7,7,7,A-Undifferentiated illness patient care,C-Acute critical illness patient care,Emergency Medicine,,Team Based,Urban,No,35
 JHH Forensic Pathology (PGY2),1,1,1,1,1,E-Non-direct clinical experience (PGY2 Only),,Pathology - Forensic Pathology,Pathology - Forensic Pathology,Other,Urban,Yes,5
@@ -40,7 +40,7 @@ JHH General Surgery / Colorectal (PGY1/2),1,0,1,0,1,C-Acute critical illness pat
 JHH General Surgery / Hepatopancreatobiliary and Upper GI Surgery (PGY1/2),0,1,0,1,0,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,General Surgery,HPB,Team Based,Urban,No,2
 JHH General Surgery / Trauma (PGY1/2),1,1,1,1,1,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,General Surgery,Trauma,Team Based,Urban,No,5
 JHH General Surgery / Upper GI (PGY1/2),1,0,1,0,1,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,General Surgery,UGI,Team Based,Urban,No,3
-JHH ICU (PGY2),2,2,2,2,2,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,ICU,ICU,Team Based,Urban,Yes,10
+JHH ICU (PGY2),2,2,2,2,2,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,ICU,Anaesthesia/ICU,Team Based,Urban,Yes,10
 JHH Medicine - Cardiology (PGY1/2),1,2,1,2,1,C-Acute critical illness patient care,B-Chronic illness patient care,General Medicine,Cardiology,Team Based,Urban,No,7
 JHH Medicine - Dermatology (PGY1/2),1,0,1,0,1,B-Chronic illness patient care,C-Acute critical illness patient care,Dermatology,Dermatology,Team Based,Urban,No,3
 JHH Medicine - Gastroenterology (PGY1/2),1,2,1,2,1,A-Undifferentiated illness patient care,B-Chronic illness patient care,General Medicine,Gastroenterology,Team Based,Urban,No,7

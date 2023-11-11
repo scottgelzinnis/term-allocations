@@ -284,20 +284,23 @@ for (i in 1:num_doctors) {
 }
 
 # 4. Sub-specialty constraint
-    for (subspecialty_idx in 1:length(unique_subspecialty_statuses)) {
-        constr_subspecialty <- rep(0, num_doctors * num_terms + num_doctors)
-        subspecialty <- unique_subspecialty_statuses[subspecialty_idx]
+    for (i in 1:num_doctors) {
+  for (subspecialty_idx in 1:length(unique_subspecialty_statuses)) {
+    constr_subspecialty <- rep(0, num_doctors * num_terms + num_doctors)
+    subspecialty <- unique_subspecialty_statuses[subspecialty_idx]
 
-        if (subspecialty != "NA") {  # Exclude NA values
-            for (j in which(sub_specialty_status_per_term == subspecialty)) {
-                constr_subspecialty[(i - 1) * num_terms + j] <- 1
-            }
+    if (subspecialty != "NA") {  # Exclude NA values
+      for (j in which(sub_specialty_status_per_term == subspecialty)) {
+        constr_subspecialty[(i - 1) * num_terms + j] <- 1
+      }
 
-            current_count <- subspecialty_assignment_tracker[i, subspecialty_idx]
-            max_allowed <- 1 - current_count  # Strictly less than 2
-            add.constraint(lp_model_dissatisfaction, constr_subspecialty, type = "<=", rhs = max_allowed)
-        }
+      current_count <- subspecialty_assignment_tracker[i, subspecialty_idx]
+      max_allowed <- 1 - current_count  # Strictly less than 2
+      
+      add.constraint(lp_model_dissatisfaction, constr_subspecialty, type = "<=", rhs = max_allowed)
     }
+  }
+}
   
 # Solve the linear programming problem to minimize dissatisfaction
 lp_result_dissatisfaction <- solve(lp_model_dissatisfaction)
