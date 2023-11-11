@@ -179,6 +179,10 @@ unique_specialty_statuses <- levels(specialty_status_per_term)
 # Rows represent doctors, and columns represent unique specialty statuses
 specialty_assignment_tracker <- matrix(0, nrow = num_doctors, ncol = length(unique_specialty_statuses))
 
+# Initialize a matrix to track specialty assignments
+unique_subspecialty_statuses <- levels(sub_specialty_status_per_term)
+# Rows represent doctors, and columns represent unique specialty statuses
+subspecialty_assignment_tracker <- matrix(0, nrow = num_doctors, ncol = length(unique_subspecialty_statuses))
 
 ## NEXT STEP TO RUN A LOOP TO ASSIGN 5 TERMS ACROSS THE YEAR BASED ON PREFERENCES ##
 
@@ -275,7 +279,21 @@ for (i in 1:num_doctors) {
   }
 }
 
-  
+# 4. Sub-specialty constraint
+    for (subspecialty_idx in 1:length(unique_subspecialty_statuses)) {
+        constr_subspecialty <- rep(0, num_doctors * num_terms + num_doctors)
+        subspecialty <- unique_subspecialty_statuses[subspecialty_idx]
+
+        if (subspecialty != "NA") {  # Exclude NA values
+            for (j in which(sub_specialty_status_per_term == subspecialty)) {
+                constr_subspecialty[(i - 1) * num_terms + j] <- 1
+            }
+
+            current_count <- subspecialty_assignment_tracker[i, subspecialty_idx]
+            max_allowed <- 1 - current_count  # Strictly less than 2
+            add.constraint(lp_model_dissatisfaction, constr_subspecialty, type = "<=", rhs = max_allowed)
+        }
+    }
   
 # Solve the linear programming problem to minimize dissatisfaction
 lp_result_dissatisfaction <- solve(lp_model_dissatisfaction)
@@ -297,12 +315,18 @@ if (lp_result_dissatisfaction == 0) {
             assigned_specialties <- sum(optimal_solution_dissatisfaction[(i - 1) * num_terms + which(specialty_status_per_term == specialty)])
             specialty_assignment_tracker[i, specialty_idx] <- specialty_assignment_tracker[i, specialty_idx] + assigned_specialties
         }
+        for (subspecialty_idx in 1:length(unique_subspecialty_statuses)) {
+            subspecialty <- unique_subspecialty_statuses[subspecialty_idx]
+            if (subspecialty != "NA") {  # Exclude NA values
+                assigned_subspecialties <- sum(optimal_solution_dissatisfaction[(i - 1) * num_terms + which(sub_specialty_status_per_term == subspecialty)])
+                subspecialty_assignment_tracker[i, subspecialty_idx] <- subspecialty_assignment_tracker[i, subspecialty_idx] + assigned_subspecialties
+            }
+        }
     }
 } else {
     cat("LP problem could not be solved for assignment", assignment_num, "Result:", lp_result_dissatisfaction, "\n")
- }
+  }
 }
-
 
 # Print the results of each assignment
 for (assignment_num in 1:num_assignments) {
@@ -625,20 +649,18 @@ specialty_compliance <- apply(assignment_table[,-1], 1, function(assignments) {
 })
 
 # Check if a doctor has been assigned to at least 3 "Team Based" terms
-team_based_compliance <- sapply(1:num_doctors, function(i) {
+team_based_compliance <- map_lgl(1:num_doctors, function(i) {
   doctor_name <- row_names[i]
-  terms_assigned <- doctor_preference_report$Term[doctor_preference_report$Doctor == doctor_name]
+  terms_assigned <- doctor_preference_report %>%
+    filter(Doctor == doctor_name) %>%
+    pull(Term)
   
-  # Debugging print statements
-  print(paste("Doctor:", doctor_name))
-  print(paste("Assigned terms:", toString(terms_assigned)))
-  structure_indices <- match(terms_assigned, names(clinical_structure_term))
-  print(paste("Matching indices:", toString(structure_indices)))
-  print(paste("Clinical structures:", toString(clinical_structure_term[structure_indices])))
+  valid_structures <- clinical_structure_term[match(terms_assigned, names(clinical_structure_term))]
+  valid_structures <- na.omit(valid_structures)
+
+  team_based_count <- sum(valid_structures == "Team Based")
   
-  team_based_count <- sum(clinical_structure_term[structure_indices] == "Team Based")
-  
-  return(team_based_count >= 3)
+  team_based_count >= 3
 })
 
 # Check for compliance with the desired term classifications
