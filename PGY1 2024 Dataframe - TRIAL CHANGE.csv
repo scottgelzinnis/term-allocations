@@ -1,0 +1,60 @@
+Term Name,PGY1 Term 1 Allocation,PGY1 Term 2 Allocation,PGY1 Term 3 Allocation,PGY1 Term 4 Allocation,PGY1 Term 5 Allocation,Term Classification,Term Classification 2,Specialty Status,Subspecialty Status,Clinical Team Structure,Rurality,PGY2 Only,Maximum allocated PGY1 in 2024
+BDH Acute General Medicine & Cardiology (PGY1/2),1,0,1,0,1,A-Undifferentiated illness patient care,C-Acute critical illness patient care,Medicine,,Team Based,Urban,No,3
+BDH Acute General Medicine & Rehabilitation (PGY1/2),0,1,0,1,0,A-Undifferentiated illness patient care,C-Acute critical illness patient care,Medicine,Rehabilitation,Team Based,Urban,No,2
+BDH Acute General Medicine (PGY1/2),1,1,1,1,1,A-Undifferentiated illness patient care,C-Acute critical illness patient care,Medicine,,Team Based,Urban,No,5
+BDH Drug and Alcohol Clinical Services (PGY1/2),0,1,0,1,0,B-Chronic illness patient care,C-Acute critical illness patient care,Medicine,,Team Based,Urban,No,2
+BDH Emergency (PGY1/2),2,1,2,1,2,C-Acute critical illness patient care,A-Undifferentiated illness patient care,Critical Care,,Team Based,Urban,No,8
+BDH Sub-Acute General Medicine (Team 5) (PGY1/2),0,1,0,1,0,B-Chronic illness patient care,C-Acute critical illness patient care,Medicine,Geriatric,Team Based,Urban,No,2
+BDH Surgery (PGY1/2),1,1,1,1,1,A-Undifferentiated illness patient care,C-Acute critical illness patient care,Surgery,,Team Based,Urban,No,5
+CMN Emergency (PGY1/2),3,3,3,3,3,A-Undifferentiated illness patient care,C-Acute critical illness patient care,Critical Care,,Team Based,Urban,No,15
+CMN General Medicine (PGY1/2),4,4,4,4,4,B-Chronic illness patient care,C-Acute critical illness patient care,Medicine,,Team Based,Urban,No,20
+CMN Medicine - Cardiology (PGY1/2),1,0,1,0,1,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Medicine,Cardiology,Team Based,Urban,No,3
+CMN Medicine - Gastroenterology with Drug & Alcohol (PGY1/2),0,1,0,1,0,B-Chronic illness patient care,D-Peri-operative / procedural patient care,Medicine,Gastroenterology,Team Based,Urban,No,2
+CMN Medicine - Haematology (01) (PGY1/2) ,1,1,1,1,1,C-Acute critical illness patient care,B-Chronic illness patient care,Medicine,Haematology,Team Based,Urban,No,5
+CMN Medicine - Medical Oncology (01) (PGY1/2) ,1,1,1,1,1,C-Acute critical illness patient care,B-Chronic illness patient care,Medicine,Medical Oncology,Team Based,Urban,No,5
+CMN Palliative Care (PGY1/2),0,1,0,1,0,B-Chronic illness patient care,,Medicine,Palliative Care,Team Based,Urban,No,2
+CMN Surgery (PGY1/2),2,2,2,2,2,D-Peri-operative / procedural patient care,C-Acute critical illness patient care,Surgery,,Team Based,Urban,No,10
+HNE Mental Health & Substance Use Service - Mater Hospital (PGY1/2),1,1,1,1,1,B-Chronic illness patient care,C-Acute critical illness patient care,Psychiatry,,Team Based,Urban,No,5
+HNE Mental Health Lake Macquarie Ward - Mater hospital (PGY1/2),1,1,1,1,1,C-Acute critical illness patient care,B-Chronic illness patient care,Psychiatry,,Team Based,Urban,No,5
+HNE Mental Health Newcastle Inpatient Unit - Mater Hospital (PGY1/2),1,1,1,1,1,C-Acute critical illness patient care,B-Chronic illness patient care,Psychiatry,,Team Based,Urban,No,5
+HNE Mental Health Older People's Service - Mater Hospital (PGY1/2),1,1,1,1,1,C-Acute critical illness patient care,,Psychiatry,,Team Based,Urban,No,5
+JHH Acute General Surgery Unit (PGY1/2),2,2,2,2,2,A-Undifferentiated illness patient care,D-Peri-operative / procedural patient care,Surgery,,Team Based,Urban,No,10
+JHH Emergency (PGY1/2),7,8,7,7,8,A-Undifferentiated illness patient care,C-Acute critical illness patient care,Critical Care,,Team Based,Urban,No,37
+JHH General Medicine (PGY1/2),4,4,4,4,4,B-Chronic illness patient care,C-Acute critical illness patient care,Medicine,,Team Based,Urban,No,20
+JHH General Surgery / Colorectal (PGY1/2),0,1,0,1,0,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Surgery,Colorectal,Team Based,Urban,No,2
+JHH General Surgery / Hepatopancreatobiliary and Upper GI Surgery (PGY1/2),1,0,1,0,1,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Surgery,HPB,Team Based,Urban,No,3
+JHH General Surgery / Trauma (PGY1/2),1,1,1,1,1,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Surgery,Trauma,Team Based,Urban,No,5
+JHH General Surgery / Upper GI (PGY1/2),0,1,0,1,0,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Surgery,UGI,Team Based,Urban,No,2
+JHH Medicine - Cardiology (PGY1/2),2,1,2,1,2,C-Acute critical illness patient care,B-Chronic illness patient care,Medicine,Cardiology,Team Based,Urban,No,8
+JHH Medicine - Dermatology (PGY1/2),0,1,0,1,0,B-Chronic illness patient care,C-Acute critical illness patient care,Medicine,Dermatology,Team Based,Urban,No,2
+JHH Medicine - Gastroenterology (PGY1/2),2,1,2,1,2,A-Undifferentiated illness patient care,B-Chronic illness patient care,Medicine,Gastroenterology,Team Based,Urban,No,8
+JHH Medicine - Infectious Disease (PGY1/2),1,0,1,0,1,A-Undifferentiated illness patient care,C-Acute critical illness patient care,Medicine,Infectious Diseases,Team Based,Urban,No,3
+JHH Medicine - MACU (PGY1/2),0,1,0,1,0,A-Undifferentiated illness patient care,C-Acute critical illness patient care,Medicine,MACU,Ward Based,Urban,No,2
+JHH Medicine - Nephrology & Dialysis (PGY1/2),1,1,1,1,0,B-Chronic illness patient care,C-Acute critical illness patient care,Medicine,Nephrology,Team Based,Urban,No,4
+JHH Medicine - Neurology (PGY1/2),1,1,0,1,1,B-Chronic illness patient care,A-Undifferentiated illness patient care,Medicine,Neurology,Team Based,Urban,No,4
+JHH Medicine - Rehabilitation (PGY1/2),2,2,1,2,2,B-Chronic illness patient care,,Medicine,Rehabilitation,Ward Based,Urban,No,9
+JHH Medicine - Respiratory (PGY1/2),2,2,1,1,1,A-Undifferentiated illness patient care,B-Chronic illness patient care,Medicine,Respiratory,Team Based,Urban,No,7
+JHH Medicine - Rheumatology (PGY1/2),0,0,0,1,0,A-Undifferentiated illness patient care,B-Chronic illness patient care,Medicine,Rheumatology,Team Based,Urban,No,1
+JHH Obstetrics & Gynaecology (PGY1/2),1,1,1,1,1,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Surgery,Obstetrics and Gynaecology,Team Based,Urban,No,5
+JHH Surgery - Cardiothoracic Surgery (PGY1/2),1,1,0,1,1,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Surgery,,Team Based,Urban,No,4
+"JHH Surgery - Ear, Nose and Throat (ENT) (PGY1/2)",0,1,0,1,0,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Surgery,ENT,Team Based,Urban,No,2
+JHH Surgery - Neurosurgery (PGY1/2),2,2,2,2,2,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Surgery,,Team Based,Urban,No,10
+JHH Surgery - Oral Maxillofacial (OMF) (PGY1/2),0,1,0,1,0,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Surgery,,Team Based,Urban,No,2
+JHH Surgery - Orthopaedic Surgery (PGY1/2),5,5,5,5,5,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Surgery,,Team Based,Urban,No,25
+JHH Surgery - Orthopaedic Surgery (Team 6) (PGY1/2),1,0,1,0,1,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Surgery,,Team Based,Urban,No,3
+JHH Surgery - Urology (PGY1/2),2,2,2,2,2,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Surgery,,Team Based,Urban,No,10
+JHH Surgery - Vascular (PGY1/2),1,1,2,2,2,B-Chronic illness patient care,D-Peri-operative / procedural patient care,Surgery,,Team Based,Urban,No,8
+MBH Emergency (PGY1/2),0,1,1,1,1,A-Undifferentiated illness patient care,C-Acute critical illness patient care,Critical Care,,Team Based,Rural,No,4
+MH  Medicine - Cardiology (PGY1/2),1,0,1,0,1,C-Acute critical illness patient care,B-Chronic illness patient care,Medicine,Cardiology,Team Based,Urban,No,3
+MH Emergency (PGY1/2),5,5,5,5,5,C-Acute critical illness patient care,A-Undifferentiated illness patient care,Critical Care,,Team Based,Urban,No,25
+MH General Medicine (PGY1/2),3,3,3,3,3,C-Acute critical illness patient care,B-Chronic illness patient care,Medicine,,Team Based,Urban,No,15
+MH General Surgery (PGY1/2),2,2,2,2,2,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Surgery,,Team Based,Urban,No,10
+MH KK Rehabilitation (PGY 1/2),1,1,1,1,1,B-Chronic illness patient care,,Medicine,Rehabilitation,Team Based,Urban,No,5
+TRRH Surgery C (PGY1/2),0,0,1,1,0,D-Peri-operative / procedural patient care,C-Acute critical illness patient care,Surgery,,Team Based,Rural,No,2
+TRRH Surgery - Orthopaedic Surgery 02 (PGY1/2),0,1,1,0,1,D-Peri-operative / procedural patient care,C-Acute critical illness patient care,Surgery,,Team Based,Rural,No,3
+TRRH General Medicine 08 (PGY1/2) ,0,1,1,0,1,B-Chronic illness patient care,C-Acute critical illness patient care,Medicine,,Team Based,Rural,No,3
+BDH After Hours Internal Relief (PGY1/2),2,1,2,1,2,,,Relief,Relief,Ward Based,Urban,No,8
+CMN Relief (PGY1/2),4,3,4,3,4,,,Relief,Relief,Team Based,Urban,No,18
+HNE Relief (PGY1/2),10,10,10,10,10,,,Relief,Relief,Team Based,Urban,No,50
+JHH Medicine Relief (PGY1/2),3,3,3,3,3,,,Relief,Relief,Team Based,Urban,No,15
+JHH Surgery Relief (PGY1/2),2,2,2,2,2,,,Relief,Relief,Team Based,Urban,No,10

@@ -72,7 +72,8 @@ survey_data <- raw_preference_data %>%
   select(
     Doctor, 
     `Desired Career Pathway (GP, Medicine, Surgery, Critical Care, Psych)`, 
-    `Do you have plans requiring leave of more than 2 weeks in the 2024 clinical year? (If possible your request will be accommodated)`
+    `Do you have plans requiring leave of more than 2 weeks in the 2024 clinical year? (If possible your request will be accommodated)`,
+    `Any further comments or questions?`
   ) %>%
   rename(
     `Desired Career Pathway` = `Desired Career Pathway (GP, Medicine, Surgery, Critical Care, Psych)`,
@@ -106,7 +107,7 @@ column_names <- colnames(selected_data)
                
                          ## Linear Optimization - Defining the problem ##
 
-term_master_df <- read_csv("PGY1 2024 Dataframe.csv")
+term_master_df <- read_csv("PGY1 2024 Dataframe - TRIAL CHANGE.csv")
 
 # Directly infer the number of doctors and terms from the preference matrix
 num_doctors <- nrow(preference_matrix)
@@ -280,20 +281,23 @@ for (i in 1:num_doctors) {
 }
 
 # 4. Sub-specialty constraint
-    for (subspecialty_idx in 1:length(unique_subspecialty_statuses)) {
-        constr_subspecialty <- rep(0, num_doctors * num_terms + num_doctors)
-        subspecialty <- unique_subspecialty_statuses[subspecialty_idx]
+    for (i in 1:num_doctors) {
+  for (subspecialty_idx in 1:length(unique_subspecialty_statuses)) {
+    constr_subspecialty <- rep(0, num_doctors * num_terms + num_doctors)
+    subspecialty <- unique_subspecialty_statuses[subspecialty_idx]
 
-        if (subspecialty != "NA") {  # Exclude NA values
-            for (j in which(sub_specialty_status_per_term == subspecialty)) {
-                constr_subspecialty[(i - 1) * num_terms + j] <- 1
-            }
+    if (subspecialty != "NA") {  # Exclude NA values
+      for (j in which(sub_specialty_status_per_term == subspecialty)) {
+        constr_subspecialty[(i - 1) * num_terms + j] <- 1
+      }
 
-            current_count <- subspecialty_assignment_tracker[i, subspecialty_idx]
-            max_allowed <- 1 - current_count  # Strictly less than 2
-            add.constraint(lp_model_dissatisfaction, constr_subspecialty, type = "<=", rhs = max_allowed)
-        }
+      current_count <- subspecialty_assignment_tracker[i, subspecialty_idx]
+      max_allowed <- 1 - current_count  # Strictly less than 2
+      
+      add.constraint(lp_model_dissatisfaction, constr_subspecialty, type = "<=", rhs = max_allowed)
     }
+  }
+}
   
 # Solve the linear programming problem to minimize dissatisfaction
 lp_result_dissatisfaction <- solve(lp_model_dissatisfaction)
@@ -371,7 +375,6 @@ for (assignment_num in 1:num_assignments) {
 gt(assignment_table)
 
 
-
 ```
 
 
@@ -445,126 +448,7 @@ gt(unassigned_df)
 ```
 
 
-# MODEL EVALUATION
 
-```{r include=TRUE, echo=TRUE, results='markup'}
-
-# How many Doctors with one Top 10 preference
-
-# Convert the preference matrix into a top 10 boolean matrix
-top_10_matrix <- t(apply(preference_matrix, 1, function(row) row %in% sort(row, decreasing = FALSE)[1:10]))
-
-# For each doctor, determine if the assigned terms are in their top 10 preferences
-assignment_top_10_matrix <- matrix(0, nrow = num_doctors, ncol = num_assignments)
-
-for (assignment_num in 1:num_assignments) {
-  assignment_column <- paste0("Assignment", assignment_num)
-  assigned_terms <- assignment_table[, assignment_column]
-  
-  # Convert the assigned term names back to their column indices
-  assigned_indices <- match(assigned_terms, colnames(selected_data))
-  
-  for (i in 1:num_doctors) {
-    assignment_top_10_matrix[i, assignment_num] <- top_10_matrix[i, assigned_indices[i]]
-  }
-}
-
-# Convert the preference matrix into a top 5 boolean matrix
-top_5_matrix <- t(apply(preference_matrix, 1, function(row) row %in% sort(row, decreasing = FALSE)[1:5]))
-
-# Create a function to compute metrics for a given top_x matrix
-get_metrics <- function(matrix, assignment_table, num_assignments) {
-  assignment_matrix <- matrix(0, nrow = num_doctors, ncol = num_assignments)
-  
-  for (assignment_num in 1:num_assignments) {
-    assignment_column <- paste0("Assignment", assignment_num)
-    assigned_terms <- assignment_table[, assignment_column]
-    
-    # Convert the assigned term names back to their column indices
-    assigned_indices <- match(assigned_terms, colnames(selected_data))
-    
-    for (i in 1:num_doctors) {
-      assignment_matrix[i, assignment_num] <- matrix[i, assigned_indices[i]]
-    }
-  }
-  
-  return(rowSums(assignment_matrix))
-}
-
-top_10_counts_per_doctor <- get_metrics(top_10_matrix, assignment_table, num_assignments)
-top_5_counts_per_doctor <- get_metrics(top_5_matrix, assignment_table, num_assignments)
-
-# Extract all assigned terms for each doctor across the assignments
-assigned_terms_all <- as.vector(t(assignment_table[, 2:(num_assignments + 1)]))
-
-# Convert the assigned term names back to their column indices
-assigned_indices_all <- match(assigned_terms_all, colnames(selected_data))
-
-# Retrieve preference values using matrix indexing
-assigned_preference_values <- matrix(0, nrow = num_doctors, ncol = num_assignments)
-for (assignment_num in 1:num_assignments) {
-  assignment_column <- paste0("Assignment", assignment_num)
-  assigned_terms <- assignment_table[, assignment_column]
-  
-  # Convert the assigned term names back to their column indices
-  assigned_indices <- match(assigned_terms, colnames(selected_data))
-  
-  for (i in 1:num_doctors) {
-    assigned_preference_values[i, assignment_num] <- preference_matrix[i, assigned_indices[i]]
-  }
-}
-
-average_assigned_preference <- mean(as.vector(assigned_preference_values))
-
-# Calculate the metrics of interest for each doctor
-range_per_doctor <- apply(assigned_preference_values, 1, range)
-max_per_doctor <- range_per_doctor[2,]
-min_per_doctor <- range_per_doctor[1,]
-sd_per_doctor <- apply(assigned_preference_values, 1, sd)
-
-# Compute the average values across all doctors
-average_max = mean(max_per_doctor)
-average_min = mean(min_per_doctor)
-average_sd = mean(sd_per_doctor)
-
-# Create a data frame with the evaluation metrics
-evaluation_data <- data.frame(
-  Metric = c("At least 1 term in Top 10 (%)", 
-             "At least 2 terms in Top 10 (%)", 
-             "At least 3 terms in Top 10 (%)", 
-             "At least 1 term in Top 5 (%)",
-             "Average Preference of Assigned Terms",
-             "Average Max of Assigned Preferences",
-             "Average Min of Assigned Preferences",
-             "Average SD of Assigned Preferences"),
-  Value = c(sum(top_10_counts_per_doctor > 0) / num_doctors * 100, 
-            sum(top_10_counts_per_doctor >= 2) / num_doctors * 100, 
-            sum(top_10_counts_per_doctor >= 3) / num_doctors * 100, 
-            sum(top_5_counts_per_doctor > 0) / num_doctors * 100,
-            average_assigned_preference,
-            average_max,
-            average_min,
-            average_sd)
-)
-
-# Round the values to 2 decimal places
-evaluation_data$Value <- round(evaluation_data$Value, 2)
-
-# Generate the table using gt
-evaluation_table <- gt(evaluation_data) %>% 
-  tab_header(
-    title = "Model Evaluation"
-  ) %>% 
-  cols_label(
-    Metric = "Metric",
-    Value = "Value"
-  )
-
-# Print the table
-print(evaluation_table)
-
-
-```
 
 
                          
@@ -620,6 +504,8 @@ gt(doctor_preference_report)
 
 
 ```{r include=TRUE, echo=TRUE, results='markup'}
+# 2. HETI Compliance Report
+
 # 2. HETI Compliance Report
 
 
@@ -710,6 +596,136 @@ HETI_compliance_table <- compliance_data %>%
 print(HETI_compliance_table)
 ```
 
+# MODEL EVALUATION
+
+```{r include=TRUE, echo=TRUE, results='markup'}
+
+# How many Doctors with one Top 10 preference
+
+# Convert the preference matrix into a top 10 boolean matrix
+top_10_matrix <- t(apply(preference_matrix, 1, function(row) row %in% sort(row, decreasing = FALSE)[1:10]))
+
+# For each doctor, determine if the assigned terms are in their top 10 preferences
+assignment_top_10_matrix <- matrix(0, nrow = num_doctors, ncol = num_assignments)
+
+for (assignment_num in 1:num_assignments) {
+  assignment_column <- paste0("Assignment", assignment_num)
+  assigned_terms <- assignment_table[, assignment_column]
+  
+  # Convert the assigned term names back to their column indices
+  assigned_indices <- match(assigned_terms, colnames(selected_data))
+  
+  for (i in 1:num_doctors) {
+    assignment_top_10_matrix[i, assignment_num] <- top_10_matrix[i, assigned_indices[i]]
+  }
+}
+
+# Convert the preference matrix into a top 5 boolean matrix
+top_5_matrix <- t(apply(preference_matrix, 1, function(row) row %in% sort(row, decreasing = FALSE)[1:5]))
+
+# Create a function to compute metrics for a given top_x matrix
+get_metrics <- function(matrix, assignment_table, num_assignments) {
+  assignment_matrix <- matrix(0, nrow = num_doctors, ncol = num_assignments)
+  
+  for (assignment_num in 1:num_assignments) {
+    assignment_column <- paste0("Assignment", assignment_num)
+    assigned_terms <- assignment_table[, assignment_column]
+    
+    # Convert the assigned term names back to their column indices
+    assigned_indices <- match(assigned_terms, colnames(selected_data))
+    
+    for (i in 1:num_doctors) {
+      assignment_matrix[i, assignment_num] <- matrix[i, assigned_indices[i]]
+    }
+  }
+  
+  return(rowSums(assignment_matrix))
+}
+
+top_10_counts_per_doctor <- get_metrics(top_10_matrix, assignment_table, num_assignments)
+top_5_counts_per_doctor <- get_metrics(top_5_matrix, assignment_table, num_assignments)
+
+# Extract all assigned terms for each doctor across the assignments
+assigned_terms_all <- as.vector(t(assignment_table[, 2:(num_assignments + 1)]))
+
+# Convert the assigned term names back to their column indices
+assigned_indices_all <- match(assigned_terms_all, colnames(selected_data))
+
+# Retrieve preference values using matrix indexing
+assigned_preference_values <- matrix(0, nrow = num_doctors, ncol = num_assignments)
+for (assignment_num in 1:num_assignments) {
+  assignment_column <- paste0("Assignment", assignment_num)
+  assigned_terms <- assignment_table[, assignment_column]
+  
+  # Convert the assigned term names back to their column indices
+  assigned_indices <- match(assigned_terms, colnames(selected_data))
+  
+  for (i in 1:num_doctors) {
+    assigned_preference_values[i, assignment_num] <- preference_matrix[i, assigned_indices[i]]
+  }
+}
+
+average_assigned_preference <- mean(as.vector(assigned_preference_values))
+
+# Calculate the percentage of TRUE values in term_classifications_compliance
+overall_percentage_compliance <- mean(term_classifications_compliance) * 100
+
+# Calculate the metrics of interest for each doctor
+range_per_doctor <- apply(assigned_preference_values, 1, range)
+max_per_doctor <- range_per_doctor[2,]
+min_per_doctor <- range_per_doctor[1,]
+sd_per_doctor <- apply(assigned_preference_values, 1, sd)
+
+# Compute the average values across all doctors
+average_max = mean(max_per_doctor)
+average_min = mean(min_per_doctor)
+average_sd = mean(sd_per_doctor)
+
+# Create a data frame with the evaluation metrics
+evaluation_data <- data.frame(
+  Metric = c("At least 1 term in Top 10 (%)", 
+             "At least 2 terms in Top 10 (%)", 
+             "At least 3 terms in Top 10 (%)", 
+             "At least 1 term in Top 5 (%)",
+             "At least 2 term in Top 5 (%)",
+             "At least 3 term in Top 5 (%)",
+             "Percentage of lines with full HETI compliance",
+             "Average Preference of Assigned Terms",
+             "Average Max of Assigned Preferences",
+             "Average Min of Assigned Preferences",
+             "Average SD of Assigned Preferences"),
+  Value = c(sum(top_10_counts_per_doctor > 0) / num_doctors * 100, 
+            sum(top_10_counts_per_doctor >= 2) / num_doctors * 100, 
+            sum(top_10_counts_per_doctor >= 3) / num_doctors * 100, 
+            sum(top_5_counts_per_doctor > 0) / num_doctors * 100,
+            sum(top_5_counts_per_doctor >= 2) / num_doctors * 100,
+            sum(top_5_counts_per_doctor >= 3) / num_doctors * 100,
+            overall_percentage_compliance,
+            average_assigned_preference,
+            average_max,
+            average_min,
+            average_sd)
+)
+
+# Round the values to 2 decimal places
+evaluation_data$Value <- round(evaluation_data$Value, 2)
+
+# Generate the table using gt
+evaluation_table <- gt(evaluation_data) %>% 
+  tab_header(
+    title = "Model Evaluation"
+  ) %>% 
+  cols_label(
+    Metric = "Metric",
+    Value = "Value"
+  )
+
+# Print the table
+print(evaluation_table)
+
+
+```
+
 ```{r}
 export_tables <- function(assignment_table, evaluation_table, doctor_preference_report, HETI_compliance_table, preference_matrix, unassigned_df, filename) {
   
@@ -764,7 +780,7 @@ export_tables(
   preference_matrix = preference_matrix,
   evaluation_table = evaluation_table,
   
-  filename = "PGY1_Allocations_export.xlsx"
+  filename = "PGY1_Allocations_export_TRIAL_CHANGE.xlsx"
 )
 
 ```
