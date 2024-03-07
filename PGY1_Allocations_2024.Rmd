@@ -379,7 +379,7 @@ gt(assignment_table)
 
 
 
-# PGY2 Unassigned terms Data Frame and Terms List
+# PGY1 Unassigned terms Data Frame and Terms List
 ```{r}
 
 # Initialize a data frame to store the unassigned slots for each term
@@ -719,6 +719,147 @@ evaluation_table <- gt(evaluation_data) %>%
 print(evaluation_table)
 
 
+```
+```{r}
+#Term Subscription Evaluation
+
+# Assuming 'selected_data' and 'term_master_df' have been defined
+# Convert selected data to a matrix
+preference_matrix <- as.matrix(selected_data)
+
+# Get the number of doctors
+num_doctors <- nrow(preference_matrix)
+
+# Convert preferences to numeric values for ranking
+numeric_preference_matrix <- apply(preference_matrix, 2, as.numeric)
+
+# Find the indices of the top 5 preferences for each doctor
+top_5_indices <- apply(numeric_preference_matrix, 1, function(x) order(x, decreasing = FALSE)[1:5])
+
+# Convert matrix to a long format tibble to count top 5 preferences for each term
+preference_long <- as.data.frame(t(top_5_indices)) %>%
+  pivot_longer(everything(), names_to = "Doctor", values_to = "Term_Index") %>%
+  mutate(Term_Name = colnames(selected_data)[Term_Index],
+         Top_5_Flag = 1)
+
+# Aggregate the max doctors per term across all terms from 'term_master_df'
+max_doctors_per_term <- rowSums(cbind(
+  term_master_df$`PGY1 Term 1 Allocation`,
+  term_master_df$`PGY1 Term 2 Allocation`,
+  term_master_df$`PGY1 Term 3 Allocation`,
+  term_master_df$`PGY1 Term 4 Allocation`,
+  term_master_df$`PGY1 Term 5 Allocation`
+), na.rm = TRUE)
+
+# Create a data frame of available terms with all terms from 'term_master_df'
+available_terms_df <- term_master_df %>%
+  select(`Term Name`) %>%
+  rename(Term_Name = `Term Name`) %>%
+  distinct() %>%
+  mutate(Number_of_Available_Terms = max_doctors_per_term)
+
+# Calculate the count and percentage of doctors who ranked each term in their top 5
+top_5_preference <- preference_long %>%
+  group_by(Term_Name) %>%
+  summarise(
+    Count = n(),
+    Percentage = round((Count / num_doctors) * 100, 1)  # Round to 1 decimal place
+  ) %>%
+  ungroup() %>%
+  complete(Term_Name = available_terms_df$Term_Name) %>%
+  replace_na(list(Count = 0, Percentage = 0)) %>%
+  arrange(desc(Percentage)) %>%
+  mutate(Ranking = row_number())
+
+# Join the data frames to calculate surplus or deficit and create the label
+top_5_preference_complete <- left_join(top_5_preference, available_terms_df, by = "Term_Name") %>%
+  mutate(
+    Surplus_Deficit = Number_of_Available_Terms - Count
+  )
+
+# Use gt to display the results, excluding the raw Surplus_Deficit column
+top_5_gt_BASIC <- gt(top_5_preference_complete) %>%
+  tab_header(
+    title = "PGY1 Terms Ranked by % of Top 5 Preference"
+  ) %>%
+  cols_label(
+    Term_Name = "Term Name",
+    Percentage = "% Top 5 Preferences",
+    Ranking = "Ranking",
+    Count = "Count",
+    Number_of_Available_Terms = "Terms Available",
+    Surplus_Deficit = "Surplus/Deficit"
+  ) %>%
+  tab_spanner(label = "Preferences", columns = c("Term_Name", "Percentage", "Count")) %>%
+  cols_move_to_start(columns = "Ranking")
+
+# Print the gt table
+print(top_5_gt_BASIC)
+```
+
+
+```{r}
+## REFRAMING THE QUESTION - WHAT IS A SOUGHT AFTER TERM? ##
+
+## Ranking by Number of spots ##
+
+# Assuming top_5_preference_complete already has the Surplus_Deficit column calculated
+top_5_preference_complete <- top_5_preference_complete %>%
+  arrange(Surplus_Deficit) %>%
+  mutate(Ranking = row_number())
+
+# Use gt to display the results
+top_5_gt_INTER <- gt(top_5_preference_complete) %>%
+  tab_header(
+    title = "PGY1 Terms Ranked by Total Surplus/Deficit"
+  ) %>%
+  cols_label(
+    Term_Name = "Term Name",
+    Percentage = "% Top 5 Preferences",
+    Ranking = "Ranking",
+    Count = "Count",
+    Number_of_Available_Terms = "Terms Available",
+    Surplus_Deficit = "Surplus/Deficit"
+  ) %>%
+  tab_spanner(label = "Preferences", columns = c("Term_Name", "Percentage", "Count")) %>%
+  cols_move_to_start(columns = "Ranking")
+
+# Print the gt table
+print(top_5_gt_INTER)
+gtsave(top_5_gt_INTER, "PGY1 Subscription1.pdf", path = "C:/Users/Scotty/Desktop/R Subscription Data 2024 allocations")
+
+```
+
+```{r}
+# Join the data frames to calculate surplus or deficit and create the label
+top_5_preference_complete <- left_join(top_5_preference, available_terms_df, by = "Term_Name") %>%
+  mutate(
+    Surplus_Deficit = Number_of_Available_Terms - Count,
+    Over_Under_Subscription = round(((Count / Number_of_Available_Terms) - 1) * 100, 1)
+  ) %>%
+  arrange(desc(Over_Under_Subscription)) %>%
+  mutate(Ranking = row_number())  # Update the ranking based on the new order
+
+# Use gt to display the results
+top_5_gt <- gt(top_5_preference_complete) %>%
+  tab_header(
+    title = "PGY1 Terms Ranked by % Over/Under Subscription"
+  ) %>%
+  cols_label(
+    Term_Name = "Term Name",
+    Percentage = "% Top 5 Preferences",
+    Ranking = "Ranking",
+    Count = "Count",
+    Number_of_Available_Terms = "Terms Available",
+    Surplus_Deficit = "Surplus/Deficit",
+    Over_Under_Subscription = "Over/Under Subscription (%)"
+  ) %>%
+  tab_spanner(label = "Preferences", columns = c("Term_Name", "Percentage", "Count")) %>%
+  cols_move_to_start(columns = "Ranking")
+
+# Print the gt table
+print(top_5_gt)
+gtsave(top_5_gt, "PGY1 Subscription2.pdf", path = "C:/Users/Scotty/Desktop/R Subscription Data 2024 allocations")
 ```
 
 ```{r}

@@ -40,8 +40,8 @@ JHH Surgery - Cardiothoracic Surgery (PGY1/2),1,1,0,1,1,C-Acute critical illness
 "JHH Surgery - Ear, Nose and Throat (ENT) (PGY1/2)",0,1,0,1,0,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,General Surgery,ENT,Team Based,Urban,No,2
 JHH Surgery - Neurosurgery (PGY1/2),2,2,2,2,2,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Neurosurgery,,Team Based,Urban,No,10
 JHH Surgery - Oral Maxillofacial (OMF) (PGY1/2),0,1,0,1,0,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Oral and Maxillofacial Surgery,,Team Based,Urban,No,2
-JHH Surgery - Orthopaedic Surgery (PGY1/2),5,5,5,5,5,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Orthopaedic Surgery,,Team Based,Urban,No,25
-JHH Surgery - Orthopaedic Surgery (Team 6) (PGY1/2),1,0,1,0,1,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Orthopaedic Surgery,,Team Based,Urban,No,3
+JHH Surgery - Orthopaedics (PGY1/2),5,5,5,5,5,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Orthopaedics,,Team Based,Urban,No,25
+JHH Surgery - Orthopaedics (Team 6) (PGY1/2),1,0,1,0,1,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Orthopaedics,,Team Based,Urban,No,3
 JHH Surgery - Urology (PGY1/2),2,2,2,2,2,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,Urology,,Team Based,Urban,No,10
 JHH Surgery - Vascular (PGY1/2),1,1,2,2,2,B-Chronic illness patient care,D-Peri-operative / procedural patient care,Vascular Surgery,,Team Based,Urban,No,8
 MBH Emergency (PGY1/2),0,1,1,1,1,A-Undifferentiated illness patient care,C-Acute critical illness patient care,Emergency Medicine,,Team Based,Rural,No,4
@@ -51,7 +51,7 @@ MH General Medicine (PGY1/2),3,3,3,3,3,C-Acute critical illness patient care,B-C
 MH General Surgery (PGY1/2),2,2,2,2,2,C-Acute critical illness patient care,D-Peri-operative / procedural patient care,General Surgery,,Team Based,Urban,No,10
 MH KK Rehabilitation (PGY 1/2),1,1,1,1,1,B-Chronic illness patient care,,Rehabilitation,Rehabilitation,Team Based,Urban,No,5
 TRRH Surgery C (PGY1/2),0,0,1,1,0,D-Peri-operative / procedural patient care,C-Acute critical illness patient care,General Surgery,,Team Based,Rural,No,2
-TRRH Surgery - Orthopaedic Surgery 02 (PGY1/2),0,1,1,0,1,D-Peri-operative / procedural patient care,C-Acute critical illness patient care,Orthopaedic Surgery,,Team Based,Rural,No,3
+TRRH Surgery - Orthopaedics 02 (PGY1/2),0,1,1,0,1,D-Peri-operative / procedural patient care,C-Acute critical illness patient care,Orthopaedics,,Team Based,Rural,No,3
 TRRH General Medicine 08 (PGY1/2) ,0,1,1,0,1,B-Chronic illness patient care,C-Acute critical illness patient care,General Medicine,,Team Based,Rural,No,3
 BDH After Hours Internal Relief (PGY1/2),2,1,2,1,2,,,Relief,Relief,Ward Based,Urban,No,8
 CMN Relief (PGY1/2),4,3,4,3,4,,,Relief,Relief,Team Based,Urban,No,18
