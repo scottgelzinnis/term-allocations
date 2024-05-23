@@ -789,7 +789,7 @@ top_5_gt_BASIC <- gt(top_5_preference_complete) %>%
   ) %>%
   cols_label(
     Term_Name = "Term Name",
-    Percentage = "% Top 5 Preference",
+    Percentage = "% Top 5 Preferences",
     Ranking = "Ranking",
     Count = "Count",
     Number_of_Available_Terms = "Terms Available",
@@ -816,11 +816,11 @@ top_5_preference_complete <- top_5_preference_complete %>%
 # Use gt to display the results
 top_5_gt_INTER <- gt(top_5_preference_complete) %>%
   tab_header(
-    title = "Terms Ranked by Total Surplus/Deficit"
+    title = "PGY2 Terms Ranked by Total Surplus/Deficit"
   ) %>%
   cols_label(
     Term_Name = "Term Name",
-    Percentage = "% Top 5 Preference",
+    Percentage = "% Top 5 Preferences",
     Ranking = "Ranking",
     Count = "Count",
     Number_of_Available_Terms = "Terms Available",
@@ -831,6 +831,7 @@ top_5_gt_INTER <- gt(top_5_preference_complete) %>%
 
 # Print the gt table
 print(top_5_gt_INTER)
+gtsave(top_5_gt_INTER, "PGY2 Subscription1.pdf", path = "C:/Users/Scotty/Desktop/R Subscription Data 2024 allocations")
 
 ```
 
@@ -847,11 +848,11 @@ top_5_preference_complete <- left_join(top_5_preference, available_terms_df, by 
 # Use gt to display the results
 top_5_gt <- gt(top_5_preference_complete) %>%
   tab_header(
-    title = "Terms Ranked by % Over/Under Subscription"
+    title = "PGY2 Terms Ranked by % Over/Under Subscription"
   ) %>%
   cols_label(
     Term_Name = "Term Name",
-    Percentage = "% Top 5 Preference",
+    Percentage = "% Top 5 Preferences",
     Ranking = "Ranking",
     Count = "Count",
     Number_of_Available_Terms = "Terms Available",
@@ -863,6 +864,7 @@ top_5_gt <- gt(top_5_preference_complete) %>%
 
 # Print the gt table
 print(top_5_gt)
+gtsave(top_5_gt, "PGY2 Subscription2.pdf", path = "C:/Users/Scotty/Desktop/R Subscription Data 2024 allocations")
 
 ```
 
